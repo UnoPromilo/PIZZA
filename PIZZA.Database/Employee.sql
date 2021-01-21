@@ -6,7 +6,8 @@
     [Position] INT NULL, 
     [Address] NVARCHAR(256) NULL, 
     [PostalCode] NVARCHAR(10) NULL, 
-    [Town] NVARCHAR(50) NULL
+    [Town] NVARCHAR(50) NULL, 
+    CONSTRAINT [FK_Employee_ToApplicationUser] FOREIGN KEY ([ID]) REFERENCES [ApplicationUser]([ID])
 )
 
 GO
