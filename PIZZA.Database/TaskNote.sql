@@ -1,0 +1,16 @@
+﻿CREATE TABLE [dbo].[TaskNote]
+(
+	[ID] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Task] INT NOT NULL, 
+    [Employee] INT NOT NULL, 
+    [Note] VARCHAR(MAX) NULL, 
+    [DateTime] DATETIME NOT NULL, 
+    [ResponseTo] INT NULL, 
+    [Deleted] BIT NOT NULL, 
+    CONSTRAINT [FK_TaskNote_ToTask] FOREIGN KEY ([Task]) REFERENCES [Task]([ID]) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT [FK_TaskNote_ToEmployee] FOREIGN KEY ([Employee]) REFERENCES [Employee]([ID]) ON DELETE SET NULL ON UPDATE CASCADE, 
+    CONSTRAINT [FK_TaskNote_ToTaskNote] FOREIGN KEY ([ResponseTo]) REFERENCES [TaskNote]([ID]) ON DELETE CASCADE ON UPDATE CASCADE
+
+)
+
+GO

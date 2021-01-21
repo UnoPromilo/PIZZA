@@ -57,4 +57,20 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="PIZZA.Database.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="ApplicationUser.sql" />
+    <Build Include="ApplicationUserRole.sql" />
+    <Build Include="ApplicationRole.sql" />
+    <Build Include="Employee.sql" />
+    <Build Include="Task.sql" />
+    <Build Include="EmployeeTask.sql" />
+    <Build Include="TaskNote.sql" />
+    <Build Include="TaskState.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PIZZA.Database.publish.xml" />
+  </ItemGroup>
 </Project>
