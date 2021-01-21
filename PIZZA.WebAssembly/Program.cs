@@ -1,13 +1,11 @@
 using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using PIZZA.WebAssembly.Api.Configuration;
+using PIZZA.WebAssembly.Api;
+using PIZZA.WebAssembly.Api.Services;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PIZZA.WebAssembly
@@ -31,6 +29,9 @@ namespace PIZZA.WebAssembly
         {
             services.AddBlazoredLocalStorage();
             services.AddScoped<IConfigurationService, ConfigurationService>();
+            services.AddAuthorizationCore();
+            services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
+            services.AddScoped<IAuthService, AuthService>();
         }
     }
 }

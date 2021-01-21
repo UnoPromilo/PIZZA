@@ -8,7 +8,7 @@
         }
         else if (ConfigurationStatus is not null)
         {
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
         }
     </Found>
     <NotFound>

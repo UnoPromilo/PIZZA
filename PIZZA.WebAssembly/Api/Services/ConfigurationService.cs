@@ -8,7 +8,7 @@ using PIZZA.Models.Instalation;
 using System.Text.Json;
 using System.Text;
 
-namespace PIZZA.WebAssembly.Api.Configuration
+namespace PIZZA.WebAssembly.Api.Services
 {
     public class ConfigurationService : IConfigurationService
     {

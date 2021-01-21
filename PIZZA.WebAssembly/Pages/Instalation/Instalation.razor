@@ -11,17 +11,21 @@
                               @bind-Value="_administratorUserCreationModel.Username"
                               Name="@nameof(_administratorUserCreationModel.Username)"
                               Description=@("Nazwa użytkownika może zawierać tylko znaki alfanumeryczne, spacje, podkreślenia, pauzy, kropki i symbol "+'@'+'.') />
+        <InstalationInputText Label="Email"
+                              For="()=>_administratorUserCreationModel.Email"
+                              @bind-Value="_administratorUserCreationModel.Email"
+                              Name="email"/>
         <InstalationInputText Label="Hasło"
                               Type="password"
                               For="()=>_administratorUserCreationModel.NewPassowrd"
                               @bind-Value="_administratorUserCreationModel.NewPassowrd"
-                              Name="@nameof(_administratorUserCreationModel.NewPassowrd)"
+                              Name="new-password"
                               Description="Hasło musi mieć przynajmniej 8 znaków." />
         <InstalationInputText Label="Powtórz hasło"
                               Type="password"
                               For="()=>_administratorUserCreationModel.RepeatPassword"
                               @bind-Value="_administratorUserCreationModel.RepeatPassword"
-                              Name="@nameof(_administratorUserCreationModel.RepeatPassword)" />
+                              Name="repeat-password" />
     </EditForm>
 </InstalationSection>
 <InstalationSection Title="Połączenie z bazą danych"
@@ -58,7 +62,6 @@
                                   @bind-Value="_sqlServerConfiguration.DatabaseUsername"
                                   Name="@nameof(_sqlServerConfiguration.DatabaseUsername)" />
             <InstalationInputText Label="Hasło"
-                                  Type="password"
                                   For="()=>_sqlServerConfiguration.DatabasePassword"
                                   @bind-Value="_sqlServerConfiguration.DatabasePassword"
                                   Name="@nameof(_sqlServerConfiguration.DatabasePassword)" />

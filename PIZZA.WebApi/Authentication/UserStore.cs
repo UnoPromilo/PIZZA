@@ -14,11 +14,18 @@ namespace PIZZA.WebApi.Authentication
     public class UserStore : IUserStore<ApplicationUser>, IUserEmailStore<ApplicationUser>, IUserPhoneNumberStore<ApplicationUser>,
         IUserTwoFactorStore<ApplicationUser>, IUserPasswordStore<ApplicationUser>, IUserRoleStore<ApplicationUser>
     {
-        private readonly string _connectionString;
+        CustomSettings _configuration;
+        private string _connectionString
+        {
+            get
+            {
+                return _configuration.ConnectionString;
+            }
+        }
 
         public UserStore(CustomSettings configuration)
         {
-            _connectionString = configuration.ConnectionString;
+            _configuration = configuration;
         }
 
         public async Task<IdentityResult> CreateAsync(ApplicationUser user, CancellationToken cancellationToken)

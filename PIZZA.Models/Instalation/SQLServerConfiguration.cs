@@ -15,10 +15,5 @@ namespace PIZZA.Models.Instalation
         public string DatabaseUsername { get; set; }
         public string DatabasePassword { get; set; }
         public string ConnectionString { get; set; }
-
-        public void GenerateConnectionString()
-        {
-
-        }
     }
 }
