@@ -1,0 +1,93 @@
+﻿@using PIZZA.Models.Instalation
+<InstalationSection Title="Pierwsza konfiguracja"
+                    Description="Przed użyciem produktu należy go skonfigurować. Nie powinno to potrfać dłużej niż kilka minut.">
+</InstalationSection>
+<InstalationSection Title="Konto administratora"
+                    Description="Tego konta nie można usunąć. Ma ono pełne uprawnienia do zarządzania użytkownikami.">
+    <EditForm EditContext="_sqlServerConfigurationEditContext" class="instalation__form">
+        <DataAnnotationsValidator />
+        <InstalationInputText Label="Nazwa użytkownika"
+                              For="()=>_administratorUserCreationModel.Username"
+                              @bind-Value="_administratorUserCreationModel.Username"
+                              Name="@nameof(_administratorUserCreationModel.Username)"
+                              Description=@("Nazwa użytkownika może zawierać tylko znaki alfanumeryczne, spacje, podkreślenia, pauzy, kropki i symbol "+'@'+'.') />
+        <InstalationInputText Label="Hasło"
+                              Type="password"
+                              For="()=>_administratorUserCreationModel.NewPassowrd"
+                              @bind-Value="_administratorUserCreationModel.NewPassowrd"
+                              Name="@nameof(_administratorUserCreationModel.NewPassowrd)"
+                              Description="Hasło musi mieć przynajmniej 8 znaków." />
+        <InstalationInputText Label="Powtórz hasło"
+                              Type="password"
+                              For="()=>_administratorUserCreationModel.RepeatPassword"
+                              @bind-Value="_administratorUserCreationModel.RepeatPassword"
+                              Name="@nameof(_administratorUserCreationModel.RepeatPassword)" />
+    </EditForm>
+</InstalationSection>
+<InstalationSection Title="Połączenie z bazą danych"
+                    Description="Należy utworzyć pustą bazę danych MSSQL a następnie podać dane potrzebne do połączenia">
+    <EditForm EditContext="_administratorUserCreationModelEditContext" class="instalation__form">
+        <DataAnnotationsValidator />
+        <InstalationInputSelect Label="Typ autoryzacji"
+                                For="()=>_sqlServerConfiguration.DatabaseConnectionType"
+                                @bind-Value="_sqlServerConfiguration.DatabaseConnectionType"
+                                Name="@nameof(_sqlServerConfiguration.DatabaseConnectionType)">
+            <option value="@nameof(DatabaseConnectionType.WindowsAuthentication)">Uwierzytelnianie systemu Windows</option>
+            <option value="@nameof(DatabaseConnectionType.SQLServerAuthentication)">Uwierzytelnianie serwera MSSQL</option>
+            <option value="@nameof(DatabaseConnectionType.Advanced)">Zaawansowana konfiguracja</option>
+        </InstalationInputSelect>
+
+        @if (_sqlServerConfiguration.DatabaseConnectionType == DatabaseConnectionType.SQLServerAuthentication ||
+       _sqlServerConfiguration.DatabaseConnectionType == DatabaseConnectionType.WindowsAuthentication)
+        {
+            <InstalationInputText Label="Adres serwera MSSQL"
+                                  For="()=>_sqlServerConfiguration.DatabaseAddress"
+                                  @bind-Value="_sqlServerConfiguration.DatabaseAddress"
+                                  Name="@nameof(_sqlServerConfiguration.DatabaseAddress)" />
+
+            <InstalationInputText Label="Nazwa bazy danych"
+                                  For="()=>_sqlServerConfiguration.DatabaseName"
+                                  @bind-Value="_sqlServerConfiguration.DatabaseName"
+                                  Name="@nameof(_sqlServerConfiguration.DatabaseName)" />
+        }
+
+        @if (_sqlServerConfiguration.DatabaseConnectionType == DatabaseConnectionType.SQLServerAuthentication)
+        {
+            <InstalationInputText Label="Nazwa użytkownika"
+                                  For="()=>_sqlServerConfiguration.DatabaseUsername"
+                                  @bind-Value="_sqlServerConfiguration.DatabaseUsername"
+                                  Name="@nameof(_sqlServerConfiguration.DatabaseUsername)" />
+            <InstalationInputText Label="Hasło"
+                                  Type="password"
+                                  For="()=>_sqlServerConfiguration.DatabasePassword"
+                                  @bind-Value="_sqlServerConfiguration.DatabasePassword"
+                                  Name="@nameof(_sqlServerConfiguration.DatabasePassword)" />
+        }
+
+        @if (_sqlServerConfiguration.DatabaseConnectionType == DatabaseConnectionType.Advanced)
+        {
+            <InstalationInputText Label="Ciąg połączenia"
+                                  For="()=>_sqlServerConfiguration.ConnectionString"
+                                  @bind-Value="_sqlServerConfiguration.ConnectionString"
+                                  Name="@nameof(_sqlServerConfiguration.ConnectionString)" />
+        }
+    </EditForm>
+</InstalationSection>
+<InstalationSection>
+    <EditForm EditContext="_fillDatabaseEditContext" class="instalation__form">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <InstalationInputCheckbox Label="Przykładowe dane"
+                                  For="()=>_fillDatabase.FillDatabase"
+                                  @bind-Value="_fillDatabase.FillDatabase"
+                                  Name="@nameof(_fillDatabase.FillDatabase)"
+                                  Description="Po zaznaczeniu tej opcji baza danych zostanie wypełniona przykładowymi danymi." />
+    </EditForm>
+        <div class="instalation__bottom">
+            <button class="instalation__button" @onclick="SaveSettings">Dalej</button>
+        </div>
+</InstalationSection>
+@if (_showSavingAnimation)
+{
+    <SpinnerLoading Text="Zapisywanie..."/>
+}

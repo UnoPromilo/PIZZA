@@ -1,0 +1,17 @@
+﻿@inherits InputBase<string>
+
+<div class="instalation__input">
+    <label class="instalation__input__title">@Label</label>
+    <div class="instalation__input__right">
+        <div>
+            <input type="@Type" id="@Name"
+                    class="instalation__input__input @CssClass"
+                    @bind="CurrentValueAsString"/>
+            <small class="instalation__input__description">
+                @Description
+            </small>
+            <ValidationMessage For="For"
+                               class="instalation__input__validation_message" ></ValidationMessage>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿<div class="spinner">
+    <div class="spinner__blur">
+    </div>
+    <div class="spinner__popup">
+        <div class="spinner__popup__spinner"></div>
+        <p class="spinner__popup__text">@(Text??"Ładowanie...")</p>
+    </div>
+</div>
+
+@code{
+    [Parameter]
+    public string Text { get; set; }
+}

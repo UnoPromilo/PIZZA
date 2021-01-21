@@ -1,0 +1,32 @@
+<Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
+    <Found Context="routeData">
+        @if (ConfigurationStatus is not null && !ConfigurationStatus.Configured)
+        {
+        <LayoutView Layout="@typeof(MainInstalationLayout)">
+            <PIZZA.WebAssembly.Pages.Instalation.Instalation/>
+        </LayoutView>
+        }
+        else if (ConfigurationStatus is not null)
+        {
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        }
+    </Found>
+    <NotFound>
+        @if (ConfigurationStatus is not null && !ConfigurationStatus.Configured)
+        {
+            <LayoutView Layout="@typeof(MainInstalationLayout)">
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        }
+        else if (ConfigurationStatus is not null)
+        {
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        }
+        else
+        {
+            <p>Sorry, there's nothing at this address.</p>
+        }
+    </NotFound>
+</Router>

@@ -1,0 +1,114 @@
+﻿$font-color:#404040;
+$background-color: #E5E5E5;
+
+.instalation {
+    color: $font-color;
+
+    &__section {
+        width: 100%;
+        padding-left: 25px;
+        padding-right: 25px;
+
+        &__title {
+            font-size: 1.7rem;
+            font-family: 'Titillium Web';
+            font-weight: 400;
+            color: $font-color;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        &__description {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            font-family: 'Open Sans';
+            color: $font-color;
+        }
+
+        &:not(:last-child) {
+            border-bottom: 1px #C1C1C1 solid;
+        }
+    }
+
+    &__form {
+        display: table;
+        width: 100%;
+    }
+
+    &__input {
+        display: table-row;
+        margin-bottom: 1rem;
+
+        div {
+            display: flex;
+            flex-flow: column;
+        }
+
+        &__title,
+        &__right {
+            display: table-cell;
+            clear: both;
+        }
+
+        &__title {
+            padding-right: 20px;
+            padding-top: 2px;
+            width: 12rem;
+        }
+
+        &__right {
+            *:last-child {
+                margin-bottom: 5px;
+            }
+
+            .validation-message {
+                font-size: 0.7rem;
+                font-family: 'Open Sans';
+            }
+        }
+
+        &__input {
+            border: none;
+            border-bottom: $font-color solid 2px;
+            background: $background-color;
+            padding-top: 2px;
+            color: $font-color;
+            outline: none;
+
+            &[type=text],
+            &[type=password] {
+                padding-left: 5px;
+                padding-right: -5px;
+            }
+        }
+
+        &__description {
+            margin-top: 3px;
+            font-size: 0.7rem;
+            color: $font-color;
+        }
+    }
+
+    &__bottom {
+        width: 100%;
+        display: flex;
+    }
+
+    &__button {
+        margin-left: auto;
+        margin-right: auto;
+        width: 100px;
+        background: $background-color;
+        border: $font-color 2px solid;
+        color: darken($font-color, 20%);
+        font-family: 'Titillium Web';
+        font-weight: 300;
+        margin-bottom: 10px;
+        transition: all 0.2s;
+
+        &:hover {
+            background: darken($background-color, 10%);
+            color: darken($font-color, 30%);
+        }
+    }
+}

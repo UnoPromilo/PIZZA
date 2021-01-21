@@ -1,0 +1,29 @@
+﻿.logo {
+  width: 100%;
+  display: flex; }
+  .logo__item {
+    margin: auto;
+    height: 160px;
+    animation-name: logo-animation-configuration;
+    animation-duration: 5s;
+    animation-iteration-count: infinite; }
+  .logo__svg__fill--transparent {
+    fill: transparent; }
+  .logo__svg__fill--main {
+    fill: #303841; }
+  .logo__svg__fill--none {
+    fill: none; }
+  .logo__svg__fill--white {
+    fill: #fff;
+    stroke: #000;
+    stroke-miterlimit: 10; }
+
+@keyframes logo-animation-configuration {
+  0% {
+    filter: none; }
+  70% {
+    filter: drop-shadow(0px 0px 5px transparent); }
+  85% {
+    filter: drop-shadow(0px 0px 5px #03a9f0); }
+  100% {
+    filter: drop-shadow(0px 0px 5px transparent); } }

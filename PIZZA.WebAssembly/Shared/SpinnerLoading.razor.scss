@@ -1,0 +1,85 @@
+﻿$background: #303841;
+$accent: #03a9f0;
+.spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+
+    &__blur {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(5px);
+    }
+
+    &__popup {
+        background: $background;
+        position: absolute;
+        top: calc(50% - 100px);
+        left: calc(50% - 100px);
+        height: 200px;
+        width: 200px;
+        display: flex;
+        flex-flow: column;
+
+        &__spinner,
+        &__text {
+            margin: auto;
+        }
+
+        &__spinner {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+
+            &:after {
+                content: " ";
+                display: block;
+                width: 64px;
+                height: 64px;
+                margin: 8px;
+                border-radius: 50%;
+                border: 6px solid $accent;
+                border-color: $accent transparent $accent transparent;
+                animation: loading-spinner-dual-ring 1.2s linear infinite;
+            }
+        }
+
+        &__svg {
+            &__success {
+                width: 140px;
+                margin: auto;
+
+                &__path {
+                    fill: transparent;
+                    stroke: $accent;
+                    stroke-miterlimit: 10;
+                    stroke-width: 4px;
+                }
+            }
+        }
+
+        &__text {
+            font-weight: 400;
+            font-size: 1.2rem;
+            color: white;
+            font-family: 'Titillium Web'
+        }
+    }
+}
+
+@keyframes loading-spinner-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

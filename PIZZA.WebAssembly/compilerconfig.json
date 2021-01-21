@@ -1,0 +1,18 @@
+﻿[
+  {
+    "outputFile": "Shared/MainInstalationLayout.razor.css",
+    "inputFile": "Shared/MainInstalationLayout.razor.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/logo/logo.css",
+    "inputFile": "wwwroot/css/logo/logo.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/instalation/instalation.css",
+    "inputFile": "wwwroot/css/instalation/instalation.scss"
+  },
+  {
+    "outputFile": "Shared/SpinnerLoading.razor.css",
+    "inputFile": "Shared/SpinnerLoading.razor.scss"
+  }
+]

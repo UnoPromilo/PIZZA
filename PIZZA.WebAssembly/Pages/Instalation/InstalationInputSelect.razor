@@ -1,0 +1,20 @@
+﻿@typeparam TValue
+@inherits InputBase<TValue>
+
+<div class="instalation__input">
+    <label class="instalation__input__title">@Label</label>
+    <div class="instalation__input__right">
+        <div>
+            <select id="@Name"
+                     class="instalation__input__input @CssClass"
+                     @bind="CurrentValueAsString">
+                @ChildContent
+            </select>
+            <small class="instalation__input__description">
+                @Description
+            </small>
+            <ValidationMessage For="For"
+                               class="instalation__input__validation_message" />
+        </div>
+    </div>
+</div>
