@@ -31,7 +31,7 @@ namespace PIZZA.WebAssembly.Api.Configuration
         public async Task<HttpResponseMessage> PostConfigureServer(InstalationInfo instalationInfo)
         {
             var instalationInfoAsJson = JsonSerializer.Serialize(instalationInfo);
-            return await _httpClient.PostAsync("api/instalation/GetConfigurationStatus", new StringContent(instalationInfoAsJson, Encoding.UTF8, "application/json"));
+            return await _httpClient.PostAsync("api/instalation/ConfigureServer", new StringContent(instalationInfoAsJson, Encoding.UTF8, "application/json"));
         }
     }
 }

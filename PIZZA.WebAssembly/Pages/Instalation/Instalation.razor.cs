@@ -62,7 +62,7 @@ namespace PIZZA.WebAssembly.Pages.Instalation
                     NavigationManager.NavigateTo("/", true);
             }
 
-            _showSavingAnimation = true;
+            _showSavingAnimation = false;
             StateHasChanged();
         }
     }

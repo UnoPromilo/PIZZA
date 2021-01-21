@@ -34,11 +34,11 @@ namespace PIZZA.WebApi.Controllers.Instalation
         {
             if (_customSettings.Configured)
                 return Forbid();
-
+            TryCreateDatabase(instalationInfo.SQLServerConfiguration);
             return Ok();
         }
 
-        public bool TryCreateDatabase(SQLServerConfiguration sqlServerConfiguration)
+        private bool TryCreateDatabase(SQLServerConfiguration sqlServerConfiguration)
         {
 
             if (sqlServerConfiguration.DatabaseConnectionType == DatabaseConnectionType.Advanced)
@@ -66,7 +66,12 @@ namespace PIZZA.WebApi.Controllers.Instalation
                                                           $"Trusted_Connection=True;";
             }
 
+            if (!DataAccess.Helper.TestConnection(sqlServerConfiguration.ConnectionString)) return false;
+            _customSettings.ConnectionString = sqlServerConfiguration.ConnectionString;
 
+
+            //_customSettings.Configured = true;
+            //_customSettings.SaveConfiguration();
             return true;
         }
     }
