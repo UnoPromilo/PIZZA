@@ -9,7 +9,13 @@
     [PasswordHash] NVARCHAR(MAX) NULL, 
     [PhoneNumber] NVARCHAR(50) NULL, 
     [PhoneNumberConfirmed] BIT NOT NULL, 
-    [TwoFactorEnabled] BIT NOT NULL
+    [TwoFactorEnabled] BIT NOT NULL,
+    [FirstName] NVARCHAR(256) NULL, 
+    [LastName] NVARCHAR(256) NULL, 
+    [Position] INT NULL, 
+    [Address] NVARCHAR(256) NULL, 
+    [PostalCode] NVARCHAR(10) NULL, 
+    [Town] NVARCHAR(50) NULL, 
 )
 
 GO
@@ -19,5 +25,9 @@ CREATE UNIQUE INDEX [NormalizedUserNameInedx] ON [dbo].[ApplicationUser] ([Norma
 GO
 
 CREATE UNIQUE INDEX [NormalizedEmailIndex] ON [dbo].[ApplicationUser] ([Email])
+
+GO
+
+CREATE INDEX [NameIndex] ON [dbo].[ApplicationUser] ([FirstName], [LastName])
 
 GO

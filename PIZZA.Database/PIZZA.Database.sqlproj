@@ -64,7 +64,6 @@
     <Build Include="ApplicationUser.sql" />
     <Build Include="ApplicationUserRole.sql" />
     <Build Include="ApplicationRole.sql" />
-    <Build Include="Employee.sql" />
     <Build Include="Task.sql" />
     <Build Include="EmployeeTask.sql" />
     <Build Include="TaskNote.sql" />
