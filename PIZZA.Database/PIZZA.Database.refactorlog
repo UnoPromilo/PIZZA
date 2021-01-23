@@ -161,4 +161,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="FileGUID" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="e6e6eb12-05e2-4b76-830a-2fe3287db380" ChangeDateTime="01/22/2021 14:40:30">
+    <Property Name="ElementName" Value="[dbo].[Trigger_TaskState]" />
+    <Property Name="ElementType" Value="SqlDmlTrigger" />
+    <Property Name="ParentElementName" Value="[dbo].[TaskState]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[Trigger_AddNoteToTask]" />
+  </Operation>
 </Operations>

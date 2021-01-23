@@ -1,16 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="DatabaseModel.sql" />
+  </ItemGroup>
+
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.78" />
+    <PackageReference Include="Microsoft.SqlServer.SqlManagementObjects" Version="161.46041.41" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PIZZA.Models\PIZZA.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseModel.sql" />
   </ItemGroup>
 
 </Project>

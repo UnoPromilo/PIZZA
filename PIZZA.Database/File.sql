@@ -10,3 +10,5 @@
 GO
 
 CREATE INDEX [OwnerIndex] ON [dbo].[File] ([Owner])
+
+GO

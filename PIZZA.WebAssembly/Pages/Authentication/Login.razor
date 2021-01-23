@@ -1,0 +1,19 @@
+﻿@page "/authentication/login"
+@layout AuthentiactionLayout
+<h1 class="authentication__header">
+    Logowanie
+</h1>
+<EditForm class="authentication__form" Model="loginModel" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator />
+    <InputText name="login"
+               placeholder="Nazwa użytkownika"
+               class="authentication__input"
+               @bind-Value="loginModel.UserName" />
+    <InputText name="password"
+               type="password"
+               placeholder="Hasło"
+               class="authentication__input"
+               @bind-Value="loginModel.Password" />
+    <button type="submit" class="authentication__button">Zaloguj</button>
+
+</EditForm>

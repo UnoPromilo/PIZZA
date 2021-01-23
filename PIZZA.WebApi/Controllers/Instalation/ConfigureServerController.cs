@@ -47,11 +47,18 @@ namespace PIZZA.WebApi.Controllers.Instalation
             if(!TryConnectoToDatabase(instalationInfo.SQLServerConfiguration))
                 return ValidationProblem(detail:"Cannot connect to database.");
 
-            if (!GenerateDatabase(instalationInfo.SQLServerConfiguration))
-                return Conflict("Cannot create tables.");
+            if (instalationInfo.FillDatabse.FillDatabaseWithObjects)
+            {
+                if (!await GenerateDatabase(instalationInfo.SQLServerConfiguration))
+                    return Conflict("Cannot create tables.");
+            }
+            else if (instalationInfo.FillDatabse.ClearDatabaseData)
+                if (!await ClearDatabase(instalationInfo.SQLServerConfiguration))
+                    return Conflict("Cannot clear database.");
 
             if (!await CreateAdministratorAsync(instalationInfo.AdministratorUserCreationModel))
                 return Conflict("Cannot create administrator account.");
+
             _customSettings.Configured = true;
             _customSettings.JwtSecurityKey = RandomJwtKey(128);
             _customSettings.SaveConfiguration();
@@ -91,9 +98,13 @@ namespace PIZZA.WebApi.Controllers.Instalation
             return true;
         }
     
-        private bool GenerateDatabase(SQLServerConfiguration sqlServerConfiguration)
+        private async Task<bool> GenerateDatabase(SQLServerConfiguration sqlServerConfiguration)
         {
-            return true;
+            return await DataAccess.Helper.CreateDatabaseModelAsync(sqlServerConfiguration.ConnectionString);
+        }
+        private async Task<bool> ClearDatabase(SQLServerConfiguration sqlServerConfiguration)
+        {
+            return await DataAccess.Helper.ClearDatabaseDataAsync(sqlServerConfiguration.ConnectionString);
         }
 
         private async Task<bool> CreateAdministratorAsync(AdministratorUserCreationModel administratorUserCreationModel)

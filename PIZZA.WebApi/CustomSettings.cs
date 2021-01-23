@@ -30,12 +30,18 @@ namespace PIZZA.WebApi
         }
         public void SaveConfiguration()
         {
-            ConfigurationManager.AppSettings.Set(nameof(Configured), Configured.ToString());
-            ConfigurationManager.AppSettings.Set(nameof(ConnectionString), ConnectionString);
-            ConfigurationManager.AppSettings.Set(nameof(JwtIssuer), JwtIssuer);
-            ConfigurationManager.AppSettings.Set(nameof(JwtAudience), JwtAudience);
-            ConfigurationManager.AppSettings.Set(nameof(JwtExpiryInDays), JwtExpiryInDays);
-            ConfigurationManager.AppSettings.Set(nameof(JwtSecurityKey), JwtSecurityKey);
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+            config.AppSettings.Settings[nameof(Configured)].Value = Configured.ToString();
+            config.AppSettings.Settings[nameof(ConnectionString)].Value = ConnectionString.ToString();
+            config.AppSettings.Settings[nameof(JwtIssuer)].Value = JwtIssuer.ToString();
+            config.AppSettings.Settings[nameof(JwtAudience)].Value = JwtAudience.ToString();
+            config.AppSettings.Settings[nameof(JwtExpiryInDays)].Value = JwtExpiryInDays.ToString();
+            config.AppSettings.Settings[nameof(JwtSecurityKey)].Value = JwtSecurityKey.ToString();
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection(config.AppSettings.SectionInformation.Name);
+
+
         }
     }
 }

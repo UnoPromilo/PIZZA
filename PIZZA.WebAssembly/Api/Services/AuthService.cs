@@ -20,11 +20,11 @@ namespace PIZZA.WebAssembly.Api.Services
         private readonly AuthenticationStateProvider _authenticationStateProvider;
         private readonly ILocalStorageService _localStorage;
 
-        public AuthService(HttpClient httpClient,
+        public AuthService(IHttpClientFactory httpClientFactory,
                            AuthenticationStateProvider authenticationStateProvider,
                            ILocalStorageService localStorage)
         {
-            _httpClient = httpClient;
+            _httpClient = httpClientFactory.CreateClient("api");
             _authenticationStateProvider = authenticationStateProvider;
             _localStorage = localStorage;
         }
@@ -32,7 +32,8 @@ namespace PIZZA.WebAssembly.Api.Services
         public async Task<RegistrationResult> Register(RegistrationModel registerModel)
         {
             var registrationAsJson = JsonSerializer.Serialize(registerModel);
-            var response = await _httpClient.PostAsync("api/Registration", new StringContent(registrationAsJson, Encoding.UTF8, "application/json"));
+            var content = new StringContent(registrationAsJson, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync("api/Registration", content);
             var responseString = await response.Content.ReadAsStringAsync();
             var registrationResult = JsonSerializer.Deserialize<RegistrationResult>(responseString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             return registrationResult;
@@ -41,8 +42,10 @@ namespace PIZZA.WebAssembly.Api.Services
         public async Task<LoginResult> Login(LoginModel loginModel)
         {
             var loginAsJson = JsonSerializer.Serialize(loginModel);
-            var response = await _httpClient.PostAsync("api/Login", new StringContent(loginAsJson, Encoding.UTF8, "application/json"));
-            var loginResult = JsonSerializer.Deserialize<LoginResult>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var content = new StringContent(loginAsJson, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync("api/Login", content);
+            var responseString = await response.Content.ReadAsStringAsync();
+            var loginResult = JsonSerializer.Deserialize<LoginResult>( responseString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             if (!response.IsSuccessStatusCode)
             {

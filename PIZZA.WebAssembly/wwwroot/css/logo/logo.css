@@ -3,10 +3,13 @@
   display: flex; }
   .logo__item {
     margin: auto;
-    height: 160px;
-    animation-name: logo-animation-configuration;
-    animation-duration: 5s;
-    animation-iteration-count: infinite; }
+    height: 160px; }
+    .logo__item--animation {
+      animation-name: logo-animation-configuration;
+      animation-duration: 5s;
+      animation-iteration-count: infinite; }
+    .logo__item--background {
+      filter: drop-shadow(0px 0px 5px #03a9f0); }
   .logo__svg__fill--transparent {
     fill: transparent; }
   .logo__svg__fill--main {

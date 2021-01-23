@@ -80,11 +80,23 @@
     <EditForm EditContext="_fillDatabaseEditContext" class="instalation__form">
         <DataAnnotationsValidator />
         <ValidationSummary />
+        <InstalationInputCheckbox Label="Tworzenie obiektów"
+                                  For="()=>_fillDatabase.FillDatabaseWithObjects"
+                                  @bind-Value="_fillDatabase.FillDatabaseWithObjects"
+                                  Name="@nameof(_fillDatabase.FillDatabaseWithObjects)"
+                                  Description="Jeżeli Twoja baza danych ma już utworzone wymagane obiekty odznacz tą opcję." />
+
         <InstalationInputCheckbox Label="Przykładowe dane"
-                                  For="()=>_fillDatabase.FillDatabase"
-                                  @bind-Value="_fillDatabase.FillDatabase"
-                                  Name="@nameof(_fillDatabase.FillDatabase)"
+                                  For="()=>_fillDatabase.FillDatabaseWithSampleData"
+                                  @bind-Value="_fillDatabase.FillDatabaseWithSampleData"
+                                  Name="@nameof(_fillDatabase.FillDatabaseWithSampleData)"
                                   Description="Po zaznaczeniu tej opcji baza danych zostanie wypełniona przykładowymi danymi." />
+
+        <InstalationInputCheckbox Label="Wyczyść dane"
+                                  For="()=>_fillDatabase.ClearDatabaseData"
+                                  @bind-Value="_fillDatabase.ClearDatabaseData"
+                                  Name="@nameof(_fillDatabase.ClearDatabaseData)"
+                                  Description="Po zaznaczeniu tej opcji dane w bazie danych zostaną wyczyszczone." />
     </EditForm>
         <div class="instalation__bottom">
             <button class="instalation__button" @onclick="SaveSettings">Dalej</button>

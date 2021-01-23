@@ -1,0 +1,117 @@
+﻿$color: #64008E;
+.page {
+    background: linear-gradient(0.7rad, #FF8FFF, #82E6FF);
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    &__content{
+        margin: auto;
+        border-radius:45px;
+        background: linear-gradient(2.6rad, rgba(2255,255,255,0.26), rgba(255,255,255,0.14));
+        border: 2px solid rgba(255,255,255, 0.23);
+        box-shadow: rgba(0,0,0,0.03) 15px 15px 6px;
+        backdrop-filter: blur(15px);
+    }
+}
+
+.authentication {
+    width: 650px;
+    height: 780px;
+    display: flex;
+    flex-flow: column;
+
+    &__logo {
+        height: 160px;
+        width: 100%;
+        background: rgba(255,255,255,0.4);
+        border-radius: 45px 45px 0 0;
+        border-left: 1px solid rgba(255,255,255, 0.23);
+        border-top: 1px solid rgba(255,255,255, 0.23);
+        border-right: 1px solid rgba(255,255,255, 0.23);
+    }
+
+    &__header {
+        width: 100%;
+        background: rgba(255,255,255, 0.15);
+        text-align: center;
+        height: 80px;
+        line-height: 80px;
+        font-family: 'Titillium Web';
+        font-weight: 300;
+        color: $color;
+        font-size: 1.7rem;
+        margin-bottom: 0;
+    }
+
+    &__form {
+        margin-top: 0;
+        margin-bottom: 0;
+        height: 100%;
+        display: flex;
+        flex-flow: column;
+    }
+
+    &__input,
+    &__button {
+        outline: none;
+        border: none;
+        background: rgba(255,255,255,0.3);
+        color: $color;
+        font-family: 'Open Sans';
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: rgba(0,0,0,0.03) 15px 15px 6px;
+        transition: 0.4s ease box-shadow,
+                    0.2s ease background;
+
+        &:active,
+        &:hover {
+            box-shadow: rgba(0,0,0,0.03) 10px 10px 3px;
+        }
+
+        &:active {
+            background: rgba(235,235,235,0.3);
+        }
+
+        &:not(:first-child) {
+            margin-top: 30px;
+        }
+
+        &:first-child {
+            margin-top: auto;
+        }
+
+        &:last-child {
+            margin-bottom: auto;
+        }
+    }
+
+    &__input {
+        width: 360px;
+        height: 60px;
+        border-radius: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
+        box-shadow: rgba(0,0,0,0.03) 15px 15px 6px;
+
+        &::placeholder {
+            color: $color;
+        }
+
+        &:focus {
+            background: rgba(235,235,235,0.3);
+            box-shadow: rgba(0,0,0,0.03) 10px 10px 3px;
+        }
+    }
+
+    &__button {
+        height: 76px;
+        width: 235px;
+        margin-top: 50px;
+        border-radius: 38px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}

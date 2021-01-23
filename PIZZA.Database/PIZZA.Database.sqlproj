@@ -22,6 +22,7 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <GenerateCreateScript>True</GenerateCreateScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -68,6 +69,12 @@
     <Build Include="EmployeeTask.sql" />
     <Build Include="TaskNote.sql" />
     <Build Include="TaskState.sql" />
+    <Build Include="File.sql" />
+    <Build Include="FileTask.sql" />
+    <Build Include="CreateTask.sql" />
+    <Build Include="TaskStateWithNote.sql" />
+    <Build Include="Employee.sql" />
+    <Build Include="FileWithTask.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PIZZA.Database.publish.xml" />

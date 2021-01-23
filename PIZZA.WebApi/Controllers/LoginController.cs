@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace PIZZA.WebApi.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
@@ -29,12 +30,23 @@ namespace PIZZA.WebApi.Controllers
             _signInManager = signInManager;
         }
 
+        /// <summary>
+        /// Login user using username and pasword
+        /// </summary>
+        /// <param name="login">Details about user</param>
+        /// <returns>
+        /// Jwt Security Token
+        /// </returns>
+        /// <response code="202">Success.</response>
+        /// <response code="401">Authentication credentials are invalid.</response>
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] LoginModel login)
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> Post([FromBody] LoginModel login)
         {
             var result = await _signInManager.PasswordSignInAsync(login.UserName, login.Password, false, false);
 
-            if (!result.Succeeded) return BadRequest(new LoginResult { Successful = false, Error = "Nazwa użytkownika lub hasło są niepoprawne." });
+            if (!result.Succeeded) return Unauthorized(new LoginResult { Successful = false, Error = "Nazwa użytkownika lub hasło są niepoprawne." });
 
             var claims = new[]
             {
@@ -53,7 +65,7 @@ namespace PIZZA.WebApi.Controllers
                 signingCredentials: creds
             );
 
-            return Ok(new LoginResult { Successful = true, Token = new JwtSecurityTokenHandler().WriteToken(token) });
+            return Accepted(new LoginResult { Successful = true, Token = new JwtSecurityTokenHandler().WriteToken(token) });
         }
     }
 }

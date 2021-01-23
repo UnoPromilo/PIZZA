@@ -15,9 +15,7 @@ namespace PIZZA.WebApi.Controllers
     public class RegistrationController : ControllerBase
     {
         private static UserModel LoggedOutUser = new UserModel { IsAuthenticated = false };
-
         private readonly UserManager<ApplicationUser> _userManager;
-
         public RegistrationController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
