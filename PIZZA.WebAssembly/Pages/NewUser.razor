@@ -1,0 +1,80 @@
+﻿@page "/newuser"
+<div class="page__header">
+    <h1 class="page__h1">Nowy użytkownik</h1>
+</div>
+<div class="page__options">
+</div>
+
+<EditForm Model="RegistrationModel" class="page__form page__form--two-col" autocomplete="off">
+    <DataAnnotationsValidator />
+    <div class="page__form__col">
+        <h3 class="page__form__col__h">Podstawowe dane</h3>
+
+        <InputFieldText Label="Imię"
+                        Name="@nameof(RegistrationModel.FirstName)"
+                        @bind-Value="RegistrationModel.FirstName"
+                        For="()=>RegistrationModel.FirstName" />
+
+        <InputFieldText Label="Nazwisko"
+                        Name="@nameof(RegistrationModel.LastName)"
+                        @bind-Value="RegistrationModel.LastName"
+                        For="()=>RegistrationModel.LastName" />
+    </div>
+    <div class="page__form__col">
+        <h3 class="page__form__col__h">Dane użytkownika</h3>
+        <InputFieldText Label="Nazwa użytkownika"
+                        Name="@nameof(RegistrationModel.UserName)"
+                        @bind-Value="RegistrationModel.UserName"
+                        For="()=>RegistrationModel.UserName" />
+
+        <InputFieldText Label="Email"
+                        Type="email"
+                        Name="@nameof(RegistrationModel.Email)"
+                        @bind-Value="RegistrationModel.Email"
+                        For="()=>RegistrationModel.Email" />
+
+        <InputFieldText Label="Numer telefonu"
+                        Type="tel"
+                        Name="@nameof(RegistrationModel.PhoneNumber)"
+                        @bind-Value="RegistrationModel.PhoneNumber"
+                        For="()=>RegistrationModel.PhoneNumber" />
+    </div>
+    <div class="page__form__col">
+        <h3 class="page__form__col__h">Hasło</h3>
+        <InputFieldText Label="Hasło"
+                        Type="password"
+                        Name="@nameof(RegistrationModel.Password)"
+                        @bind-Value="RegistrationModel.Password"
+                        For="()=>RegistrationModel.Password" />
+
+        <InputFieldText Label="Powtórz hasło"
+                        Type="password"
+                        Name="@nameof(RegistrationModel.ConfirmPassword)"
+                        @bind-Value="RegistrationModel.ConfirmPassword"
+                        For="()=>RegistrationModel.ConfirmPassword" />
+
+        <InputFieldCheckbox Label="Wymuś zmianę hasła przy pierwszym logowaniu"
+                            Name="@nameof(RegistrationModel.ForcePasswordChangeWhileNextLogin)"
+                            @bind-Value="RegistrationModel.ForcePasswordChangeWhileNextLogin"
+                            For="()=>RegistrationModel.ForcePasswordChangeWhileNextLogin" />
+    </div>
+    <div class="page__form__col">
+        <h3 class="page__form__col__h">Dane kontaktowe</h3>
+        <InputFieldText Label="Ulica i numer domu"
+                        Name="@nameof(RegistrationModel.AddressLine)"
+                        @bind-Value="RegistrationModel.AddressLine"
+                        For="()=>RegistrationModel.AddressLine" />
+        <InputFieldText Label="Kod pocztowy"
+                        Name="@nameof(RegistrationModel.PostalCode)"
+                        @bind-Value="RegistrationModel.PostalCode"
+                        For="()=>RegistrationModel.PostalCode" />
+        <InputFieldText Label="Miejscowość"
+                        Name="@nameof(RegistrationModel.Town)"
+                        @bind-Value="RegistrationModel.Town"
+                        For="()=>RegistrationModel.Town" />
+    </div>
+    <div class="page__form__col"/>
+    <div class="page__form__col">
+        <button type="submit" class="page__form__submit">Dodaj</button>
+    </div>
+</EditForm>

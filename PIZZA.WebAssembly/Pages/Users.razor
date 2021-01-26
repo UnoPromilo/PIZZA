@@ -1,0 +1,52 @@
+﻿@page "/users"
+@using PIZZA.WebAssembly.Shared.Users
+
+<div class="page__header">
+    <h1 class="page__h1">Użytkownicy</h1>
+    <div class="users__search">
+        <input class="users__search__input" placeholder="Szukaj" type="search"/>
+        <button class="users__search__button material-icons">
+            search
+        </button>
+    </div>
+</div>
+<div class="page__options">
+    <a class="page__options__button" href="/newuser">
+        <span class="page__options__button__icon material-icons">
+            add
+        </span>
+        <p class="page__options__button__text">Dodaj nowego użytkownika</p>
+    </a>
+</div>
+<table class="users__table">
+    <thead>
+        <tr>
+            <th class="users__table__icon">
+            </th>
+            <th class="users__table__name">
+                Imię i nazwisko
+            </th>
+            <th class="users__table__email">
+                Email
+            </th>
+            <th class="users__table__phone">
+                Numer telefonu
+            </th>
+            <th class="users__table__admin">
+                Admin
+            </th>
+            <th class="users__table__manager">
+                Manager
+            </th>
+            <th class="users__table__options">
+                Opcje
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <Record Employee="employee"/>
+        <Record Employee="employee"/>
+        
+    </tbody>
+</table>
+

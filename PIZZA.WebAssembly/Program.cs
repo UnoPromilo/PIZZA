@@ -32,6 +32,7 @@ namespace PIZZA.WebAssembly
             services.AddAuthorizationCore();
             services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddBlazorContextMenu();
         }
     }
 }

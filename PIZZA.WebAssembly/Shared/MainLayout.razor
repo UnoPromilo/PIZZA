@@ -1,18 +1,14 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <div class="main">
-        <div class="top-row px-4">
-            <LoginComponent></LoginComponent>
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
-        </div>
-
-        <div class="content px-4">
+    <div class="page__circle" id="page__circle-1"/>
+    <div class="page__circle" id="page__circle-2"/>
+    <div class="page__content main">
+        <NavMenu/>
+        <div class="main__content">
             @Body
+
         </div>
     </div>
 </div>
+<PIZZA.WebAssembly.Shared.Users.ContextMenuComponent/>

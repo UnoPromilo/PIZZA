@@ -1,0 +1,11 @@
+﻿@inherits InputBase<bool>
+
+<div class="page__form__input">
+    <label class="page__form__input__title">@Label</label>
+    <label class="toggle-switch">
+        <input type="checkbox" id="@Name"              
+               @bind="CurrentValue" />
+        <span class="toggle-switch__slider @CssClass"></span>
+    </label>
+    <ValidationMessage For="For" class="page__form__input__validation"></ValidationMessage>
+</div>

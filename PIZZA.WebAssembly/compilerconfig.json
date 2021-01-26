@@ -18,5 +18,17 @@
   {
     "outputFile": "wwwroot/css/main.css",
     "inputFile": "wwwroot/css/main.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/nav.css",
+    "inputFile": "wwwroot/css/nav.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/switch.css",
+    "inputFile": "wwwroot/css/switch.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/options.css",
+    "inputFile": "wwwroot/css/options.scss"
   }
 ]
