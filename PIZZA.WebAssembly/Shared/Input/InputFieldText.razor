@@ -1,10 +1,10 @@
 ﻿@inherits InputBase<string>
 
 
-<div class="page__form__input">
-    <label class="page__form__input__title">@Label</label>
+<div class="page__input">
+    <label class="page__input__title">@Label</label>
     <input type="@Type" id="@Name" 
-           class="page__form__input__box @CssClass"
+           class="page__input__box @CssClass"
            @bind="CurrentValueAsString" />
-    <ValidationMessage For="For" class="page__form__input__validation"></ValidationMessage>
+    <ValidationMessage For="For" class="page__input__validation"></ValidationMessage>
 </div>

@@ -1,0 +1,27 @@
+﻿@if (popupModels.Count > 0)
+{
+    <div class="popup__background">
+        <EditForm Model="currentModel.Model" class="popup">
+
+                @if (currentModel is PopupAlertModel alertModel)
+                {
+                    <PopupAlert Model="alertModel" />
+                }
+                else if (currentModel is PopupChangePasswordModel passwordModel)
+                {
+                    <PopupChangePassword Model="passwordModel" />
+                }
+                @if (currentModel.Buttons.Count() > 0)
+                {
+                    <div class="popup__buttons">
+                        @foreach (var button in currentModel.Buttons)
+                        {
+                            <button disabled="@button.Disabled" class="popup__button" @onclick="(MouseEventArgs args) => OnButtonClick(args, currentModel, button)">
+                                @button.Content
+                            </button>
+                        }
+                    </div>
+                }
+        </EditForm>
+    </div>
+}

@@ -168,4 +168,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="[Trigger_AddNoteToTask]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="dc69fb76-a588-4205-ad36-b717761b0571" ChangeDateTime="01/28/2021 18:03:36">
+    <Property Name="ElementName" Value="[dbo].[ApplicationUser].[Address]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ApplicationUser]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AddressLine" />
+  </Operation>
 </Operations>

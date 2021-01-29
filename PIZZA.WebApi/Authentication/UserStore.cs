@@ -36,13 +36,13 @@ namespace PIZZA.WebApi.Authentication
             {
                 await connection.OpenAsync(cancellationToken);
                 user.ID = await connection.QuerySingleAsync<int>($@"INSERT INTO [ApplicationUser] ([UserName], [NormalizedUserName], [Email],
-                    [NormalizedEmail], [EmailConfirmed], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [FisrtName], [LastName], [Position], [Address], [PostalCode], [Town])
+                    [NormalizedEmail], [EmailConfirmed], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [FirstName], [LastName], [AddressLine], [PostalCode], [Town])
                     VALUES (@{nameof(ApplicationUser.UserName)}, @{nameof(ApplicationUser.NormalizedUserName)}, @{nameof(ApplicationUser.Email)},
                     @{nameof(ApplicationUser.NormalizedEmail)}, @{nameof(ApplicationUser.EmailConfirmed)}, @{nameof(ApplicationUser.PasswordHash)},
                     @{nameof(ApplicationUser.PhoneNumber)}, @{nameof(ApplicationUser.PhoneNumberConfirmed)}, @{nameof(ApplicationUser.TwoFactorEnabled)},
                     @{nameof(ApplicationUser.FirstName)}, @{nameof(ApplicationUser.LastName)},
-                    @{nameof(ApplicationUser.Position)}, @{nameof(ApplicationUser.Address)},
-                    @{nameof(ApplicationUser.PostalCode)}, @{nameof(ApplicationUser.Town)});
+                    @{nameof(ApplicationUser.AddressLine)}, @{nameof(ApplicationUser.PostalCode)},
+                    @{nameof(ApplicationUser.Town)});
                     SELECT CAST(SCOPE_IDENTITY() as int)", user);
             }
 
@@ -132,8 +132,7 @@ namespace PIZZA.WebApi.Authentication
                     [TwoFactorEnabled] = @{nameof(ApplicationUser.TwoFactorEnabled)},
                     [FirstName] = @{nameof(ApplicationUser.FirstName)},
                     [LastName] = @{nameof(ApplicationUser.LastName)},
-                    [Position] = @{nameof(ApplicationUser.Position)},
-                    [Address] = @{nameof(ApplicationUser.Address)},
+                    [AddressLine] = @{nameof(ApplicationUser.AddressLine)},
                     [PostalCode] = @{nameof(ApplicationUser.PostalCode)},
                     [Town] = @{nameof(ApplicationUser.Town)}
 

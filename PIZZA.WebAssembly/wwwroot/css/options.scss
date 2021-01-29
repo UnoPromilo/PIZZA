@@ -1,30 +1,19 @@
-﻿.options-popup {
+﻿
+$nav-min-width: 641px;
+
+.context {
     position: absolute;
     right: 20px;
     top: 45px;
     padding: 10px;
-    background: rgba(255,255,255,0.61);
+    background: rgba(255,255,255,0.3);
     backdrop-filter: blur(7px);
     z-index: 1;
     border-radius: 6px;
-
-    &::before {
-        right: 18px;
-        top: -10px;
-        position: absolute;
-        content: ' ';
-        transform: rotate(45deg);
-        height: 20px;
-        width: 20px;
-        background: linear-gradient(135deg, rgba(255,255,255,0.61), rgba(255,255,255,0.61) 50%, transparent 50%);
-    }
-
-    &__container {
-        display: table;
-    }
+    display:table;
 
     &__button {
-        display: table-row;
+        display: table-row !important;
 
         &:hover {
             background: rgba(255,255,255,0.55);
@@ -39,7 +28,7 @@
             white-space: nowrap;
             padding-right: 30px;
             text-align: left;
-            font-size: 1.05rem;
+            font-size: 1.05rem !important;
             padding-left: 5px;
             vertical-align: middle;
         }
@@ -51,6 +40,95 @@
             text-align: right;
             font-size: 1.40rem !important;
             padding-right: 5px;
+        }
+    }
+}
+
+
+.popup {
+    width: fit-content;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(3px);
+    margin: auto;
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255, 0.5);
+    box-shadow: 10px 10px 5px rgba(0,0,0, 0.1);
+    min-width: 400px;
+
+    @media only screen and (max-width: 450px) {
+        min-width: 100%;
+    }
+
+    &__background {
+        position: fixed;
+        display: flex;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.1);
+        backdrop-filter: blur(5px);
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    &__header,
+    &__content {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    &__header {
+        padding-top: 1rem;
+        color: #008CC9;
+        font-weight: 600;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    &__content {
+        margin-bottom: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    &__buttons {
+        width: 100%;
+        display: flex;
+        border-top: 2px solid white;
+        height: 70px;
+
+        @media only screen and (max-width: $nav-min-width) {
+            flex-flow: column;
+            height: auto;
+        }
+    }
+
+    &__button {
+        background: none;
+        border: none;
+        flex-basis: 100%;
+        text-align: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        text-transform: uppercase;
+        font-weight: 600;
+
+        color: #404040;
+        &:focus, &:active {
+            outline: none;
+        }
+
+        &:not(:last-child) {
+            border-right: 1px solid white;
+        }
+
+        @media only screen and (max-width: $nav-min-width) {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+
+            &:not(:last-child) {
+                border-right: none;
+                border-bottom: 1px solid white;
+            }
         }
     }
 }

@@ -13,7 +13,7 @@
     [TwoFactorEnabled] BIT NOT NULL DEFAULT 0,
     [FirstName] NVARCHAR(256) NULL, 
     [LastName] NVARCHAR(256) NULL, 
-    [Address] NVARCHAR(256) NULL, 
+    [AddressLine] NVARCHAR(256) NULL, 
     [PostalCode] NVARCHAR(10) NULL, 
     [Town] NVARCHAR(50) NULL, 
 )

@@ -7,7 +7,7 @@ using PIZZA.WebAssembly.Api.Services;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-
+using PIZZA.WebAssembly.Extension;
 namespace PIZZA.WebAssembly
 {
     public class Program
@@ -27,12 +27,20 @@ namespace PIZZA.WebAssembly
 
         public static void ConfigureServices(IServiceCollection services)
         {
-            services.AddBlazoredLocalStorage();
-            services.AddScoped<IConfigurationService, ConfigurationService>();
-            services.AddAuthorizationCore();
-            services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
-            services.AddScoped<IAuthService, AuthService>();
-            services.AddBlazorContextMenu();
+            services.AddBlazoredLocalStorage()
+                    .AddScoped<IConfigurationService, ConfigurationService>()
+                    .AddAuthorizationCore()
+                    .AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>()
+                    .AddScoped<IAuthService, AuthService>()
+                    .AddBlazorContextMenu(options=>
+                    {
+                        options.ConfigureTemplate(defaultTemplate =>
+                        {
+                            defaultTemplate.MenuItemCssClass = "context__button";
+                            defaultTemplate.MenuShownCssClass = "context";
+                        });
+                    })
+                    .AddPopupService("default");
         }
     }
 }

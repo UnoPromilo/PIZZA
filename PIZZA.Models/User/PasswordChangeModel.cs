@@ -5,17 +5,11 @@ using System.Text;
 
 namespace PIZZA.Models.User
 {
-    public class RegistrationModel
+    public class PasswordChangeModel
     {
-        [EmailAddress]
-        [StringLength(100, ErrorMessage = "Email musi mieć przynajmniej 5 znaków i nie może być dłuższy niż 100 znaków.", MinimumLength = 5)]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        public int ID { get; init; }
 
-        [Required(ErrorMessage = "Pole nazwa użytkownika jest wymagane.")]
-        [StringLength(100, ErrorMessage = "Nazwa użytkownika musi mieć przynajmniej 5 znaków i nie może być dłuższa niż 100 znaków.", MinimumLength = 5)]
-        [Display(Name = "nazwa użytkownika")]
-        public string UserName { get; set; }
+        public bool ForcePasswordChangeWhileNextLogin { get; set; } = true;
 
         [Required(ErrorMessage = "Pole hasło jest wymagane.")]
         [StringLength(100, ErrorMessage = "Hasło musi mieć przynajmniej 8 znaków i nie może być dłuższe niż 100 znaków.", MinimumLength = 8)]
