@@ -1,0 +1,53 @@
+﻿@page "/newtask"
+<div class="page__header">
+    <h1 class="page__h1">Nowe zadanie</h1>
+</div>
+<div class="page__options">
+</div>
+
+<EditForm Model="CreateTask" class="page__col page__col--two-col" autocomplete="off">
+    <DataAnnotationsValidator />
+    <div class="page__col__col">
+        <div class="page__col__col__h">
+            <h3>Podstawowe dane</h3>
+        </div>
+        <div class="page__col__col__content">
+
+            <InputFieldText Label="Nazwa zadania"
+                            Name="@nameof(CreateTask.Name)"
+                            @bind-Value="CreateTask.Name"
+                            For="()=>CreateTask.Name" />
+
+            <InputFieldSelect Label="Priorytet"
+                              Name="@nameof(CreateTask.Priority)"
+                              @bind-Value="CreateTask.Priority"
+                              For="()=>CreateTask.Priority">
+                @foreach (TaskPriority item in Enum.GetValues(typeof(TaskPriority)))
+                {
+                    <option value="@item">@item.Name()</option>
+                }
+            </InputFieldSelect>
+            <InputFieldDate Label="Dealine"
+                            Name="@nameof(CreateTask.Deadline)"
+                            @bind-Value="CreateTask.Deadline"
+                            For="()=>CreateTask.Deadline" />
+        </div>
+    </div>
+    <div class="page__col__col">
+
+        <div class="page__col__col__h">
+            <h3> Opis</h3>
+        </div>
+        <div class="page__col__col__content">
+            <InputFieldTextArea Name="@nameof(CreateTask.Description)"
+                                @bind-Value="CreateTask.Description"
+                                For="()=>CreateTask.Description" />
+        </div>
+    </div>
+   
+    <div class="page__col__col--span-all">
+        <button type="submit" class="page__submit">Dodaj</button>
+    </div>
+
+
+</EditForm>

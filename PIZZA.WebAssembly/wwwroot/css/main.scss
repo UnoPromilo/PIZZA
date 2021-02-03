@@ -111,8 +111,8 @@ $nav-min-width: 641px;
             background-color: rgba(255,255,255, 0.4);
             border-radius: 45px;
             margin-bottom: 20px;
-
             box-shadow: 5px 5px 5px rgba(0,0,0,0.1);
+
             &--span-all {
                 column-span: all;
             }
@@ -157,11 +157,22 @@ $nav-min-width: 641px;
     &__input {
         margin-bottom: 10px;
 
+        &--nomarigin {
+            margin-bottom: 0;
+        }
+
+        &--scale07 {
+            transform: scale(0.7);
+        }
+
         &__title {
             display: block;
             padding-left: 20px;
         }
-
+        textarea{
+            resize: none;
+            height: 17rem;
+        }
         &__box {
             border-radius: calc(48px/2);
             border: 1px solid white;
@@ -242,6 +253,86 @@ $nav-min-width: 641px;
 
         &:hover {
             background: darken(#008CC9, 1);
+        }
+    }
+
+    &__search {
+        position: relative;
+        height: 48px;
+        max-width: 380px;
+        width: 100%;
+
+        @media only screen and (max-width: $nav-min-width) {
+            max-width: initial;
+        }
+
+        &__input {
+            border-radius: calc(48px/2);
+            border: 1px solid white;
+            outline: none;
+            height: 100%;
+            width: 100%;
+            background: rgba(255,255,255,0.34);
+            padding-left: 24px;
+            font-family: 'Open Sans';
+            font-size: 1.3rem;
+
+            &::-webkit-search-cancel-button {
+                padding-right: 50px;
+                margin-left: 10px;
+            }
+        }
+
+        &__button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 48px;
+            border: none;
+            background: transparent;
+            font-size: 2rem !important;
+            margin-right: 10px;
+            color: #008CC9;
+            transition: all 0.2s;
+
+            &:hover {
+                color: $color;
+            }
+
+            &:focus,
+            &:active {
+                outline: none;
+            }
+        }
+    }
+
+    &__table {
+        width: 100%;
+
+        th {
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            color: #707070;
+            font-weight: 400;
+            white-space: nowrap;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        tbody {
+            tr {
+                &:hover {
+                    background: rgba(255,255,255,0.3);
+                }
+            }
+        }
+
+        td {
+            color: #008CC9;
+            font-size: 1.1rem;
+            padding-left: 10px;
+            padding-right: 10px;
         }
     }
 }
@@ -389,89 +480,8 @@ $nav-min-width: 641px;
 }
 
 .users {
-
-
-    &__search {
-        position: relative;
-        height: 48px;
-        max-width: 380px;
-        width: 100%;
-
-        @media only screen and (max-width: $nav-min-width) {
-            max-width: initial;
-        }
-
-        &__input {
-            border-radius: calc(48px/2);
-            border: 1px solid white;
-            outline: none;
-            height: 100%;
-            width: 100%;
-            background: rgba(255,255,255,0.34);
-            padding-left: 24px;
-            font-family: 'Open Sans';
-            font-size: 1.3rem;
-
-            &::-webkit-search-cancel-button {
-                padding-right: 50px;
-                margin-left: 10px;
-            }
-        }
-
-        &__button {
-            position: absolute;
-            right: 0;
-            top: 0;
-            height: 100%;
-            width: 48px;
-            border: none;
-            background: transparent;
-            font-size: 2rem !important;
-            margin-right: 10px;
-            color: #008CC9;
-            transition: all 0.2s;
-
-            &:hover {
-                color: $color;
-            }
-
-            &:focus,
-            &:active {
-                outline: none;
-            }
-        }
-    }
-
-
-
     &__table {
-        width: 100%;
-
-        th {
-            text-transform: uppercase;
-            font-size: 1.1rem;
-            color: #707070;
-            font-weight: 400;
-            white-space: nowrap;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-
-        tbody {
-            tr {
-                &:hover {
-                    background: rgba(255,255,255,0.3);
-                }
-            }
-        }
-
-        td {
-            color: #008CC9;
-            font-size: 1.1rem;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-
+        
         &__icon {
             font-size: 42px !important;
             color: #707070 !important;
@@ -503,6 +513,82 @@ $nav-min-width: 641px;
             text-align: center;
 
             @media only screen and (max-width: 1300px) {
+                display: none;
+                width: 0;
+            }
+        }
+
+        &__options {
+            text-align: center;
+            width: 100px;
+            position: relative;
+
+            svg {
+                width: 28px;
+
+                circle {
+                    fill: #444444;
+                }
+            }
+        }
+    }
+}
+
+.tasks {
+    &__table {
+        &__icon {
+            font-size: 42px !important;
+            color: #707070 !important;
+            width: 60px;
+
+            @media only screen and (max-width: 940px) {
+                display: none;
+                width: 0;
+            }
+        }
+
+        &__name {
+        }
+
+        &__state {
+            width: 120px;
+
+            @media only screen and (max-width: 1150px) {
+                width: 120px;
+            }
+
+            @media only screen and (max-width: 650px) {
+                display: none;
+                width: 0;
+            }
+        }
+
+        &__actualization_date {
+            width: 250px;
+
+            @media only screen and (max-width: 1400px) {
+                display: none;
+                width: 0;
+            }
+        }
+
+        &__priority {
+            width: 140px;
+
+            @media only screen and (max-width: 1150px) {
+                width: 120px;
+            }
+
+            @media only screen and (max-width: 820px) {
+                display: none;
+                width: 0;
+            }
+        }
+
+        &__deadline {
+            width: 140px;
+
+            @media only screen and (max-width: 1020px) {
                 display: none;
                 width: 0;
             }

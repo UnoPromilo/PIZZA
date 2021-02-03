@@ -1,0 +1,52 @@
+﻿@using Service
+@inject NavigationManager NavigationManager
+@inject PopupService PopupService
+@code{
+
+    void Navigate()
+    {
+        NavigationManager.NavigateTo("task");
+    }
+
+    void Delete()
+    {
+
+
+        PopupAlertModel model = new()
+        {
+            Title = "USUWANIE",
+            ContentAsString = "<p>Czy na pewno chcesz usunąć?</br> Uwaga, tej operacji nie można cofnąć!</p>",
+            Buttons = new List<PopupButton>
+        {
+                new PopupButton
+                {
+                    Content = "Tak"
+                },
+
+                new PopupButton
+                {
+                    Content = "Nie"
+                }
+            }
+        };
+
+        PopupService.AddPopupModelToStack(model);
+    }
+}
+
+
+
+<ContextMenu Id="taskContextMenu">
+    <Item OnClick="Navigate">
+        <p class="context__button__text">Zobacz zadanie</p>
+        <span class="options-popup__button__icon material-icons">
+            visibility
+        </span>
+    </Item>
+    <Item OnClick="Delete">
+        <p class="context__button__text">Usuń zadanie</p>
+        <span class="options-popup__button__icon material-icons">
+            delete_forever
+        </span>
+    </Item>
+</ContextMenu>

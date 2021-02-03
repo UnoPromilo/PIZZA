@@ -101,9 +101,16 @@
       column-width: 30rem; }
   .page__input {
     margin-bottom: 10px; }
+    .page__input--nomarigin {
+      margin-bottom: 0; }
+    .page__input--scale07 {
+      transform: scale(0.7); }
     .page__input__title {
       display: block;
       padding-left: 20px; }
+    .page__input textarea {
+      resize: none;
+      height: 17rem; }
     .page__input__box {
       border-radius: calc(48px/2);
       border: 1px solid white;
@@ -162,6 +169,60 @@
       outline: none; }
     .page__submit:hover {
       background: #0088c4; }
+  .page__search {
+    position: relative;
+    height: 48px;
+    max-width: 380px;
+    width: 100%; }
+    @media only screen and (max-width: 641px) {
+      .page__search {
+        max-width: initial; } }
+    .page__search__input {
+      border-radius: calc(48px/2);
+      border: 1px solid white;
+      outline: none;
+      height: 100%;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.34);
+      padding-left: 24px;
+      font-family: 'Open Sans';
+      font-size: 1.3rem; }
+      .page__search__input::-webkit-search-cancel-button {
+        padding-right: 50px;
+        margin-left: 10px; }
+    .page__search__button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 48px;
+      border: none;
+      background: transparent;
+      font-size: 2rem !important;
+      margin-right: 10px;
+      color: #008CC9;
+      transition: all 0.2s; }
+      .page__search__button:hover {
+        color: #64008E; }
+      .page__search__button:focus, .page__search__button:active {
+        outline: none; }
+  .page__table {
+    width: 100%; }
+    .page__table th {
+      text-transform: uppercase;
+      font-size: 1.1rem;
+      color: #707070;
+      font-weight: 400;
+      white-space: nowrap;
+      padding-left: 10px;
+      padding-right: 10px; }
+    .page__table tbody tr:hover {
+      background: rgba(255, 255, 255, 0.3); }
+    .page__table td {
+      color: #008CC9;
+      font-size: 1.1rem;
+      padding-left: 10px;
+      padding-right: 10px; }
 
 #page__circle-1 {
   top: 400px;
@@ -263,92 +324,93 @@
       margin: 0 15px;
       border-radius: 0px; } }
 
-.users__search {
-  position: relative;
-  height: 48px;
-  max-width: 380px;
-  width: 100%; }
-  @media only screen and (max-width: 641px) {
-    .users__search {
-      max-width: initial; } }
-  .users__search__input {
-    border-radius: calc(48px/2);
-    border: 1px solid white;
-    outline: none;
-    height: 100%;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.34);
-    padding-left: 24px;
-    font-family: 'Open Sans';
-    font-size: 1.3rem; }
-    .users__search__input::-webkit-search-cancel-button {
-      padding-right: 50px;
-      margin-left: 10px; }
-  .users__search__button {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: 48px;
-    border: none;
-    background: transparent;
-    font-size: 2rem !important;
-    margin-right: 10px;
-    color: #008CC9;
-    transition: all 0.2s; }
-    .users__search__button:hover {
-      color: #64008E; }
-    .users__search__button:focus, .users__search__button:active {
-      outline: none; }
+.users__table__icon {
+  font-size: 42px !important;
+  color: #707070 !important;
+  width: 60px; }
+  @media only screen and (max-width: 940px) {
+    .users__table__icon {
+      display: none;
+      width: 0; } }
 
-.users__table {
-  width: 100%; }
-  .users__table th {
-    text-transform: uppercase;
-    font-size: 1.1rem;
-    color: #707070;
-    font-weight: 400;
-    white-space: nowrap;
-    padding-left: 10px;
-    padding-right: 10px; }
-  .users__table tbody tr:hover {
-    background: rgba(255, 255, 255, 0.3); }
-  .users__table td {
-    color: #008CC9;
-    font-size: 1.1rem;
-    padding-left: 10px;
-    padding-right: 10px; }
-  .users__table__icon {
-    font-size: 42px !important;
-    color: #707070 !important;
-    width: 60px; }
-    @media only screen and (max-width: 940px) {
-      .users__table__icon {
-        display: none;
-        width: 0; } }
-  @media only screen and (max-width: 700px) {
-    .users__table__email {
+@media only screen and (max-width: 700px) {
+  .users__table__email {
+    display: none;
+    width: 0; } }
+
+@media only screen and (max-width: 880px) {
+  .users__table__phone {
+    display: none;
+    width: 0; } }
+
+.users__table__admin, .users__table__manager {
+  width: 100px;
+  text-align: center; }
+  @media only screen and (max-width: 1300px) {
+    .users__table__admin, .users__table__manager {
       display: none;
       width: 0; } }
-  @media only screen and (max-width: 880px) {
-    .users__table__phone {
+
+.users__table__options {
+  text-align: center;
+  width: 100px;
+  position: relative; }
+  .users__table__options svg {
+    width: 28px; }
+    .users__table__options svg circle {
+      fill: #444444; }
+
+.tasks__table__icon {
+  font-size: 42px !important;
+  color: #707070 !important;
+  width: 60px; }
+  @media only screen and (max-width: 940px) {
+    .tasks__table__icon {
       display: none;
       width: 0; } }
-  .users__table__admin, .users__table__manager {
-    width: 100px;
-    text-align: center; }
-    @media only screen and (max-width: 1300px) {
-      .users__table__admin, .users__table__manager {
-        display: none;
-        width: 0; } }
-  .users__table__options {
-    text-align: center;
-    width: 100px;
-    position: relative; }
-    .users__table__options svg {
-      width: 28px; }
-      .users__table__options svg circle {
-        fill: #444444; }
+
+.tasks__table__state {
+  width: 120px; }
+  @media only screen and (max-width: 1150px) {
+    .tasks__table__state {
+      width: 120px; } }
+  @media only screen and (max-width: 650px) {
+    .tasks__table__state {
+      display: none;
+      width: 0; } }
+
+.tasks__table__actualization_date {
+  width: 250px; }
+  @media only screen and (max-width: 1400px) {
+    .tasks__table__actualization_date {
+      display: none;
+      width: 0; } }
+
+.tasks__table__priority {
+  width: 140px; }
+  @media only screen and (max-width: 1150px) {
+    .tasks__table__priority {
+      width: 120px; } }
+  @media only screen and (max-width: 820px) {
+    .tasks__table__priority {
+      display: none;
+      width: 0; } }
+
+.tasks__table__deadline {
+  width: 140px; }
+  @media only screen and (max-width: 1020px) {
+    .tasks__table__deadline {
+      display: none;
+      width: 0; } }
+
+.tasks__table__options {
+  text-align: center;
+  width: 100px;
+  position: relative; }
+  .tasks__table__options svg {
+    width: 28px; }
+    .tasks__table__options svg circle {
+      fill: #444444; }
 
 .user__data-table, .user__task-table {
   display: table;

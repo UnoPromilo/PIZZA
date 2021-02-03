@@ -1,0 +1,60 @@
+﻿@page "/tasks"
+@using PIZZA.WebAssembly.Shared.Tasks
+
+<div class="page__header">
+    <h1 class="page__h1">Zadania</h1>
+    <div class="page__search">
+        <input class="page__search__input" placeholder="Szukaj" type="search" />
+        <button class="page__search__button material-icons">
+            search
+        </button>
+    </div>
+</div>
+<EditForm Model="TaskSearchOptions" class="page__options">
+    <a class="page__options__button" href="/newtask">
+        <span class="page__options__button__icon material-icons">
+            add
+        </span>
+        <p class="page__options__button__text">Dodaj nowe zadanie</p>
+    </a>
+    <a class="page__options__button">
+        <InputFieldCheckbox Name="@nameof(TaskSearchOptions.ShowOnlyNotFinished)" @bind-Value="TaskSearchOptions.ShowOnlyNotFinished" class="page__options__button__icon page__input--scale07 page__input--nomarigin" />
+        <label for="@nameof(TaskSearchOptions.ShowOnlyNotFinished)" class="page__options__button__text">Pokaż tylko nieukończone zadania</label>
+    </a>
+    <a class="page__options__button">
+        <InputFieldCheckbox Name="@nameof(TaskSearchOptions.ShowUnassignedToMe)" @bind-Value="TaskSearchOptions.ShowUnassignedToMe" class="page__options__button__icon page__input--scale07 page__input--nomarigin" />
+        <label for="@nameof(TaskSearchOptions.ShowUnassignedToMe)" class="page__options__button__text">Pokaż także nieprzypisane do mnie</label>
+    </a>
+</EditForm>
+<table class="tasks__table page__table">
+    <thead>
+        <tr>
+            <th class="tasks__table__icon">
+            </th>
+            <th class="tasks__table__name">
+                Nazwa zadania
+            </th>
+            <th class="tasks__table__state">
+                Status
+            </th>
+            <th class="tasks__table__actualization_date">
+                Ostatnia aktualizacja
+            </th>
+            <th class="tasks__table__priority">
+                Priorytet
+            </th>
+            <th class="tasks__table__deadline">
+                Deadline
+            </th>
+            <th class="tasks__table__options">
+                Opcje
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @*<Record Employee="employee" />
+        <Record Employee="employee" />*@
+
+    </tbody>
+</table>
+

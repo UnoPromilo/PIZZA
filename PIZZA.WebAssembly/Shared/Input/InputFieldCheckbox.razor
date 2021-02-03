@@ -1,14 +1,17 @@
 ﻿@inherits InputBase<bool>
 
-<div class="page__input d-flex">
+<div class="page__input d-flex @CssClass">
     <label class="toggle-switch">
         <input type="checkbox" id="@Name"
                @bind="CurrentValue" />
-        <span class="toggle-switch__slider @CssClass"></span>
+        <span class="toggle-switch__slider"></span>
     </label>
     @if (!String.IsNullOrWhiteSpace(Label))
     {
         <label class="page__input__title">@Label</label>
     }
-    <ValidationMessage For="For" class="page__input__validation"></ValidationMessage>
+    @if(For is not null)
+    {
+        <ValidationMessage For="For" class="page__input__validation"></ValidationMessage>
+    }
 </div>

@@ -1,0 +1,10 @@
+﻿@inherits InputBase<DateTime>
+
+
+<div class="page__input">
+    <label class="page__input__title">@Label</label>
+    <input type="date" id="@Name"
+           class="page__input__box @CssClass"
+           @bind="CurrentValue" />
+    <ValidationMessage For="For" class="page__input__validation"></ValidationMessage>
+</div>

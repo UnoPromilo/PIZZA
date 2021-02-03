@@ -1,0 +1,118 @@
+﻿@page "/task"
+@using PIZZA.WebAssembly.Shared.Users
+
+<div class="page__header">
+    <h1 class="page__h1">@TaskModel.Name</h1>
+</div>
+<div class="page__options">
+    <a class="page__options__button">
+        <span class="page__options__button__icon material-icons">
+            delete_forever
+        </span>
+        <p class="page__options__button__text">Usuń zadanie</p>
+    </a>
+</div>
+
+<div class="page__col page__col--two-col">
+    <div class="page__col__col">
+        <div class="page__col__col__h">
+            <h3>Dane osobowe</h3>
+            <h4>Kliknij aby edytować</h4>
+        </div>
+        <div class="page__col__col__content">
+            <EditForm Model="TaskModel" class="user__data-table">
+                <DataAnnotationsValidator />
+                <tr>
+                    <label for="@nameof(TaskModel.Name)" class="user__data-table__name">Nazwa</label>
+                    <td class="user__data-table__value">
+                        <InputText id="@nameof(TaskModel.Name)"
+                                   class="page__input--hidden"
+                                   @bind-Value="TaskModel.Name" />
+                    </td>
+                </tr>
+                <tr>
+                    <label for="@nameof(TaskModel.Priority)" class="user__data-table__name">Priorytet</label>
+                    <td class="user__data-table__value">
+                        <InputSelect id="@nameof(TaskModel.Priority)"
+                                     class="page__input--hidden"
+                                     @bind-Value="TaskModel.Priority">
+                            @foreach(TaskPriority item in Enum.GetValues(typeof(TaskPriority)))
+                            {
+                                <option value="@item">@item.Name()</option>
+                            }
+                        </InputSelect>
+                    </td>
+                </tr>
+                <tr>
+                    <label for="@nameof(TaskModel.Deadline)" class="user__data-table__name">Deadline</label>
+                    <td class="user__data-table__value">
+                        <InputDate id="@nameof(TaskModel.Deadline)"
+                                   class="page__input--hidden"
+                                   @bind-Value="TaskModel.Deadline" />
+                    </td>
+                </tr>
+                <tr>
+                    <label for="@nameof(TaskModel.CreationDate)" class="user__data-table__name">Data utworzenia</label>
+                    <td class="user__data-table__value">
+                        @TaskModel.CreationDate
+                    </td>
+                </tr>
+                <tr>
+                    <label for="@nameof(TaskModel.LastActualization)" class="user__data-table__name">Ostatnia aktualizacja</label>
+                    <td class="user__data-table__value">
+                        @TaskModel.LastActualization
+                    </td>
+                </tr>
+                <tr>
+                    <label for="@nameof(TaskModel.Finished)" class="user__data-table__name">Ukończony</label>
+                    <td class="user__data-table__value">
+                        <InputFieldCheckbox Name="@nameof(TaskModel.Finished)"
+                                            @bind-Value="TaskModel.Finished"
+                                            class="page__input--nomarigin" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="user__data-table__name"></td>
+                    <td class="user__data-table__value">
+                        <button type="submit" class="page__submit">Zapisz</button>
+                    </td>
+                </tr>
+            </EditForm>
+        </div>
+    </div>
+    <div class="page__col__col">
+        <div class="page__col__col__h">
+            <h3>Niedawno zaktualizowane przypisane zadania</h3>
+            <h4>Kliknij aby przejść do zadania</h4>
+        </div>
+        <div class="page__col__col__content">
+            <table class="user__task-table">
+                <tr>
+                    <td class="user__task-table__name">
+                        Przykładowe jakieś zadanie 1
+                    </td>
+                    <td class="user__task-table__role">
+                        Twórca
+                    </td>
+                </tr>
+                <tr>
+                    <td class="user__task-table__name">
+                        Przykładowe jakieś zadanie 2
+                    </td>
+                    <td class="user__task-table__role">
+                        Obserwator
+                    </td>
+                </tr>
+                <tr>
+                    <td class="user__task-table__name">
+                        Przykładowe jakieś zadanie 3
+                    </td>
+                    <td class="user__task-table__role">
+                        Edytor
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
