@@ -1,6 +1,12 @@
 ﻿@page "/"
-
-<h1>
-    Hello world
-</h1>
+@attribute [Authorize]
+<AuthorizeView>
+    <Authorized>
+        Hello, @context.User.Identity.Name!
+        <a href="authentication/logout">Log out</a>
+    </Authorized>
+    <NotAuthorized>
+        <a href="authentication/login">Log in</a>
+    </NotAuthorized>
+</AuthorizeView>
 

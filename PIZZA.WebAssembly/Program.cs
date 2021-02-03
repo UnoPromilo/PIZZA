@@ -21,7 +21,6 @@ namespace PIZZA.WebAssembly
             builder.Services.AddHttpClient("api",
                client => client.BaseAddress = new Uri(builder.Configuration["Server"]));
             ConfigureServices(builder.Services);
-
             await builder.Build().RunAsync();
         }
 
@@ -32,7 +31,7 @@ namespace PIZZA.WebAssembly
                     .AddAuthorizationCore()
                     .AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>()
                     .AddScoped<IAuthService, AuthService>()
-                    .AddBlazorContextMenu(options=>
+                    .AddBlazorContextMenu(options =>
                     {
                         options.ConfigureTemplate(defaultTemplate =>
                         {
@@ -40,7 +39,9 @@ namespace PIZZA.WebAssembly
                             defaultTemplate.MenuShownCssClass = "context";
                         });
                     })
-                    .AddPopupService("default");
+                    .AddPopupService("default")
+                    .AddAuthorizationCore()
+                    .AddOptions();
         }
     }
 }

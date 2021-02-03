@@ -17,36 +17,42 @@
     </div>
     <ul class="@NavMenuCssClass navigation__list">
         <li class="navigation__item navigation__toggler--nav">
-            <NavLink class="navigation__link"  @onclick="ToggleNavMenu">
+            <NavLink class="navigation__link" @onclick="ToggleNavMenu">
                 <span class="navigation__icon material-icons">
                     menu_open
                 </span>
 
             </NavLink>
         </li>
-        <li class="navigation__item">
-            <NavLink class="navigation__link" href="tasks" >
-                <span class="navigation__icon material-icons">
-                    task_alt
-                </span>
+        <AuthorizeView>
+            <li class="navigation__item">
+                <NavLink class="navigation__link" href="tasks">
+                    <span class="navigation__icon material-icons">
+                        task_alt
+                    </span>
 
-            </NavLink>
-        </li>
-        <li class="navigation__item">
-            <NavLink class="navigation__link" href="users">
-                <span class="navigation__icon material-icons">
-                    account_circle
-                </span>
-            </NavLink>
-        </li>
-        <li class="navigation__item">
-            <NavLink class="navigation__link" href="fetchdata">
-                <span class="navigation__icon material-icons">
-                    insert_drive_file
-                </span>
-            </NavLink>
-        </li>
-    </ul>
+                </NavLink>
+            </li>
+        </AuthorizeView>
+        <AuthorizeView Roles="Admin, Manager">
+            <li class="navigation__item">
+                <NavLink class="navigation__link" href="users">
+                    <span class="navigation__icon material-icons">
+                        account_circle
+                    </span>
+                </NavLink>
+            </li>
+        </AuthorizeView>
+        @*<AuthorizeView>
+            <li class="navigation__item">
+                <NavLink class="navigation__link" href="fetchdata">
+                    <span class="navigation__icon material-icons">
+                        insert_drive_file
+                    </span>
+                </NavLink>
+            </li>
+        </AuthorizeView>*@
+</ul>
 </div>
 
 

@@ -175,4 +175,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="AddressLine" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="e2194a1c-1331-41f0-9204-dbe69a85a623" ChangeDateTime="02/03/2021 12:13:11">
+    <Property Name="ElementName" Value="[dbo].[EmployeeTask].[EmployeeID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[EmployeeTask]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Employee" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="be96aeff-83c9-4a6d-8497-9a6da2b852a3" ChangeDateTime="02/03/2021 12:13:12">
+    <Property Name="ElementName" Value="[dbo].[EmployeeTask].[TaskID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[EmployeeTask]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Task" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0b5e508d-d7ef-48dc-9dd6-8bcda1f3fba3" ChangeDateTime="02/03/2021 12:13:26">
+    <Property Name="ElementName" Value="[dbo].[FileTask].[FileGUID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[FileTask]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="File" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ade451ea-697d-4752-adeb-79d9f94e1706" ChangeDateTime="02/03/2021 12:13:28">
+    <Property Name="ElementName" Value="[dbo].[FileTask].[TaskID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[FileTask]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Task" />
+  </Operation>
 </Operations>

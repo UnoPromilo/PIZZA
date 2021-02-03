@@ -1,22 +1,26 @@
 ﻿@page "/users"
+@attribute [Authorize(Roles ="Admin, Manager")]
+
 @using PIZZA.WebAssembly.Shared.Users
 
 <div class="page__header">
     <h1 class="page__h1">Użytkownicy</h1>
     <div class="page__search">
-        <input class="page__search__input" placeholder="Szukaj" type="search"/>
+        <input class="page__search__input" placeholder="Szukaj" type="search" />
         <button class="page__search__button material-icons">
             search
         </button>
     </div>
 </div>
 <div class="page__options">
-    <a class="page__options__button" href="/newuser">
-        <span class="page__options__button__icon material-icons">
-            add
-        </span>
-        <p class="page__options__button__text">Dodaj nowego użytkownika</p>
-    </a>
+    <AuthorizeView Roles="Admin">
+        <a class="page__options__button" href="/newuser">
+            <span class="page__options__button__icon material-icons">
+                add
+            </span>
+            <p class="page__options__button__text">Dodaj nowego użytkownika</p>
+        </a>
+    </AuthorizeView>
 </div>
 <table class="users__table page__table">
     <thead>
@@ -44,9 +48,9 @@
         </tr>
     </thead>
     <tbody>
-        <Record Employee="employee"/>
-        <Record Employee="employee"/>
-        
+        <Record Employee="employee" />
+        <Record Employee="employee" />
+
     </tbody>
 </table>
 

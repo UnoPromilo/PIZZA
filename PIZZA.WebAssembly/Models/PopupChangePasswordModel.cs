@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using PIZZA.Models.User;
+﻿using System.Collections.Generic;
+using PIZZA.Models.Authentication;
 namespace PIZZA.WebAssembly.Models
 {
     public class PopupChangePasswordModel:IPopupModel

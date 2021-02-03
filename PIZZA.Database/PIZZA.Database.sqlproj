@@ -57,24 +57,41 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="Tables" />
+    <Folder Include="Views" />
+    <Folder Include="Procedures" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PIZZA.Database.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="ApplicationUser.sql" />
-    <Build Include="ApplicationUserRole.sql" />
-    <Build Include="ApplicationRole.sql" />
-    <Build Include="Task.sql" />
-    <Build Include="EmployeeTask.sql" />
-    <Build Include="TaskNote.sql" />
-    <Build Include="TaskState.sql" />
-    <Build Include="File.sql" />
-    <Build Include="FileTask.sql" />
-    <Build Include="CreateTask.sql" />
-    <Build Include="TaskStateWithNote.sql" />
-    <Build Include="Employee.sql" />
-    <Build Include="FileWithTask.sql" />
+    <Build Include="Tables\ApplicationRole.sql" />
+    <Build Include="Tables\ApplicationUser.sql" />
+    <Build Include="Tables\ApplicationUserRole.sql" />
+    <Build Include="Tables\File.sql" />
+    <Build Include="Tables\FileTask.sql" />
+    <Build Include="Tables\TaskModel.sql" />
+    <Build Include="Tables\TaskNote.sql" />
+    <Build Include="Tables\TaskState.sql" />
+    <Build Include="Procedures\CreateTask.sql" />
+    <Build Include="Views\Employee.sql" />
+    <Build Include="Tables\EmployeeTask.sql" />
+    <Build Include="Views\FileWithTask.sql" />
+    <Build Include="Views\TaskWithActualStateAndCreator.sql" />
+    <Build Include="Procedures\CreateUser.sql" />
+    <Build Include="Procedures\FindUserById.sql" />
+    <Build Include="Procedures\FindUserByName.sql" />
+    <Build Include="Procedures\UpdateUser.sql" />
+    <Build Include="Procedures\FindUserByEmail.sql" />
+    <Build Include="Procedures\AddUserToRole.sql" />
+    <Build Include="Procedures\RemoveUserFromRole.sql" />
+    <Build Include="Procedures\GetUserRoles.sql" />
+    <Build Include="Procedures\IsUserInRole.sql" />
+    <Build Include="Procedures\GetUsersInRole.sql" />
+    <Build Include="Procedures\CreateRole.sql" />
+    <Build Include="Procedures\UpdateRole.sql" />
+    <Build Include="Procedures\FindRoleById.sql" />
+    <Build Include="Procedures\FindRoleByName.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PIZZA.Database.publish.xml" />

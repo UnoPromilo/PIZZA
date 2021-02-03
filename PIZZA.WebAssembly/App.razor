@@ -9,7 +9,15 @@
             }
             else if (ConfigurationStatus is not null)
             {
-                <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+                <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                    <NotAuthorized>
+                        <p>Nie jesteœ tutaj mile widziany.</p>
+                        @NavigateToLogin()
+                    </NotAuthorized>
+                    <Authorizing>
+                        <p>Czekaj, tylko sprawdzê czy mam Ciê na liœcie...</p>
+                    </Authorizing>
+                </AuthorizeRouteView>
             }
         </Found>
         <NotFound>

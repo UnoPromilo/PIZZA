@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNetCore.Components.Web;
-using PIZZA.Models.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using PIZZA.Models.User;
 
 namespace PIZZA.WebAssembly.Pages
 {
     public partial class Users
     {
-        private Employee employee = new()
+        private EmployeeModel employee = new()
         {
             FirstName = "Jan",
             LastName = "Kowalski",

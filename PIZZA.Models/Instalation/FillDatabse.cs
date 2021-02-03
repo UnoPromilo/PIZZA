@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PIZZA.Models.Instalation
+﻿namespace PIZZA.Models.Instalation
 {
     public class FillDatabse
     {

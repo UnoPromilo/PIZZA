@@ -1,11 +1,8 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using PIZZA.Models.User;
-using System;
-using System.Collections.Generic;
+using PIZZA.DataAccess.ApplicationRoleDatabase;
+using PIZZA.Models.Database;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,24 +10,18 @@ namespace PIZZA.WebApi.Authentication
 {
     public class RoleStore : IRoleStore<ApplicationRole>
     {
-        private readonly string _connectionString;
+        IApplicationRoleRepository roleRepository;
 
-        public RoleStore(CustomSettings configuration)
+        public RoleStore(IApplicationRoleRepository applicationRoleRepository)
         {
-            _connectionString = configuration.ConnectionString;
+            roleRepository = applicationRoleRepository;
         }
 
         public async Task<IdentityResult> CreateAsync(ApplicationRole role, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync(cancellationToken);
-                role.ID = await connection.QuerySingleAsync<int>($@"INSERT INTO [ApplicationRole] ([Name], [NormalizedName])
-                    VALUES (@{nameof(ApplicationRole.Name)}, @{nameof(ApplicationRole.NormalizedName)});
-                    SELECT CAST(SCOPE_IDENTITY() as int)", role);
-            }
+            role.ID = await roleRepository.Create(role);
 
             return IdentityResult.Success;
         }
@@ -39,14 +30,7 @@ namespace PIZZA.WebApi.Authentication
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync(cancellationToken);
-                await connection.ExecuteAsync($@"UPDATE [ApplicationRole] SET
-                    [Name] = @{nameof(ApplicationRole.Name)},
-                    [NormalizedName] = @{nameof(ApplicationRole.NormalizedName)}
-                    WHERE [ID] = @{nameof(ApplicationRole.ID)}", role);
-            }
+            await roleRepository.Update(role);
 
             return IdentityResult.Success;
         }
@@ -55,11 +39,7 @@ namespace PIZZA.WebApi.Authentication
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync(cancellationToken);
-                await connection.ExecuteAsync($"DELETE FROM [ApplicationRole] WHERE [ID] = @{nameof(ApplicationRole.ID)}", role);
-            }
+            await roleRepository.Delete(role);
 
             return IdentityResult.Success;
         }
@@ -95,24 +75,15 @@ namespace PIZZA.WebApi.Authentication
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync(cancellationToken);
-                return await connection.QuerySingleOrDefaultAsync<ApplicationRole>($@"SELECT * FROM [ApplicationRole]
-                    WHERE [ID] = @{nameof(roleId)}", new { roleId });
-            }
+            return await roleRepository.FindById(roleId);
         }
 
         public async Task<ApplicationRole> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync(cancellationToken);
-                return await connection.QuerySingleOrDefaultAsync<ApplicationRole>($@"SELECT * FROM [ApplicationRole]
-                    WHERE [NormalizedName] = @{nameof(normalizedRoleName)}", new { normalizedRoleName });
-            }
+            return await roleRepository.FindByName(normalizedRoleName);
+
         }
 
         public void Dispose()

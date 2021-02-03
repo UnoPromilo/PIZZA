@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PIZZA.Models.User
+﻿namespace PIZZA.Models.User
 {
     public interface IEmployee
     {

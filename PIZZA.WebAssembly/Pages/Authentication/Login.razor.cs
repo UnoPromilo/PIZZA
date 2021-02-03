@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using PIZZA.Models.User;
+using PIZZA.Models.Authentication;
 using PIZZA.WebAssembly.Api.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PIZZA.WebAssembly.Pages.Authentication

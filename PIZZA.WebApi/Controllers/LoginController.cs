@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using PIZZA.Models.Authentication;
+using PIZZA.Models.Database;
 using PIZZA.Models.Results;
-using PIZZA.Models.User;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,10 +47,16 @@ namespace PIZZA.WebApi.Controllers
 
             if (!result.Succeeded) return Unauthorized(new LoginResult { Successful = false, Error = "Nazwa użytkownika lub hasło są niepoprawne." });
 
-            var claims = new[]
+
+            var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Name, login.UserName));
+            var user = await _signInManager.UserManager.FindByNameAsync(login.UserName);
+            var roles = await _signInManager.UserManager.GetRolesAsync(user);
+            foreach (var role in roles)
             {
-            new Claim(ClaimTypes.Name, login.UserName)
-        };
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.JwtSecurityKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

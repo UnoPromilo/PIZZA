@@ -2,11 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PIZZA.Enums;
+using PIZZA.Models.Database;
 using PIZZA.Models.Instalation;
-using PIZZA.Models.Results;
-using PIZZA.Models.User;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -111,6 +109,12 @@ namespace PIZZA.WebApi.Controllers.Instalation
         {
             var newUser = new ApplicationUser { UserName = administratorUserCreationModel.Username, Email = administratorUserCreationModel.Email };
             var result = await _userManager.CreateAsync(newUser, administratorUserCreationModel.NewPassowrd);
+            if (!result.Succeeded)
+            {
+                return false;
+            }
+            result = await _userManager.AddToRoleAsync(newUser, "Admin");
+
             if (!result.Succeeded)
             {
                 return false;

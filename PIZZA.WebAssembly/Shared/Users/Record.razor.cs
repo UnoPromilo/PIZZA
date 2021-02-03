@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using PIZZA.Models.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PIZZA.WebAssembly.Shared.Users
 {
     public partial class Record
     {
         [Parameter]
-        public Employee Employee { get; set; }
+        public EmployeeModel Employee { get; set; }
 
         public Record()
         {
