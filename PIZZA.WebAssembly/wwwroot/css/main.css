@@ -1,4 +1,5 @@
-﻿.page {
+﻿@charset "UTF-8";
+.page {
   background: #ff8fff;
   background: linear-gradient(1RAD, #ff8fff 7%, #b2f3f0 47%, #ff94f7 63%, #82e6ff 93%);
   min-height: 100vh;
@@ -215,7 +216,8 @@
       font-weight: 400;
       white-space: nowrap;
       padding-left: 10px;
-      padding-right: 10px; }
+      padding-right: 10px;
+      cursor: pointer; }
     .page__table tbody tr:hover {
       background: rgba(255, 255, 255, 0.3); }
     .page__table td {
@@ -223,6 +225,14 @@
       font-size: 1.1rem;
       padding-left: 10px;
       padding-right: 10px; }
+    .page__table--asc, .page__table--desc {
+      color: #151515 !important; }
+      .page__table--asc::after, .page__table--desc::after {
+        position: absolute; }
+    .page__table--asc::after {
+      content: '▲'; }
+    .page__table--desc::after {
+      content: '▼'; }
 
 #page__circle-1 {
   top: 400px;

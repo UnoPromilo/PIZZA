@@ -27,19 +27,19 @@
         <tr>
             <th class="users__table__icon">
             </th>
-            <th class="users__table__name">
+            <th class="users__table__name @OrderClass(OrderBy.Name)" @onclick="() => ChangeOrder(OrderBy.Name)">
                 Imię i nazwisko
             </th>
-            <th class="users__table__email">
+            <th class="users__table__email @OrderClass(OrderBy.Email)" @onclick="() => ChangeOrder(OrderBy.Email)">
                 Email
             </th>
-            <th class="users__table__phone">
+            <th class="users__table__phone @OrderClass(OrderBy.Phone)" @onclick="() => ChangeOrder(OrderBy.Phone)">
                 Numer telefonu
             </th>
-            <th class="users__table__admin">
+            <th class="users__table__admin @OrderClass(OrderBy.Admin)" @onclick="() => ChangeOrder(OrderBy.Admin)">
                 Admin
             </th>
-            <th class="users__table__manager">
+            <th class="users__table__manager @OrderClass(OrderBy.Manager)" @onclick="() => ChangeOrder(OrderBy.Manager)">
                 Manager
             </th>
             <th class="users__table__options">
@@ -48,8 +48,13 @@
         </tr>
     </thead>
     <tbody>
-        <Record Employee="employee" />
-        <Record Employee="employee" />
+        @if(employees is not null)
+        {
+            foreach (var item in employees)
+            {
+                <Record Employee="item"/>
+            }
+        }
 
     </tbody>
 </table>

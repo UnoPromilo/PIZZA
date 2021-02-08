@@ -169,10 +169,12 @@ $nav-min-width: 641px;
             display: block;
             padding-left: 20px;
         }
-        textarea{
+
+        textarea {
             resize: none;
             height: 17rem;
         }
+
         &__box {
             border-radius: calc(48px/2);
             border: 1px solid white;
@@ -318,6 +320,7 @@ $nav-min-width: 641px;
             white-space: nowrap;
             padding-left: 10px;
             padding-right: 10px;
+            cursor: pointer;
         }
 
         tbody {
@@ -333,6 +336,26 @@ $nav-min-width: 641px;
             font-size: 1.1rem;
             padding-left: 10px;
             padding-right: 10px;
+        }
+
+        &--asc,
+        &--desc {
+            color: #151515 !important;
+            &::after {
+                position: absolute;
+            }
+        }
+
+        &--asc {
+            &::after {
+                content: '▲';
+            }
+        }
+
+        &--desc {
+            &::after {
+                content: '▼';
+            }
         }
     }
 }
@@ -481,7 +504,7 @@ $nav-min-width: 641px;
 
 .users {
     &__table {
-        
+
         &__icon {
             font-size: 42px !important;
             color: #707070 !important;
@@ -498,6 +521,8 @@ $nav-min-width: 641px;
                 display: none;
                 width: 0;
             }
+
+            
         }
 
         &__phone {

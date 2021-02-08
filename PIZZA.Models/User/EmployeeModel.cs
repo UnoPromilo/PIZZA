@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PIZZA.Models.Database;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PIZZA.Models.User
 {
@@ -35,5 +37,7 @@ namespace PIZZA.Models.User
 
         [StringLength(50, ErrorMessage = "Miasto nie może być dłuższe niż 50 znaków.")]
         public string Town { get; set; }
+
+        public List<ApplicationRole> Roles { get; set; } = new List<ApplicationRole>();
     }
 }

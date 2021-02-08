@@ -1,0 +1,10 @@
+﻿CREATE PROCEDURE [dbo].[GetUsers]
+AS
+BEGIN
+	SELECT *
+		FROM [ApplicationUser] u 
+		INNER JOIN [ApplicationUserRole] ur ON ur.UserID = u.ID
+		INNER JOIN [ApplicationRole] r ON r.ID = ur.RoleID
+		ORDER BY UserID;
+END
+
