@@ -11,7 +11,7 @@
         </span>
         <p class="page__options__button__text">Zmień hasło</p>
     </a>
-    <a class="page__options__button">
+    <a class="page__options__button" @onclick="Delete">
         <span class="page__options__button__icon material-icons">
             delete_forever
         </span>
@@ -26,7 +26,7 @@
             <h4>Kliknij aby edytować</h4>
         </div>
         <div class="page__col__col__content">
-            <EditForm Model="Employee" class="user__data-table">
+            <EditForm Model="Employee" OnValidSubmit="SaveChanges" class="user__data-table">
                 <DataAnnotationsValidator />
                 <tr>
                     <label for="@nameof(Employee.FirstName)" class="user__data-table__name">Imię</label>

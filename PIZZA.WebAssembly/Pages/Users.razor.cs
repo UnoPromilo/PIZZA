@@ -4,6 +4,7 @@ using PIZZA.WebAssembly.Api.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Threading;
 
 namespace PIZZA.WebAssembly.Pages
 {
@@ -14,12 +15,44 @@ namespace PIZZA.WebAssembly.Pages
 
         private OrderBy actualOrder = OrderBy.Unordered;
         private bool isAscending = false;
-        private bool sorting = false;
+        private bool loading = false;
 
         private List<EmployeeModel> employees;
+        private string queryString;
+
+        private CancellationTokenSource QueryCancellationTokenSource =new CancellationTokenSource();
+
+        private string QueryString
+        {
+            get => queryString;
+            set
+            {
+                queryString = value;
+                _=Query(value);
+            }
+        }
+
         protected override async Task OnInitializedAsync()
         {
-            employees = await employeeService.GetEmployees();
+            await Query("");
+        }
+
+        private async Task Query(string query)
+        {
+            QueryCancellationTokenSource.Cancel();
+            QueryCancellationTokenSource = new();
+            loading = true;
+            StateHasChanged();
+            try
+            {
+                employees = await employeeService.GetEmployees(QueryCancellationTokenSource.Token, query);
+                Order(actualOrder, isAscending);
+            }
+            finally
+            {
+                loading = false;
+                InvokeAsync(StateHasChanged);
+            }
         }
 
         private void ChangeOrder(OrderBy item)
@@ -30,60 +63,65 @@ namespace PIZZA.WebAssembly.Pages
                 actualOrder = item;
                 isAscending = true;
             }
-            sorting = true;
+            loading = true;
             StateHasChanged();
             try
             {
-                switch (item)
-                {
-                    case OrderBy.Unordered:
-                        break;
-                    case OrderBy.Name:
-                        if (isAscending)
-                            employees = employees.OrderBy(e => e.FirstName + e.FirstName).ToList();
-                        else
-                            employees = employees.OrderByDescending(e => e.FirstName + e.FirstName).ToList();
-                        break;
-                    case OrderBy.Email:
-                        if (isAscending)
-                            employees = employees.OrderBy(e => e.Email).ToList();
-                        else
-                            employees = employees.OrderByDescending(e => e.Email).ToList();
-                        break;
-                    case OrderBy.Phone:
-                        if (isAscending)
-                            employees = employees.OrderBy(e => e.PhoneNumber).ToList();
-                        else
-                            employees = employees.OrderByDescending(e => e.PhoneNumber).ToList();
-                        break;
-                    case OrderBy.Admin:
-                        if (isAscending)
-                            employees = employees.OrderBy(e =>
-                                                            e.Roles.Where(r => r.NormalizedName == "ADMIN").Count() > 0)
-                                                            .ToList();
-                        else
-                            employees = employees.OrderBy(e =>
-                                                            e.Roles.Where(r => r.NormalizedName == "ADMIN").Count() > 0)
-                                                            .ToList();
-                        break;
-                    case OrderBy.Manager:
-                        if (isAscending)
-                            employees = employees.OrderBy(e =>
-                                                            e.Roles.Where(r => r.NormalizedName == "MANAGER").Count() > 0)
-                                                            .ToList();
-                        else
-                            employees = employees.OrderBy(e =>
-                                                            e.Roles.Where(r => r.NormalizedName == "MANAGER").Count() > 0)
-                                                            .ToList();
-                        break;
-                    default:
-                        break;
-                }
+                Order(actualOrder, isAscending);
             }
             finally
             {
-                sorting = false;
+                loading = false;
                 StateHasChanged();
+            }
+        }
+
+        private void Order(OrderBy item, bool ascending)
+        {
+            switch (item)
+            {
+                case OrderBy.Unordered:
+                    break;
+                case OrderBy.Name:
+                    if (ascending)
+                        employees = employees.OrderBy(e => e.FirstName + e.FirstName).ToList();
+                    else
+                        employees = employees.OrderByDescending(e => e.FirstName + e.FirstName).ToList();
+                    break;
+                case OrderBy.Email:
+                    if (ascending)
+                        employees = employees.OrderBy(e => e.Email).ToList();
+                    else
+                        employees = employees.OrderByDescending(e => e.Email).ToList();
+                    break;
+                case OrderBy.Phone:
+                    if (ascending)
+                        employees = employees.OrderBy(e => e.PhoneNumber).ToList();
+                    else
+                        employees = employees.OrderByDescending(e => e.PhoneNumber).ToList();
+                    break;
+                case OrderBy.Admin:
+                    if (ascending)
+                        employees = employees.OrderBy(e =>
+                                                        e.Roles.Where(r => r?.NormalizedName == "ADMIN").Count() > 0)
+                                                        .ToList();
+                    else
+                        employees = employees.OrderByDescending(e =>
+                                                        e.Roles.Where(r => r?.NormalizedName == "ADMIN").Count() > 0)
+                                                        .ToList();
+                    break;
+                case OrderBy.Manager:
+                    if (ascending)
+                        employees = employees.OrderBy(e =>
+                                                        e.Roles.Where(r => r?.NormalizedName == "MANAGER").Count() > 0)
+                                                        .ToList();
+                    else
+                        employees = employees.OrderByDescending(e =>
+                                                        e.Roles.Where(r => r?.NormalizedName == "MANAGER").Count() > 0)
+                                                        .ToList();
+                    break;
+                default:
+                    break;
             }
         }
 

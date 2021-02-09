@@ -21,9 +21,9 @@ namespace PIZZA.WebApi.Controllers.Employee
             _applicationEmployeeRepository = applicationEmployeeRepository;
         }
         [HttpGet]
-        public async Task<List<EmployeeModel>> Get()
+        public async Task<List<EmployeeModel>> Get([FromQuery]string query = null)
         {
-            return await _applicationEmployeeRepository.GetEmployees();
+            return await _applicationEmployeeRepository.GetEmployees(query);
         }
     }
 }

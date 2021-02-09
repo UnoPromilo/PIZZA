@@ -10,6 +10,6 @@ namespace PIZZA.DataAccess.ApplicationEmployeeDatabase
     public interface IApplicationEmployeeRepository
     {
         Task<EmployeeModel> FindById(string userId);
-        Task<List<EmployeeModel>> GetEmployees();
+        Task<List<EmployeeModel>> GetEmployees(string query);
     }
 }

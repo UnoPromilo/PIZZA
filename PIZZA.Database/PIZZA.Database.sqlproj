@@ -92,6 +92,7 @@
     <Build Include="Procedures\UpdateRole.sql" />
     <Build Include="Procedures\FindRoleById.sql" />
     <Build Include="Procedures\FindRoleByName.sql" />
+    <Build Include="Procedures\GetUsers.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PIZZA.Database.publish.xml" />

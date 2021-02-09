@@ -57,7 +57,6 @@ namespace PIZZA.WebApi.Controllers
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.JwtSecurityKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expiry = DateTime.Now.AddDays(Convert.ToInt32(_configuration.JwtExpiryInDays));
@@ -68,8 +67,8 @@ namespace PIZZA.WebApi.Controllers
                 claims,
                 expires: expiry,
                 signingCredentials: creds
+            
             );
-
             return Accepted(new LoginResult { Successful = true, Token = new JwtSecurityTokenHandler().WriteToken(token) });
         }
     }

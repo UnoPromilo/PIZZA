@@ -86,12 +86,17 @@ namespace PIZZA.WebApi
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = customSettings.JwtIssuer,
                     ValidAudience = customSettings.JwtAudience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(customSettings.JwtSecurityKey))
-
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(customSettings.JwtSecurityKey)),
+                    
+                    
                 };
             });
-            
 
+            services.Configure<SecurityStampValidatorOptions>(options =>
+            {
+                // enables immediate logout, after updating the user's stat.
+                options.ValidationInterval = TimeSpan.Zero;
+            });
 
             services.AddCors(options =>
             {

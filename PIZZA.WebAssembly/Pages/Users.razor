@@ -6,7 +6,7 @@
 <div class="page__header">
     <h1 class="page__h1">Użytkownicy</h1>
     <div class="page__search">
-        <input class="page__search__input" placeholder="Szukaj" type="search" />
+        <input class="page__search__input" placeholder="Szukaj" type="search" @bind-value="QueryString" />
         <button class="page__search__button material-icons">
             search
         </button>
@@ -48,12 +48,20 @@
         </tr>
     </thead>
     <tbody>
-        @if(employees is not null)
+        @if(employees is not null && !loading)
         {
             foreach (var item in employees)
             {
                 <Record Employee="item"/>
             }
+        }
+        else
+        {
+            <tr>
+                <td colspan="99" class="page__table--full-width-cell">
+                    Ładowanie
+                </td>
+            </tr>
         }
 
     </tbody>

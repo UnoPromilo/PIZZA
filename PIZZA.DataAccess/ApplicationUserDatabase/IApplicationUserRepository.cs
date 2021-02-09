@@ -16,9 +16,11 @@ namespace PIZZA.DataAccess.ApplicationUserDatabase
         Task<ApplicationUser> FindById(string userId);
         Task<ApplicationUser> FindByName(string normalizedUserName);
         Task<IList<string>> GetRoles(ApplicationUser user);
+        Task<string> GetSecurityStamp(ApplicationUser applicationUser);
         Task<IList<ApplicationUser>> GetUsersInRole(string roleName);
         Task<bool> IsInRole(ApplicationUser user, string roleName);
         Task RemoveFromRole(ApplicationUser user, string roleName);
         Task<int> Update(ApplicationUser user);
+        Task UpdateSecurityStamp(ApplicationUser applicationUser, string securityStamp);
     }
 }

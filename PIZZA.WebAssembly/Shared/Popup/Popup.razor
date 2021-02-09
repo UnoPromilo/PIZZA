@@ -1,7 +1,7 @@
 ﻿@if (popupModels.Count > 0)
 {
     <div class="popup__background">
-        <EditForm Model="currentModel.Model" class="popup">
+        <EditForm Model="currentModel.Model??new object()" class="popup">
 
                 @if (currentModel is PopupAlertModel alertModel)
                 {

@@ -37,6 +37,7 @@ namespace PIZZA.WebAssembly.Shared.Popup
 
         private void OnButtonClick(MouseEventArgs eventArgs, IPopupModel popupModel, PopupButton button)
         {
+            button.OnClick?.Invoke(this, eventArgs);
             if(button.CloseOnClick)
                 popupModels.Pop();
 

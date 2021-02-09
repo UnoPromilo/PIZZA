@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using PIZZA.Models.Authentication;
 using PIZZA.Models.User;
 using PIZZA.WebAssembly.Api.Services;
@@ -12,13 +13,13 @@ namespace PIZZA.WebAssembly.Pages
     public partial class User
     {
         [Inject]
-        private PopupService popupService { get; set; }
+        private PopupService PopupService { get; set; }
 
         [Inject]
         protected NavigationManager NavigationManager { get; set; }
 
         [Inject]
-        private IEmployeeService employeeService { get; set; } 
+        private IEmployeeService EmployeeService { get; set; } 
 
         private EmployeeModel Employee = new();
 
@@ -28,7 +29,7 @@ namespace PIZZA.WebAssembly.Pages
         protected override async Task OnInitializedAsync()
         {
 
-            Employee = await employeeService.GetEmployee(UserID);
+            Employee = await EmployeeService.GetEmployee(UserID);
             if (Employee == default) NavigationManager.NavigateTo("/");
             await base.OnInitializedAsync();
         }
@@ -43,8 +44,43 @@ namespace PIZZA.WebAssembly.Pages
                 },
                 PasswordModel = new PasswordChangeModel { ID = 1 }
             };
-            popupService.AddPopupModelToStack(popupModel);
+            PopupService.AddPopupModelToStack(popupModel);
             
+        }
+
+        void Delete()
+        {
+            PopupAlertModel model = new()
+            {
+                Title = "USUWANIE",
+                ContentAsString = "<p>Czy na pewno chcesz usunąć?</br> Uwaga, tej operacji nie można cofnąć!</p>",
+                Buttons = new List<PopupButton>
+            {
+                new PopupButton
+                {
+                    Content = "Tak",
+                    OnClick = (sender, args) => DeleteUser(Employee)
+                },
+
+                new PopupButton
+                {
+                    Content = "Nie"
+                }
+            }
+            };
+
+            PopupService.AddPopupModelToStack(model);
+        }
+
+        void DeleteUser(EmployeeModel employee)
+        {
+            EmployeeService.DeleteEmployee(employee.ID.ToString());
+            NavigationManager.NavigateTo("/users");
+        }
+
+        void SaveChanges(EditContext editContext)
+        {
+            EmployeeService.UpdateEmployee(Employee);
         }
     }
 

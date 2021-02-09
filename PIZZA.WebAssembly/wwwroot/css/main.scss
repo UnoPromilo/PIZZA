@@ -357,6 +357,10 @@ $nav-min-width: 641px;
                 content: '▼';
             }
         }
+
+        &--full-width-cell{
+            text-align: center;
+        }
     }
 }
 #page__circle {

@@ -18,7 +18,7 @@ namespace PIZZA.Models.User
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [StringLength(256, ErrorMessage = "Numer telefonu nie może być krótszy niż 7 znaków oraz dłuższy niż 50 znaków.", MinimumLength = 7)]
+        [StringLength(50, ErrorMessage = "Numer telefonu nie może być dłuższy niż 50 znaków.")]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Pole imię jest wymagane.")]

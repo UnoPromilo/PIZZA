@@ -9,6 +9,7 @@
 	@PhoneNumber nvarchar(50),
 	@PhoneNumberConfirmed bit = 0,
 	@TwoFactorEnabled bit = 0,
+	@SecurityStamp nvarchar(MAX),
 	@FirstName nvarchar(256),
 	@LastName nvarchar(256),
 	@AddressLine nvarchar(256),
@@ -19,11 +20,11 @@ BEGIN
 	INSERT INTO [ApplicationUser] ([UserName], [NormalizedUserName], [Email],
 								   [NormalizedEmail], [EmailConfirmed], [PasswordHash],
 								   [ForcePasswordChangeWhileNextLogin], [PhoneNumber], [PhoneNumberConfirmed],
-								   [TwoFactorEnabled], [FirstName], [LastName], [AddressLine], [PostalCode], [Town])
+								   [TwoFactorEnabled], [SecurityStamp], [FirstName], [LastName], [AddressLine], [PostalCode], [Town])
 								   VALUES
 								   (@UserName, @NormalizedUserName, @Email,
 								   @NormalizedEmail, @EmailConfirmed, @PasswordHash,
 								   @ForcePasswordChangeWhileNextLogin, @PhoneNumber, @PhoneNumberConfirmed,
-								   @TwoFactorEnabled, @FirstName, @LastName, @AddressLine, @PostalCode, @Town);
+								   @TwoFactorEnabled, @SecurityStamp, @FirstName, @LastName, @AddressLine, @PostalCode, @Town);
 	SELECT CAST(SCOPE_IDENTITY() as int);
 END

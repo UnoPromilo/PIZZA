@@ -17,8 +17,26 @@ namespace PIZZA.DataAccess.ApplicationUserDatabase
             using (var cnn = DbConnection)
             {
                 var procedure = "[CreateUser]";
-
-                id = await cnn.QuerySingleOrDefaultAsync<int>(procedure, user, commandType: CommandType.StoredProcedure);
+                var parameter = new
+                {
+                    user.UserName,
+                    user.NormalizedUserName,
+                    user.Email,
+                    user.NormalizedEmail,
+                    user.EmailConfirmed,
+                    user.PasswordHash,
+                    user.ForcePasswordChangeWhileNextLogin,
+                    user.PhoneNumber,
+                    user.PhoneNumberConfirmed,
+                    user.TwoFactorEnabled,
+                    user.SecurityStamp,
+                    user.FirstName,
+                    user.LastName,
+                    user.AddressLine,
+                    user.PostalCode,
+                    user.Town
+                };
+                id = await cnn.QuerySingleOrDefaultAsync<int>(procedure, parameter, commandType: CommandType.StoredProcedure);
             }
             return id;
         }
@@ -159,6 +177,37 @@ namespace PIZZA.DataAccess.ApplicationUserDatabase
                 output = await cnn.QueryAsync<ApplicationUser>(procedure, parameter, commandType: CommandType.StoredProcedure);
             }
             return output.AsList();
+        }
+
+        public async Task<string> GetSecurityStamp(ApplicationUser applicationUser)
+        {
+            string output;
+            using (var cnn = DbConnection)
+            {
+                var procedure = "[GetSecurityStamp]";
+                var parameters = new
+                {
+                    applicationUser.ID
+                };
+                output = await cnn.QuerySingleOrDefaultAsync<string>(procedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            applicationUser.SecurityStamp = output;
+            return output;
+        }
+
+        public async Task UpdateSecurityStamp(ApplicationUser applicationUser, string securityStamp)
+        {
+            using (var cnn = DbConnection)
+            {
+                var procedure = "[UpdateSecurityStamp]";
+                var parameters = new
+                {
+                    ID = applicationUser.ID,
+                    SecurityStamp = securityStamp
+                };
+                await cnn.ExecuteAsync(procedure, parameters, commandType: CommandType.StoredProcedure);
+                applicationUser.SecurityStamp = securityStamp;
+            }
         }
     }
 }

@@ -26,6 +26,8 @@ namespace PIZZA.Models.Database
 
         public bool TwoFactorEnabled { get; set; }
 
+        public string SecurityStamp { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

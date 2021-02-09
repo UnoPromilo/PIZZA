@@ -13,7 +13,7 @@ namespace PIZZA.Models.Authentication
 
         public string LastName { get; set; }
 
-        [StringLength(256, ErrorMessage = "Numer telefonu nie może być krótszy niż 7 znaków oraz dłuższy niż 50 znaków.", MinimumLength =7)]
+        [StringLength(50, ErrorMessage = "Numer telefonu nie może być dłuższy niż 50 znaków.")]
 
         public string PhoneNumber { get; set; }
 

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace PIZZA.WebApi.Authentication
 {
     public class UserStore : IUserStore<ApplicationUser>, IUserEmailStore<ApplicationUser>, IUserPhoneNumberStore<ApplicationUser>,
-        IUserTwoFactorStore<ApplicationUser>, IUserPasswordStore<ApplicationUser>, IUserRoleStore<ApplicationUser>
+        IUserTwoFactorStore<ApplicationUser>, IUserPasswordStore<ApplicationUser>, IUserRoleStore<ApplicationUser>, IUserSecurityStampStore<ApplicationUser>
     {
         IApplicationUserRepository userRepository;
 
@@ -215,6 +215,20 @@ namespace PIZZA.WebApi.Authentication
         public void Dispose()
         {
             // Nothing to dispose.
+        }
+
+        public Task SetSecurityStampAsync(ApplicationUser user, string stamp, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return userRepository.UpdateSecurityStamp(user, stamp);
+        }
+
+        public Task<string> GetSecurityStampAsync(ApplicationUser user, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return userRepository.GetSecurityStamp(user);
         }
     }
 }

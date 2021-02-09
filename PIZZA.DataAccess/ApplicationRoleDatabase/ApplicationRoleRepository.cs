@@ -18,7 +18,11 @@ namespace PIZZA.DataAccess.ApplicationRoleDatabase
             using (var cnn = DbConnection)
             {
                 var procedure = "[CreateRole]";
-
+                var parameter = new
+                {
+                    role.Name,
+                    role.NormalizedName
+                };
                 id = await cnn.QuerySingleOrDefaultAsync<int>(procedure, role, commandType: CommandType.StoredProcedure);
             }
             return id;

@@ -233,6 +233,8 @@
       content: '▲'; }
     .page__table--desc::after {
       content: '▼'; }
+    .page__table--full-width-cell {
+      text-align: center; }
 
 #page__circle-1 {
   top: 400px;
