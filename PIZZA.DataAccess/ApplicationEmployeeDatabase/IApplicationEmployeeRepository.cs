@@ -1,4 +1,5 @@
-﻿using PIZZA.Models.User;
+﻿using PIZZA.Models.Database;
+using PIZZA.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace PIZZA.DataAccess.ApplicationEmployeeDatabase
     {
         Task<EmployeeModel> FindById(string userId);
         Task<List<EmployeeModel>> GetEmployees(string query);
+        Task<IList<string>> GetRoles(EmployeeModel employee);
     }
 }

@@ -60,6 +60,7 @@
     <Folder Include="Tables" />
     <Folder Include="Views" />
     <Folder Include="Procedures" />
+    <Folder Include="Types" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PIZZA.Database.refactorlog" />
@@ -93,6 +94,7 @@
     <Build Include="Procedures\FindRoleById.sql" />
     <Build Include="Procedures\FindRoleByName.sql" />
     <Build Include="Procedures\GetUsers.sql" />
+    <Build Include="Types\SearchKeywordsList.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PIZZA.Database.publish.xml" />

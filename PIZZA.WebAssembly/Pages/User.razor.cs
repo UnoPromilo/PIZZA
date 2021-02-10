@@ -5,7 +5,9 @@ using PIZZA.Models.User;
 using PIZZA.WebAssembly.Api.Services;
 using PIZZA.WebAssembly.Models;
 using PIZZA.WebAssembly.Service;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PIZZA.WebAssembly.Pages
@@ -26,6 +28,43 @@ namespace PIZZA.WebAssembly.Pages
         [Parameter]
         public string UserID { get; set; }
 
+
+        private bool IsAdmin
+        {
+            get
+            {
+                return Employee.Roles.Where(r => r.Equals("ADMIN", StringComparison.OrdinalIgnoreCase))?.Count() > 0;
+            }
+            set
+            {
+                if(IsAdmin != value)
+                {
+                    if (value)
+                        Employee.Roles.Add("Admin");
+                    else
+                        Employee.Roles.Remove("Admin");
+                }
+            }
+        }
+
+        private bool IsManager
+        {
+            get
+            {
+                return Employee.Roles.Where(r => r.Equals("MANAGER", StringComparison.OrdinalIgnoreCase))?.Count() > 0;
+            }
+            set
+            {
+                if (IsManager != value)
+                {
+                    if (value)
+                        Employee.Roles.Add("Manager");
+                    else
+                        Employee.Roles.Remove("Manager");
+                }
+            }
+        }
+
         protected override async Task OnInitializedAsync()
         {
 
@@ -40,12 +79,17 @@ namespace PIZZA.WebAssembly.Pages
             {
                 Buttons = new List<PopupButton>
                 {
-                    new PopupButton { Content = "zatwierdź" }
+                    new PopupButton
+                    {
+                        Content = "zatwierdź",
+                        CloseOnClick = false
+                    }
                 },
-                PasswordModel = new PasswordChangeModel { ID = 1 }
+                PasswordModel = new PasswordChangeModel { ID = Employee.ID },
+                
             };
+            popupModel.OnValidSubmit += ChangePassword;
             PopupService.AddPopupModelToStack(popupModel);
-            
         }
 
         void Delete()
@@ -81,6 +125,12 @@ namespace PIZZA.WebAssembly.Pages
         void SaveChanges(EditContext editContext)
         {
             EmployeeService.UpdateEmployee(Employee);
+        }
+
+        void ChangePassword(object sender, EditContext editContext)
+        {
+            PopupService.RemoveFirstPopupModelFromStack();
+
         }
     }
 

@@ -39,8 +39,10 @@ namespace PIZZA.WebApi.Controllers
                 Town = model.Town
             };
 
+            newUser.SecurityStamp = Guid.NewGuid().ToString();
             var result = await _userManager.CreateAsync(newUser, model.Password);
 
+            
             if (!result.Succeeded)
             {
                 var errors = result.Errors.Select(x => x.Description);
@@ -50,7 +52,7 @@ namespace PIZZA.WebApi.Controllers
             }
             
 
-            return Ok(new RegistrationResult { Successful = true });
+            return Ok(new RegistrationResult {ID = newUser.ID, Successful = true });
         }
     }
 }

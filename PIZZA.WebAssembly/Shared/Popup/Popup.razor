@@ -1,7 +1,8 @@
 ﻿@if (popupModels.Count > 0)
 {
     <div class="popup__background">
-        <EditForm Model="currentModel.Model??new object()" class="popup">
+        <EditForm Model="currentModel.Model??new object()"
+                  class="popup" OnValidSubmit="context=>OnValidSubmit(this, context)">
 
                 @if (currentModel is PopupAlertModel alertModel)
                 {

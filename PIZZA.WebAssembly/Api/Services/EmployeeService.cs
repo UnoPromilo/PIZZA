@@ -1,4 +1,6 @@
 ﻿using Blazored.LocalStorage;
+using PIZZA.Models.Authentication;
+using PIZZA.Models.Results;
 using PIZZA.Models.User;
 using System;
 using System.Collections.Generic;
@@ -48,6 +50,16 @@ namespace PIZZA.WebAssembly.Api.Services
             var content = JsonSerializer.Serialize(employeeModel);
             var response = await _httpClient.PostAsync($"api/UpdateEmployee", new StringContent(content, Encoding.UTF8, "application/json"));
             return response.IsSuccessStatusCode;
+        }
+
+        public async Task<RegistrationResult> CreateEmployee(RegistrationModelComplete model)
+        {
+            await loadAuthTask;
+            var content = JsonSerializer.Serialize(model);
+            var response = await _httpClient.PostAsync($"api/CreateUser", new StringContent(content, Encoding.UTF8, "application/json"));
+            var text = await response.Content.ReadAsStringAsync();
+            var output = JsonSerializer.Deserialize<RegistrationResult>(text, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            return output;
         }
     }
 }

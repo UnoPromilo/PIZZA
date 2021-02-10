@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 namespace PIZZA.WebApi.Authentication
 {
     public class UserStore : IUserStore<ApplicationUser>, IUserEmailStore<ApplicationUser>, IUserPhoneNumberStore<ApplicationUser>,
-        IUserTwoFactorStore<ApplicationUser>, IUserPasswordStore<ApplicationUser>, IUserRoleStore<ApplicationUser>, IUserSecurityStampStore<ApplicationUser>
+        IUserTwoFactorStore<ApplicationUser>, IUserPasswordStore<ApplicationUser>, IUserRoleStore<ApplicationUser>
+        //, IUserSecurityStampStore<ApplicationUser>
     {
         IApplicationUserRepository userRepository;
 

@@ -26,7 +26,7 @@ CREATE UNIQUE INDEX [NormalizedUserNameInedx] ON [dbo].[ApplicationUser] ([Norma
 
 GO
 
-CREATE UNIQUE INDEX [NormalizedEmailIndex] ON [dbo].[ApplicationUser] ([Email])
+CREATE INDEX [NormalizedEmailIndex] ON [dbo].[ApplicationUser] ([Email])
 
 GO
 

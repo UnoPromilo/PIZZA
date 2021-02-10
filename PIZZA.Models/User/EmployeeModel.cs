@@ -38,6 +38,6 @@ namespace PIZZA.Models.User
         [StringLength(50, ErrorMessage = "Miasto nie może być dłuższe niż 50 znaków.")]
         public string Town { get; set; }
 
-        public List<ApplicationRole> Roles { get; set; } = new List<ApplicationRole>();
+        public List<string> Roles { get; set; } = new List<string>();
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Threading;
+using System;
 
 namespace PIZZA.WebAssembly.Pages
 {
@@ -51,7 +52,7 @@ namespace PIZZA.WebAssembly.Pages
             finally
             {
                 loading = false;
-                InvokeAsync(StateHasChanged);
+                _=InvokeAsync(StateHasChanged);
             }
         }
 
@@ -103,21 +104,21 @@ namespace PIZZA.WebAssembly.Pages
                 case OrderBy.Admin:
                     if (ascending)
                         employees = employees.OrderBy(e =>
-                                                        e.Roles.Where(r => r?.NormalizedName == "ADMIN").Count() > 0)
+                                                        e.Roles.Where(r => r?.Equals("ADMIN", StringComparison.OrdinalIgnoreCase)??false).Count() > 0)
                                                         .ToList();
                     else
                         employees = employees.OrderByDescending(e =>
-                                                        e.Roles.Where(r => r?.NormalizedName == "ADMIN").Count() > 0)
+                                                        e.Roles.Where(r => r?.Equals("ADMIN", StringComparison.OrdinalIgnoreCase)??false).Count() > 0)
                                                         .ToList();
                     break;
                 case OrderBy.Manager:
                     if (ascending)
                         employees = employees.OrderBy(e =>
-                                                        e.Roles.Where(r => r?.NormalizedName == "MANAGER").Count() > 0)
+                                                        e.Roles.Where(r => r?.Equals("MANAGER", StringComparison.OrdinalIgnoreCase)??false).Count() > 0)
                                                         .ToList();
                     else
                         employees = employees.OrderByDescending(e =>
-                                                        e.Roles.Where(r => r?.NormalizedName == "MANAGER").Count() > 0)
+                                                        e.Roles.Where(r => r?.Equals("MANAGER", StringComparison.OrdinalIgnoreCase)??false).Count() > 0)
                                                         .ToList();
                     break;
                 default:

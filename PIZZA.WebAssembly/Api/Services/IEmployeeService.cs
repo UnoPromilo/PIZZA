@@ -1,4 +1,6 @@
-﻿using PIZZA.Models.User;
+﻿using PIZZA.Models.Authentication;
+using PIZZA.Models.Results;
+using PIZZA.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,7 @@ namespace PIZZA.WebAssembly.Api.Services
 {
     public interface IEmployeeService
     {
+        Task<RegistrationResult> CreateEmployee(RegistrationModelComplete model);
         Task<bool> DeleteEmployee(string id);
         Task<EmployeeModel> GetEmployee(string id);
         Task<List<EmployeeModel>> GetEmployees(CancellationToken cancellationToken, string query);

@@ -85,5 +85,36 @@ namespace PIZZA.WebAssembly.Service
             }
             return false;
         }
+
+        public bool RemovePopupModelFromStack(IPopupModel model, string popupID = null)
+        {
+            if (popupID == null)
+            {
+                return DefaultPopup.PopPopupModel(model);
+            }
+            else
+            {
+                if (popups.TryGetValue(popupID, out Popup popup))
+                {
+                    return popup.PopPopupModel(model);
+                }
+            }
+            return false;
+        }
+        public bool RemoveFirstPopupModelFromStack(string popupID = null)
+        {
+            if (popupID == null)
+            {
+                return DefaultPopup.PopPopupModel();
+            }
+            else
+            {
+                if (popups.TryGetValue(popupID, out Popup popup))
+                {
+                    return popup.PopPopupModel();
+                }
+            }
+            return false;
+        }
     }
 }

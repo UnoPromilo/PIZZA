@@ -10,6 +10,7 @@ namespace PIZZA.WebAssembly.Shared.Users
         [Parameter]
         public EmployeeModel Employee { get; set; }
 
+
         public Record()
         {
 
@@ -18,14 +19,14 @@ namespace PIZZA.WebAssembly.Shared.Users
         public bool IsAdmin { 
             get
             {
-                return Employee.Roles.Where(r => r?.NormalizedName == "ADMIN")?.Count() > 0;
+                return Employee.Roles.Where(r => r?.Equals("ADMIN", StringComparison.OrdinalIgnoreCase)??false)?.Count() > 0;
             }
         }
         public bool IsManager
         {
             get
             {
-                return Employee.Roles.Where(r => r?.NormalizedName == "MANAGER")?.Count() > 0;
+                return Employee.Roles.Where(r => r?.Equals("MANAGER", StringComparison.OrdinalIgnoreCase)??false)?.Count() > 0;
             }
         }
     }

@@ -35,7 +35,8 @@ namespace PIZZA.WebApi.Controllers.Employee
         {
             var user = await _applicationEmployeeRepository.FindById(id);
             if (user == default) return NotFound();
-            else return Ok(user);
+            await _applicationEmployeeRepository.GetRoles(user);
+            return Ok(user);
         }
 
         [HttpDelete]
@@ -44,7 +45,7 @@ namespace PIZZA.WebApi.Controllers.Employee
             var user = await _applicationUserRepository.FindById(id);
             if (user == default) return NotFound();
 
-            var tmp = await _userManager.UpdateSecurityStampAsync(user);
+            //var tmp = await _userManager.UpdateSecurityStampAsync(user);
 
 
             await _applicationUserRepository.Delete(user);

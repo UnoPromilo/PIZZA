@@ -32,7 +32,7 @@ namespace PIZZA.DataAccess.ApplicationEmployeeDatabase
                 };
                 output = (await cnn.QueryAsync<EmployeeModel, ApplicationRole, EmployeeModel>(
                     procedure,
-                    (employee, role) => { employee.Roles.Add(role); return employee; },
+                    (employee, role) => { employee.Roles.Add(role?.Name); return employee; },
                     parameter,
                     commandType: CommandType.StoredProcedure
                     )).GroupBy(e => e.ID)
@@ -59,6 +59,22 @@ namespace PIZZA.DataAccess.ApplicationEmployeeDatabase
                 };
                 output = await cnn.QuerySingleOrDefaultAsync<EmployeeModel>(procedure, parameters, commandType: CommandType.StoredProcedure);
             }
+            return output;
+        }
+
+        public async Task<IList<string>> GetRoles(EmployeeModel employee)
+        {
+            IList<string> output;
+            using (var cnn = DbConnection)
+            {
+                var procedure = "[GetUserRoles]";
+                var parameters = new
+                {
+                    UserID = employee.ID
+                };
+                output = (await cnn.QueryAsync<string>(procedure, parameters, commandType: CommandType.StoredProcedure)).AsList();
+            }
+            employee.Roles = output.ToList();
             return output;
         }
     }

@@ -2,7 +2,7 @@
 @using PIZZA.WebAssembly.Shared.Users
 
 <div class="page__header">
-    <h1 class="page__h1">Jan Kowalski</h1>
+    <h1 class="page__h1">@Employee.FirstName @Employee.LastName</h1>
 </div>
 <div class="page__options">
     <a class="page__options__button" @onclick="ChangePassword">
@@ -49,7 +49,7 @@
                     <td class="user__data-table__value">
                         <InputText id="@nameof(Employee.UserName)"
                                    class="page__input--hidden"
-                                   @bind-Value="Employee.UserName" />
+                                   @bind-Value="Employee.UserName" disabled/>
                     </td>
                 </tr>
                 <tr>
@@ -95,17 +95,15 @@
                 <tr>
                     <label for="test" class="user__data-table__name">Administrator</label>
                     <td class="user__data-table__value">
-                        <InputText id="@nameof(Employee.PostalCode)"
-                                   class="page__input--hidden"
-                                   @bind-Value="Employee.PostalCode" />
+                        <InputFieldCheckbox id="RoleAdmin"
+                                            @bind-Value ="IsAdmin"/>                       
                     </td>
                 </tr>
                 <tr>
                     <label for="test2" class="user__data-table__name">Manager</label>
                     <td class="user__data-table__value">
-                        <InputText id="@nameof(Employee.PostalCode)"
-                                   class="page__input--hidden"
-                                   @bind-Value="Employee.PostalCode" />
+                        <InputFieldCheckbox id="RoleAdmin"
+                                            @bind-Value="IsManager" />
                     </td>
                 </tr>
                 <tr>

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using System;
+using System.Collections.Generic;
 
 namespace PIZZA.WebAssembly.Models
 {
@@ -6,5 +8,7 @@ namespace PIZZA.WebAssembly.Models
     {
         object Model { get; }
         IEnumerable<PopupButton> Buttons { get; }
+
+        EventHandler<EditContext> OnValidSubmit { get; set; }
     }
 }
