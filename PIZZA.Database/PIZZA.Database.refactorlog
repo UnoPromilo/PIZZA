@@ -203,4 +203,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Task" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="88022fe4-c7e2-485c-9b6c-a982678c16b0" ChangeDateTime="02/11/2021 22:22:11">
+    <Property Name="ElementName" Value="[dbo].[TaskNote].[Deleted]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TaskNote]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsDeleted" />
+  </Operation>
 </Operations>

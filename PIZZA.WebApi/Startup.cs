@@ -71,27 +71,30 @@ namespace PIZZA.WebApi
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddDefaultTokenProviders();
             services.AddSingleton<CustomSettings>();
-            services.AddAuthentication(cfg=>
+            
+            
+            if (customSettings.Configured)
             {
-                cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                cfg.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {               
-                options.TokenValidationParameters = new TokenValidationParameters
+                services.AddAuthentication(cfg =>
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = customSettings.JwtIssuer,
-                    ValidAudience = customSettings.JwtAudience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(customSettings.JwtSecurityKey)),
-                    
-                    
-                };
-            });
+                    cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    cfg.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                }).AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = customSettings.JwtIssuer,
+                        ValidAudience = customSettings.JwtAudience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(customSettings.JwtSecurityKey)),
 
+
+                    };
+                });
+            }
             //services.Configure<SecurityStampValidatorOptions>(options =>
             //{
             //    // enables immediate logout, after updating the user's stat.

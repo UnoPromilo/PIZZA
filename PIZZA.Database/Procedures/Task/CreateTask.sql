@@ -1,4 +1,10 @@
-﻿CREATE PROCEDURE [dbo].[CreateTask](@Creator int, @Deadline datetime null, @Priority int, @Name nvarchar(256), @Description nvarchar(MAX), @Note varchar(MAX))
+﻿CREATE PROCEDURE [dbo].[CreateTask]
+@Creator int,
+@Deadline datetime null,
+@Priority int,
+@Name nvarchar(256),
+@Description nvarchar(MAX),
+@Note varchar(MAX)
 AS
 BEGIN
 	DECLARE @TaskID as INT
@@ -13,4 +19,5 @@ BEGIN
 								WHERE Task = @TaskID)
 						WHERE Task = @TaskID;
 
+	SELECT @TaskID;
 END

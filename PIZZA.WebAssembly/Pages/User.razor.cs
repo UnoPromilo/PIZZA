@@ -67,9 +67,9 @@ namespace PIZZA.WebAssembly.Pages
 
         protected override async Task OnInitializedAsync()
         {
-
             Employee = await EmployeeService.GetEmployee(UserID);
-            if (Employee == default) NavigationManager.NavigateTo("/");
+            if (UserID != Employee.ID.ToString()) NavigationManager.NavigateTo("/users");
+            
             await base.OnInitializedAsync();
         }
 

@@ -19,7 +19,7 @@ CREATE TRIGGER [dbo].[Trigger_AddNoteToTask]
     AS
     BEGIN
         INSERT INTO TaskNote
-            (Task, Employee, Note, DateTime, ResponseTo, Deleted) 
+            (Task, Employee, Note, DateTime, ResponseTo, IsDeleted) 
             VALUES
             ((SELECT Task FROM inserted), null, null, (SELECT DateTime FROM inserted), null, 0);
         SET NoCount ON
