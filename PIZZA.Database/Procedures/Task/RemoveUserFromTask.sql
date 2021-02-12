@@ -3,4 +3,4 @@
 	@UserID int
 AS
 	DELETE FROM [EmployeeTask] WHERE Task = @TaskID AND [Employee] = @UserID;
-RETURN 0
+RETURN @@ROWCOUNT

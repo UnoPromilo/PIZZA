@@ -18,9 +18,30 @@ CREATE TRIGGER [dbo].[Trigger_AddNoteToTask]
     AFTER INSERT
     AS
     BEGIN
-        INSERT INTO TaskNote
-            (Task, Employee, Note, DateTime, ResponseTo, IsDeleted) 
-            VALUES
-            ((SELECT Task FROM inserted), null, null, (SELECT DateTime FROM inserted), null, 0);
-        SET NoCount ON
+        SET NoCount ON;
+        DECLARE @ID int;
+        DECLARE @Task int;
+        DECLARE @DateTime datetime;
+
+        DECLARE insertedCursor CURSOR FOR
+        SELECT ID, Task, DateTime FROM inserted;
+
+        OPEN insertedCursor;
+
+        FETCH NEXT FROM insertedCursor INTO @ID, @Task, @DateTime;
+
+        WHILE @@FETCH_STATUS = 0
+
+        BEGIN
+            INSERT INTO TaskNote
+                (Task, Employee, Note, DateTime, ResponseTo, IsDeleted) 
+                VALUES
+                (@Task, null, null, @DateTime, null, 0);
+            
+            UPDATE TaskState SET
+                TaskNote = SCOPE_IDENTITY()
+                WHERE ID = @ID;
+
+            FETCH NEXT FROM insertedCursor INTO @ID, @Task, @DateTime;
+        END
     END

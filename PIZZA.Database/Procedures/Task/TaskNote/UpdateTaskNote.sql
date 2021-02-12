@@ -9,4 +9,4 @@ AS
 	DateTime = @DateTime,
 	ResponseTo = @ResponseTo
 	WHERE ID = @ID;
-RETURN 0
+RETURN @@ROWCOUNT

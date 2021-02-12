@@ -64,6 +64,7 @@
     <Folder Include="Procedures\Task" />
     <Folder Include="Procedures\User" />
     <Folder Include="Procedures\Task\TaskNote" />
+    <Folder Include="Procedures\Task\TaskState" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PIZZA.Database.refactorlog" />
@@ -111,6 +112,13 @@
     <Build Include="Procedures\Task\TaskNote\GetNotesForTask.sql" />
     <Build Include="Procedures\Task\TaskNote\RemoveTaskNote.sql" />
     <Build Include="Procedures\Task\TaskNote\UpdateTaskNote.sql" />
+    <Build Include="Procedures\Task\TaskState\AddTaskState.sql" />
+    <Build Include="Procedures\Task\TaskState\GetTaskStatesForTask.sql" />
+    <Build Include="Procedures\Task\TaskState\RemoveTaskState.sql" />
+    <Build Include="Procedures\Task\TaskState\UpdateTaskState.sql" />
+    <Build Include="Procedures\Task\TaskState\GetTaskState.sql" />
+    <Build Include="Procedures\Task\TaskNote\GetTaskNote.sql" />
+    <Build Include="Procedures\Task\TaskState\GetLastTaskState.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PIZZA.Database.publish.xml" />

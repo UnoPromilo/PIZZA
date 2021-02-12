@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace PIZZA.Models.Task
 {
-    public class TaskWithActualStateAndCreator : Database.TaskModel
+    public class EmployeeWithTaskRole
     {
-        public TaskState TaskState { get; set; }
-        public IEmployee TaskCreator { get; set; }
+        public EmployeeModel Employee { get; set; }
+        public TaskRole Role { get; set; }
     }
 }

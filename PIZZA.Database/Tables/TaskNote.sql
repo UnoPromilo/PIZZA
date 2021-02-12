@@ -21,5 +21,6 @@ CREATE TRIGGER [dbo].[Trigger_OnDelete]
     FOR DELETE
     AS
     BEGIN
+        SET NoCount ON;
         DELETE FROM TaskNote WHERE ResponseTo IN (SELECT ID FROM DELETED);
     END

@@ -18,9 +18,17 @@ CREATE TRIGGER [dbo].[Trigger_AddFirstTaskState]
     AFTER INSERT
     AS
     BEGIN
-        INSERT INTO TaskState
-            (Task, NewTaskState, DateTime, Editor, TaskNote) 
-            VALUES
-            ((SELECT ID FROM inserted), 0, GETDATE(), null, null);
-        SET NoCount ON
+        SET NoCount ON;
+        DECLARE @Task int;
+        DECLARE insertedCursor CURSOR FOR
+        SELECT ID FROM inserted;
+        FETCH NEXT FROM insertedCursor INTO @Task;
+        WHILE @@FETCH_STATUS = 0
+        BEGIN
+            INSERT INTO TaskState
+                (Task, NewTaskState, DateTime, Editor, TaskNote) 
+                VALUES
+                (@Task, 0, GETDATE(), null, null);
+            FETCH NEXT FROM insertedCursor INTO @Task;
+        END
     END
