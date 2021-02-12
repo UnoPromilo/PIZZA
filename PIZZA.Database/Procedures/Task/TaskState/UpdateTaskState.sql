@@ -9,4 +9,4 @@ AS
 	DateTime = @DateTime,
 	Editor = @Editor
 	WHERE ID = @ID;
-RETURN @@ROWCount;
+RETURN @@RowCount;

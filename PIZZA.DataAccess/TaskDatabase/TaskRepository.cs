@@ -169,5 +169,91 @@ namespace PIZZA.DataAccess.TaskDatabase
             return rows;
         }
 
+        public async Task<int> AddTaskState(NewTaskStateModel model)
+        {
+            int rows;
+            using(var cnn = DbConnection)
+            {
+                var procedure = "[AddTaskState]";
+                rows = await cnn.ExecuteAsync(procedure, model, commandType: CommandType.StoredProcedure);
+            }
+            return rows;
+        }
+        public async Task<TaskStateModel> FindTaskStateByID(string ID)
+        {
+            TaskStateModel output;
+            using (var cnn = DbConnection)
+            {
+                var procedure = "[FindTaskStateByID]";
+                var values = new
+                {
+                    ID
+                };
+                output = await cnn.QueryFirstOrDefaultAsync<TaskStateModel>(procedure, values, commandType: CommandType.StoredProcedure);
+            }
+            return output;
+        }
+
+        public async Task<TaskStateModel> GetLastTaskState(string taskID)
+        {
+            TaskStateModel output;
+            using (var cnn = DbConnection)
+            {
+                var procedure = "[GetLastTaskState]";
+                var values = new
+                {
+                    TaskID = taskID
+                };
+                output = await cnn.QueryFirstOrDefaultAsync<TaskStateModel>(procedure, values, commandType: CommandType.StoredProcedure);
+            }
+            return output;
+        }
+        public async Task<IList<TaskStateModel>> GetTaskStateHistory(string taskID)
+        {
+            IEnumerable<TaskStateModel> output;
+            using (var cnn = DbConnection)
+            {
+                var procedure = "[GetTaskStateHistory]";
+                var values = new
+                {
+                    TaskID = taskID
+                };
+                output = await cnn.QueryAsync<TaskStateModel>(procedure, values, commandType: CommandType.StoredProcedure);
+            }
+            return output.ToList();
+        }
+        public async Task<int> RemoveTaskState(string ID)
+        {
+            int rows;
+            using (var cnn = DbConnection)
+            {
+                var procedure = "[RemoveTaskState]";
+                var values = new
+                {
+                    ID
+                };
+                rows = await cnn.ExecuteAsync(procedure, values, commandType: CommandType.StoredProcedure);
+            }
+            return rows;
+        }
+
+        public async Task<int> UpdateTaskState(TaskStateModel model)
+        {
+            int rows;
+            using (var cnn = DbConnection)
+            {
+                var procedure = "[RemoveTaskState]";
+                var values = new
+                {
+                    model.ID,
+                    model.NewTaskState,
+                    model.DateTime,
+                    model.Editor
+                };
+                rows = await cnn.ExecuteAsync(procedure, values, commandType: CommandType.StoredProcedure);
+            }
+            return rows;
+        }
+
     }
 }

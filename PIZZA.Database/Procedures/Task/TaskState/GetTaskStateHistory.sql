@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[GetTaskStatesForTask]
+﻿CREATE PROCEDURE [dbo].[GetTaskStateHistory]
 	@TaskID int
 AS
 	SELECT * FROM TaskState 

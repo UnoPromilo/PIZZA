@@ -113,10 +113,10 @@
     <Build Include="Procedures\Task\TaskNote\RemoveTaskNote.sql" />
     <Build Include="Procedures\Task\TaskNote\UpdateTaskNote.sql" />
     <Build Include="Procedures\Task\TaskState\AddTaskState.sql" />
-    <Build Include="Procedures\Task\TaskState\GetTaskStatesForTask.sql" />
+    <Build Include="Procedures\Task\TaskState\FindTaskStateByID.sql" />
     <Build Include="Procedures\Task\TaskState\RemoveTaskState.sql" />
     <Build Include="Procedures\Task\TaskState\UpdateTaskState.sql" />
-    <Build Include="Procedures\Task\TaskState\GetTaskState.sql" />
+    <Build Include="Procedures\Task\TaskState\GetTaskStateHistory.sql" />
     <Build Include="Procedures\Task\TaskNote\GetTaskNote.sql" />
     <Build Include="Procedures\Task\TaskState\GetLastTaskState.sql" />
   </ItemGroup>

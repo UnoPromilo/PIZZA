@@ -66,7 +66,7 @@ namespace PIZZA.WebApi.Controllers
                 return Ok(task);
         }
 
-        [Route("addUserToTask")]
+        [Route("AddUserToTask")]
         [HttpPut]
         public async Task<IActionResult> AddUserToTask([FromBody] AddUserToTaskModel model)
         {
@@ -76,7 +76,7 @@ namespace PIZZA.WebApi.Controllers
             return Ok();
         }
 
-        [Route("usersInTask")]
+        [Route("UsersInTask")]
         [HttpGet]
         public async Task<IActionResult> GetUsersInTask([FromQuery] string taskID)
         {
@@ -86,7 +86,7 @@ namespace PIZZA.WebApi.Controllers
             return Ok(users);
         }
 
-        [Route("tasksForUsers")]
+        [Route("TasksForUsers")]
         [HttpGet]
         public async Task<IActionResult> GetTasksForUser([FromQuery] string userID)
         {
@@ -96,7 +96,7 @@ namespace PIZZA.WebApi.Controllers
             return Ok(tasks);
         }
 
-        [Route("removeUserFromTask")]
+        [Route("RemoveUserFromTask")]
         [HttpDelete]
         public async Task<IActionResult> RemoveUserFormTask([FromQuery] string taskID, [FromQuery] string userID)
         {
