@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Threading;
 using System;
+using PIZZA.Models.Task;
 
 namespace PIZZA.WebAssembly.Pages
 {

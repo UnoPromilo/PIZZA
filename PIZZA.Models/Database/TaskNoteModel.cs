@@ -4,16 +4,16 @@ using System.Collections.Generic;
 
 namespace PIZZA.Models.Database
 {
-    public class TaskNote
+    public class TaskNoteModel
     {
         public int ID { get; set; }
-        public TaskModel Task { get; set; }
-        public IEmployee Employee { get; set; }
+        public int Task { get; set; }
+        public int Employee { get; set; }
         public string Note { get; set; }
         public DateTime DateTime { get; set; }
-        public TaskNote ResponseTo { get; set; }
+        public int? ResponseTo { get; set; }
         public bool Deleted { get; set; }
 
-        public IEnumerable<TaskNote> Responses { get; set; }
+        public IList<TaskNoteModel> Responses { get; set; } = new List<TaskNoteModel>();
     }
 }

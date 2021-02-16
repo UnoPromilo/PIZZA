@@ -24,7 +24,7 @@ namespace PIZZA.WebAssembly.Pages.Authentication
 
             if (result.Successful)
             {
-                NavigationManager.NavigateTo("/");
+                NavigationManager.NavigateTo("/", true);
             }
             else
             {

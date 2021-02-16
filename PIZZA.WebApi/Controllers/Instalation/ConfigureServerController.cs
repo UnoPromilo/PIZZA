@@ -18,10 +18,12 @@ namespace PIZZA.WebApi.Controllers.Instalation
     {
         private  CustomSettings _customSettings;
         private readonly UserManager<ApplicationUser> _userManager;
-        public ConfigureServerController(CustomSettings customSettings, UserManager<ApplicationUser> userManager)
+        private readonly RoleManager<ApplicationRole> _roleManager;
+        public ConfigureServerController(CustomSettings customSettings, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
             _customSettings = customSettings;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -93,6 +95,7 @@ namespace PIZZA.WebApi.Controllers.Instalation
 
             if (!DataAccess.Helper.TestConnection(sqlServerConfiguration.ConnectionString)) return false;
             _customSettings.ConnectionString = sqlServerConfiguration.ConnectionString;
+            DataAccess.Helper.ChangeConnectionString(sqlServerConfiguration.ConnectionString);
             return true;
         }
     
@@ -107,6 +110,14 @@ namespace PIZZA.WebApi.Controllers.Instalation
 
         private async Task<bool> CreateAdministratorAsync(AdministratorUserCreationModel administratorUserCreationModel)
         {
+            ApplicationRole roleAdmin = new ();
+            roleAdmin.Name = "Admin";
+            await _roleManager.CreateAsync(roleAdmin);
+
+            ApplicationRole roleManager = new();
+            roleManager.Name = "Manager";
+            await _roleManager.CreateAsync(roleManager);
+
             var newUser = new ApplicationUser { UserName = administratorUserCreationModel.Username, Email = administratorUserCreationModel.Email };
             var result = await _userManager.CreateAsync(newUser, administratorUserCreationModel.NewPassowrd);
             if (!result.Succeeded)
@@ -114,6 +125,7 @@ namespace PIZZA.WebApi.Controllers.Instalation
                 return false;
             }
             result = await _userManager.AddToRoleAsync(newUser, "Admin");
+            result = await _userManager.AddToRoleAsync(newUser, "Manager");
 
             if (!result.Succeeded)
             {

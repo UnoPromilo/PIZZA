@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using PIZZA.Models.Authentication;
+using PIZZA.Models.Task;
 using PIZZA.Models.User;
 using PIZZA.WebAssembly.Api.Services;
 using PIZZA.WebAssembly.Models;
@@ -21,13 +22,18 @@ namespace PIZZA.WebAssembly.Pages
         protected NavigationManager NavigationManager { get; set; }
 
         [Inject]
-        private IEmployeeService EmployeeService { get; set; } 
+        private IEmployeeService EmployeeService { get; set; }
+
+        [Inject]
+        private ITaskService TaskService { get; set; }
 
         private EmployeeModel Employee = new();
+        private IList<TaskWithTaskRole> Tasks;       
 
         [Parameter]
         public string UserID { get; set; }
 
+        private bool IsAdminLogged { get;  set; } = false;
 
         private bool IsAdmin
         {
@@ -69,7 +75,7 @@ namespace PIZZA.WebAssembly.Pages
         {
             Employee = await EmployeeService.GetEmployee(UserID);
             if (UserID != Employee.ID.ToString()) NavigationManager.NavigateTo("/users");
-            
+            Tasks = await TaskService.GetTasksForUser(Employee.ID);
             await base.OnInitializedAsync();
         }
 

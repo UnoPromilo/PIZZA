@@ -3,7 +3,7 @@
 <div class="page__input d-flex @CssClass">
     <label class="toggle-switch">
         <input type="checkbox" id="@Name"
-               @bind="CurrentValue" />
+               @bind="CurrentValue" disabled="@Disabled"/>
         <span class="toggle-switch__slider"></span>
     </label>
     @if (!String.IsNullOrWhiteSpace(Label))

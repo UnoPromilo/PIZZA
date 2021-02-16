@@ -34,6 +34,7 @@ namespace PIZZA.WebAssembly
             services.AddBlazoredLocalStorage()
                     .AddTransient<IConfigurationService, ConfigurationService>()
                     .AddTransient<IEmployeeService, EmployeeService>()
+                    .AddTransient<ITaskService, TaskService>()
                     .AddAuthorizationCore()
                     .AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>()
                     .AddScoped<IAuthService, AuthService>()

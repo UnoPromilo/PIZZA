@@ -3,11 +3,12 @@
 
 @using PIZZA.WebAssembly.Shared.Users
 
+
 <div class="page__header">
     <h1 class="page__h1">Użytkownicy</h1>
     <div class="page__search">
         <input class="page__search__input" placeholder="Szukaj" type="search" @bind-value="QueryString" />
-        <button class="page__search__button material-icons">
+        <button class="page__search__button material-icons" @onclick="()=>Query(QueryString)">
             search
         </button>
     </div>

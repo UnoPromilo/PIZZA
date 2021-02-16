@@ -23,7 +23,7 @@ namespace PIZZA.DataAccess.ApplicationRoleDatabase
                     role.Name,
                     role.NormalizedName
                 };
-                id = await cnn.QuerySingleOrDefaultAsync<int>(procedure, role, commandType: CommandType.StoredProcedure);
+                id = await cnn.QuerySingleOrDefaultAsync<int>(procedure, parameter, commandType: CommandType.StoredProcedure);
             }
             return id;
         }

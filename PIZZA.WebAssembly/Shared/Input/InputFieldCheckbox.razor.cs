@@ -19,7 +19,8 @@ namespace PIZZA.WebAssembly.Shared.Input
         [Parameter]
         public string Description { get; set; }
 
-
+        [Parameter]
+        public bool Disabled { get; set; } = false;
 
         protected override bool TryParseValueFromString(string value, out bool result, out string validationErrorMessage)
         {

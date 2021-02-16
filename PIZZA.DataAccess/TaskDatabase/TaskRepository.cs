@@ -194,6 +194,21 @@ namespace PIZZA.DataAccess.TaskDatabase
             return output;
         }
 
+        public async Task<TaskStateModel> GetTaskState(string ID)
+        {
+            TaskStateModel output;
+            using (var cnn = DbConnection)
+            {
+                var procedure = "[FindTaskStateById]";
+                var values = new
+                {
+                    ID
+                };
+                output = await cnn.QueryFirstOrDefaultAsync<TaskStateModel>(procedure, values, commandType: CommandType.StoredProcedure);
+            }
+            return output;
+        }
+
         public async Task<TaskStateModel> GetLastTaskState(string taskID)
         {
             TaskStateModel output;
@@ -255,5 +270,138 @@ namespace PIZZA.DataAccess.TaskDatabase
             return rows;
         }
 
+        public async Task<int> AddTaskNote(NewTaskNoteModel model)
+        {
+            int rows;
+            using (var cnn = DbConnection)
+            {
+                var procedure = "[AddTaskNote]";
+                rows = await cnn.ExecuteAsync(procedure, model, commandType: CommandType.StoredProcedure);
+            }
+            return rows;
+        }
+        public async Task<IList<TaskNoteModel>> GetTaskNotesForTask(string taskID)
+        {
+            IEnumerable<TaskNoteModel> output;
+            using (var cnn = DbConnection)
+            {
+                var procedure = "[GetNotesForTask]";
+                var values = new
+                {
+                    TaskID = taskID
+                };
+                output = await cnn.QueryAsync<TaskNoteModel>(procedure, values, commandType: CommandType.StoredProcedure);
+            }
+
+            Dictionary<int, TaskNoteModel> dict = new Dictionary<int, TaskNoteModel>();
+            IList<TaskNoteModel> response = new List<TaskNoteModel>(); ;
+            foreach (var item in output)
+                dict.Add(item.ID, item);
+            foreach(var item in output)
+            {
+                if (dict.ContainsKey(item.ResponseTo ?? 0))
+                    dict[item.ResponseTo ?? 0].Responses.Add(item);
+                else
+                    response.Add(item);
+            }
+            return response;
+        }
+
+        public async Task<TaskNoteModel> GetTaskNote(string taskNoteID)
+        {
+            TaskNoteModel mainTask;
+            IList<TaskNoteModel> allTasks;
+            using (var cnn = DbConnection)
+            {
+                var procedure = "[GetTaskNote]";
+                var values = new
+                {
+                    ID = taskNoteID
+                };
+                mainTask = await cnn.QueryFirstOrDefaultAsync<TaskNoteModel>(procedure, values, commandType: CommandType.StoredProcedure);
+            }
+            if (mainTask == default)
+                return default;
+
+            allTasks = await GetTaskNotesForTask(mainTask.ID.ToString());
+
+
+            Dictionary<int, TaskNoteModel> dict = new Dictionary<int, TaskNoteModel>();
+            IList<TaskNoteModel> response = new List<TaskNoteModel>(); ;
+            foreach (var item in allTasks)
+                dict.Add(item.ID, item);
+            foreach (var item in allTasks)
+            {
+                if (dict.ContainsKey(item.ResponseTo ?? 0))
+                    dict[item.ResponseTo ?? 0].Responses.Add(item);
+                else
+                    response.Add(item);
+            }
+            return dict[mainTask.ID];
+        }
+
+        public async Task<int> RemoveTaskNote(string ID)
+        {
+            int rows;
+            using (var cnn = DbConnection)
+            {
+                var procedure = "[RemoveTaskNote]";
+                var values = new
+                {
+                    ID
+                };
+                rows = await cnn.ExecuteAsync(procedure, values, commandType: CommandType.StoredProcedure);
+            }
+            return rows;
+        }
+
+        public async Task<int> UpdateTaskNote(TaskNoteModel model)
+        {
+            int rows;
+            using (var cnn = DbConnection)
+            {
+                var procedure = "[RemoveTaskState]";
+                var values = new
+                {
+                    model.ID,
+                    model.Note,
+                    model.DateTime,
+                    model.ResponseTo
+                };
+                rows = await cnn.ExecuteAsync(procedure, values, commandType: CommandType.StoredProcedure);
+            }
+            return rows;
+        }
+
+
+        public async Task<IList<TaskModelWithActualStateAndCreator>> GetTasks(string query, bool showFinised, int employee = 0)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                query = "";
+            }
+            IEnumerable<TaskModelWithActualStateAndCreator> output;
+            using (var cnn = DbConnection)
+            {
+                var procedure = "[FindTaskByQuery]";
+                DataTable keywords = new DataTable();
+                keywords.Columns.Add("keyword", typeof(string));
+                foreach (var key in query.Split(null))
+                    keywords.Rows.Add(key);
+
+                var parameter = new
+                {
+                    Keywords = keywords,
+                    ShowFinished = showFinised,
+                    UserID = employee
+                };
+                output = await cnn.QueryAsync<TaskModelWithActualStateAndCreator>(
+                    procedure,
+                    parameter,
+                    commandType: CommandType.StoredProcedure);
+                    
+            }
+            return output.AsList();
+        }
     }
 }

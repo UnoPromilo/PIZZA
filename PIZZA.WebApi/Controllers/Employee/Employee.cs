@@ -14,7 +14,7 @@ namespace PIZZA.WebApi.Controllers.Employee
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Manager, Admin")]
+    [Authorize]
     public class Employee : ControllerBase
     {
         private readonly IApplicationEmployeeRepository _applicationEmployeeRepository;
@@ -40,6 +40,7 @@ namespace PIZZA.WebApi.Controllers.Employee
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Manager, Admin")]
         public async Task<IActionResult> Delete([FromQuery] string id)
         {
             var user = await _applicationUserRepository.FindById(id);

@@ -1,4 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[GetTaskNote]
 	@ID int
 AS
-	SELECT * FROM TaskState WHERE ID = @ID;
+	SELECT * FROM TaskNote WHERE ID = @ID;
+

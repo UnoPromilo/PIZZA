@@ -23,6 +23,14 @@ namespace PIZZA.DataAccess
         public DatabaseController(DatabaseConnectionConfiguration databaseConnectionConfiguration)
         {
             sqlConnectionString = databaseConnectionConfiguration.SqlConnectionString;
-        }      
+
+            Helper.OnConnectionStringAcctualization += (sender, connectionString) =>
+             {
+                 sqlConnectionString = connectionString;
+             };
+        }  
+        
+
+        
     }
 }

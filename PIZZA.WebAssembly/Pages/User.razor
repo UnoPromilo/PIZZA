@@ -1,152 +1,159 @@
 ﻿@page "/user/{UserID}"
-@using PIZZA.WebAssembly.Shared.Users
-
+@attribute [Authorize(Roles = "Admin, Manager")]
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        @(IsAdminLogged = true)
+    </Authorized>
+</AuthorizeView>
 <div class="page__header">
     <h1 class="page__h1">@Employee.FirstName @Employee.LastName</h1>
 </div>
-<div class="page__options">
-    <a class="page__options__button" @onclick="ChangePassword">
-        <span class="page__options__button__icon material-icons">
-            vpn_key
-        </span>
-        <p class="page__options__button__text">Zmień hasło</p>
-    </a>
-    <a class="page__options__button" @onclick="Delete">
-        <span class="page__options__button__icon material-icons">
-            delete_forever
-        </span>
-        <p class="page__options__button__text">Usuń użytkownika</p>
-    </a>
-</div>
-
-<div class="page__col page__col--two-col">
-    <div class="page__col__col">
-        <div class="page__col__col__h">
-            <h3>Dane osobowe</h3>
-            <h4>Kliknij aby edytować</h4>
+@if (IsAdminLogged)
+{
+    <div class="page__options">
+        <a class="page__options__button" @onclick="ChangePassword">
+            <span class="page__options__button__icon material-icons">
+                vpn_key
+            </span>
+            <p class="page__options__button__text">Zmień hasło</p>
+        </a>
+        <a class="page__options__button" @onclick="Delete">
+            <span class="page__options__button__icon material-icons">
+                delete_forever
+            </span>
+            <p class="page__options__button__text">Usuń użytkownika</p>
+        </a>
+    </div>
+}
+    <div class="page__col page__col--two-col">
+        <div class="page__col__col">
+            <div class="page__col__col__h">
+                <h3>Dane osobowe</h3>
+                <AuthorizeView Roles="Admin"><h4>Kliknij aby edytować</h4></AuthorizeView>
+            </div>
+            <div class="page__col__col__content">
+                <EditForm Model="Employee" OnValidSubmit="SaveChanges" class="user__data-table">
+                    <DataAnnotationsValidator />
+                    <tr>
+                        <label for="@nameof(Employee.FirstName)" class="user__data-table__name">Imię</label>
+                        <td class="user__data-table__value">
+                            <InputText id="@nameof(Employee.FirstName)"
+                                       class="page__input--hidden"
+                                       @bind-Value="Employee.FirstName" disabled="@(!IsAdminLogged)"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <label for="@nameof(Employee.LastName)" class="user__data-table__name">Nazwisko</label>
+                        <td class="user__data-table__value">
+                            <InputText id="@nameof(Employee.LastName)"
+                                       class="page__input--hidden"
+                                       @bind-Value="Employee.LastName" IsDisabled="@(!IsAdminLogged)"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <label for="@nameof(Employee.UserName)" class="user__data-table__name">Nazwa użytkownika</label>
+                        <td class="user__data-table__value">
+                            <InputText id="@nameof(Employee.UserName)"
+                                       class="page__input--hidden"
+                                       @bind-Value="Employee.UserName" disabled />
+                        </td>
+                    </tr>
+                    <tr>
+                        <label for="@nameof(Employee.Email)" class="user__data-table__name">Email</label>
+                        <td class="user__data-table__value">
+                            <InputText id="@nameof(Employee.Email)"
+                                       class="page__input--hidden"
+                                       @bind-Value="Employee.Email" disabled="@(!IsAdminLogged)" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <label for="@nameof(Employee.PhoneNumber)" class="user__data-table__name">Numer telefonu</label>
+                        <td class="user__data-table__value">
+                            <InputText id="@nameof(Employee.PhoneNumber)"
+                                       class="page__input--hidden"
+                                       @bind-Value="Employee.PhoneNumber" disabled="@(!IsAdminLogged)"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <label for="@nameof(Employee.AddressLine)" class="user__data-table__name">Ulica i numer domu</label>
+                        <td class="user__data-table__value">
+                            <InputText id="@nameof(Employee.AddressLine)"
+                                       class="page__input--hidden"
+                                       @bind-Value="Employee.AddressLine" disabled="@(!IsAdminLogged)"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <label for="@nameof(Employee.Town)" class="user__data-table__name">Miejscowość</label>
+                        <td class="user__data-table__value">
+                            <InputText id="@nameof(Employee.Town)"
+                                       class="page__input--hidden"
+                                       @bind-Value="Employee.Town" disabled="@(!IsAdminLogged)"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <label for="@nameof(Employee.PostalCode)" class="user__data-table__name">Kod pocztowy</label>
+                        <td class="user__data-table__value">
+                            <InputText id="@nameof(Employee.PostalCode)"
+                                       class="page__input--hidden"
+                                       @bind-Value="Employee.PostalCode" disabled="@(!IsAdminLogged)"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <label for="test" class="user__data-table__name">Administrator</label>
+                        <td class="user__data-table__value">
+                            <InputFieldCheckbox id="RoleAdmin"
+                                                @bind-Value="IsAdmin" Disabled="@(!IsAdminLogged)"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <label for="test2" class="user__data-table__name">Manager</label>
+                        <td class="user__data-table__value">
+                            <InputFieldCheckbox id="RoleAdmin"
+                                                @bind-Value="IsManager" Disabled="@(!IsAdminLogged)"/>
+                        </td>
+                    </tr>
+                    @if (IsAdminLogged)
+                    {
+                        <tr>
+                            <td class="user__data-table__name"></td>
+                            <td class="user__data-table__value">
+                                <button type="submit" class="page__submit">Zapisz</button>
+                            </td>
+                        </tr>
+                    }
+                </EditForm>
+            </div>
         </div>
-        <div class="page__col__col__content">
-            <EditForm Model="Employee" OnValidSubmit="SaveChanges" class="user__data-table">
-                <DataAnnotationsValidator />
-                <tr>
-                    <label for="@nameof(Employee.FirstName)" class="user__data-table__name">Imię</label>
-                    <td class="user__data-table__value">
-                        <InputText id="@nameof(Employee.FirstName)"
-                                   class="page__input--hidden"
-                                   @bind-Value="Employee.FirstName" />
-                    </td>
-                </tr>
-                <tr>
-                    <label for="@nameof(Employee.LastName)" class="user__data-table__name">Nazwisko</label>
-                    <td class="user__data-table__value">
-                        <InputText id="@nameof(Employee.LastName)"
-                                   class="page__input--hidden"
-                                   @bind-Value="Employee.LastName" />
-                    </td>
-                </tr>
-                <tr>
-                    <label for="@nameof(Employee.UserName)" class="user__data-table__name">Nazwa użytkownika</label>
-                    <td class="user__data-table__value">
-                        <InputText id="@nameof(Employee.UserName)"
-                                   class="page__input--hidden"
-                                   @bind-Value="Employee.UserName" disabled/>
-                    </td>
-                </tr>
-                <tr>
-                    <label for="@nameof(Employee.Email)" class="user__data-table__name">Email</label>
-                    <td class="user__data-table__value">
-                        <InputText id="@nameof(Employee.Email)"
-                                   class="page__input--hidden"
-                                   @bind-Value="Employee.Email" />
-                    </td>
-                </tr>
-                <tr>
-                    <label for="@nameof(Employee.PhoneNumber)" class="user__data-table__name">Numer telefonu</label>
-                    <td class="user__data-table__value">
-                        <InputText id="@nameof(Employee.PhoneNumber)"
-                                   class="page__input--hidden"
-                                   @bind-Value="Employee.PhoneNumber" />
-                    </td>
-                </tr>
-                <tr>
-                    <label for="@nameof(Employee.AddressLine)" class="user__data-table__name">Ulica i numer domu</label>
-                    <td class="user__data-table__value">
-                        <InputText id="@nameof(Employee.AddressLine)"
-                                   class="page__input--hidden"
-                                   @bind-Value="Employee.AddressLine" />
-                    </td>
-                </tr>
-                <tr>
-                    <label for="@nameof(Employee.Town)" class="user__data-table__name">Miejscowość</label>
-                    <td class="user__data-table__value">
-                        <InputText id="@nameof(Employee.Town)"
-                                   class="page__input--hidden"
-                                   @bind-Value="Employee.Town" />
-                    </td>
-                </tr>
-                <tr>
-                    <label for="@nameof(Employee.PostalCode)" class="user__data-table__name">Kod pocztowy</label>
-                    <td class="user__data-table__value">
-                        <InputText id="@nameof(Employee.PostalCode)"
-                                   class="page__input--hidden"
-                                   @bind-Value="Employee.PostalCode" />
-                    </td>
-                </tr>
-                <tr>
-                    <label for="test" class="user__data-table__name">Administrator</label>
-                    <td class="user__data-table__value">
-                        <InputFieldCheckbox id="RoleAdmin"
-                                            @bind-Value ="IsAdmin"/>                       
-                    </td>
-                </tr>
-                <tr>
-                    <label for="test2" class="user__data-table__name">Manager</label>
-                    <td class="user__data-table__value">
-                        <InputFieldCheckbox id="RoleAdmin"
-                                            @bind-Value="IsManager" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="user__data-table__name"></td>
-                    <td class="user__data-table__value">
-                        <button type="submit" class="page__submit">Zapisz</button>
-                    </td>
-                </tr>
-            </EditForm>
+        <div class="page__col__col">
+            <div class="page__col__col__h">
+                <h3>Niedawno zaktualizowane przypisane zadania</h3>
+                <h4>Kliknij aby przejść do zadania</h4>
+            </div>
+            <div class="page__col__col__content">
+                <table class="user__task-table">
+                    @if (Tasks is not null)
+                    {
+                        foreach (var item in Tasks)
+                        {
+                            <ContextMenuTrigger Data="item" WrapperTag="tr" MouseButtonTrigger="MouseButtonTrigger.Right" MenuId="taskContextMenu">
+                                <td class="user__task-table__name">
+                                    @item.Task.Name
+                                </td>
+                                <td class="user__task-table__role">
+                                    @item.Role.ToFriendlyString()
+                                </td>
+                            </ContextMenuTrigger>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="99" class="page__table--full-width-cell">
+                                Ładowanie
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
         </div>
     </div>
-    <div class="page__col__col">
-        <div class="page__col__col__h">
-            <h3>Niedawno zaktualizowane przypisane zadania</h3>
-            <h4>Kliknij aby przejść do zadania</h4>
-        </div>
-        <div class="page__col__col__content">
-            <table class="user__task-table">
-                <tr>
-                    <td class="user__task-table__name">
-                        Przykładowe jakieś zadanie 1
-                    </td>
-                    <td class="user__task-table__role">
-                        Twórca
-                    </td>
-                </tr>
-                <tr>
-                    <td class="user__task-table__name">
-                        Przykładowe jakieś zadanie 2
-                    </td>
-                    <td class="user__task-table__role">
-                        Obserwator
-                    </td>
-                </tr>
-                <tr>
-                    <td class="user__task-table__name">
-                        Przykładowe jakieś zadanie 3
-                    </td>
-                    <td class="user__task-table__role">
-                        Edytor
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>

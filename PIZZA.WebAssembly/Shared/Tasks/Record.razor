@@ -1,19 +1,23 @@
-﻿<ContextMenuTrigger Data="Employee" WrapperTag="tr" MouseButtonTrigger="MouseButtonTrigger.Right" MenuId="userContextMenu">
+﻿<ContextMenuTrigger Data="Model" WrapperTag="tr" MouseButtonTrigger="MouseButtonTrigger.Right" MenuId="taskContextMenu">
     <td class="tasks__table__icon material-icons">
         task_alt
     </td>
     <td class="tasks__table__name">
+        @Model.Name
     </td>
     <td class="tasks__table__state">
+        @Model.TaskState.ToFriendlyString()
     </td>
     <td class="tasks__table__actualization_date">
     </td>
     <td class="tasks__table__priority">
+        @Model.Priority.ToFriendlyString()
     </td>
     <td class="tasks__table__deadline">
+        @Model.Deadline
     </td>
     <td class="tasks__table__options" >
-        <ContextMenuTrigger MouseButtonTrigger="MouseButtonTrigger.Both" MenuId="taskContextMenu">
+        <ContextMenuTrigger Data="Model" MouseButtonTrigger="MouseButtonTrigger.Both" MenuId="taskContextMenu">
             <svg class="svg__options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 47.36">
                 <circle cx="23.57" cy="23.79" r="23.57" />
                 <circle cx="96" cy="23.57" r="23.57" />

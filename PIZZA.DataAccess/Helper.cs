@@ -5,6 +5,7 @@ using Microsoft.SqlServer.Management.Common;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Data;
+using System;
 
 namespace PIZZA.DataAccess
 {
@@ -70,5 +71,12 @@ namespace PIZZA.DataAccess
             }
 
         }
+
+        public static void ChangeConnectionString(string connectionString)
+        {
+            OnConnectionStringAcctualization?.Invoke(null, connectionString);
+        }
+
+        public static EventHandler<string> OnConnectionStringAcctualization;
     }
 }

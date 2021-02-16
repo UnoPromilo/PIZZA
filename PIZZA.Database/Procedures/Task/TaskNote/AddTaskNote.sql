@@ -8,7 +8,9 @@ AS
 BEGIN
 	IF EXISTS(SELECT * FROM TaskModel WHERE [ID] = @Task)
 	BEGIN
-		
+		IF @ResponseTo = 0
+			SET @ResponseTo = NULL;
+
 		IF @ResponseTo != NULL
 		BEGIN
 			DECLARE @BaseTaskID int = 0;

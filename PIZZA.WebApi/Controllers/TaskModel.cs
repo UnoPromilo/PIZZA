@@ -14,7 +14,7 @@ namespace PIZZA.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Manager, Admin")]
+    [Authorize]
     public class TaskModel : ControllerBase
     {
         private readonly ITaskRepository _taskRepository;
@@ -26,6 +26,7 @@ namespace PIZZA.WebApi.Controllers
             _taskRepository = taskRepository;
         }
 
+        [Authorize(Roles = "Manager, Admin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateTaskModel createTaskModel)
         {
@@ -36,6 +37,7 @@ namespace PIZZA.WebApi.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Manager, Admin")]
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] Models.Database.TaskModel taskModel)
         {
@@ -46,6 +48,7 @@ namespace PIZZA.WebApi.Controllers
                 return BadRequest();
         }
 
+        [Authorize(Roles = "Manager, Admin")]
         [HttpDelete]
         public async Task<IActionResult> Delete([FromQuery] int taskID)
         {
@@ -66,7 +69,31 @@ namespace PIZZA.WebApi.Controllers
                 return Ok(task);
         }
 
+        [HttpGet]
+        [Route("Search")]
+        public async Task<IActionResult> Search([FromQuery] string query, [FromQuery] bool showFinished, [FromQuery] bool showUnassigned)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var userIdToSearch = user.ID;
+            if (showUnassigned)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                if(roles.Where(r => r?.Equals("ADMIN", StringComparison.OrdinalIgnoreCase)??false).Count() >0 ||
+                   roles.Where(r => r?.Equals("MANAGER", StringComparison.OrdinalIgnoreCase) ?? false).Count() > 0)
+                {
+                    userIdToSearch = 0;
+                }
+            }
+
+
+            var list = await _taskRepository.GetTasks(query, showFinished, userIdToSearch);
+            if (list == default)
+                return BadRequest();
+            return Ok(list);
+        }
+
         [Route("AddUserToTask")]
+        [Authorize(Roles = "Manager, Admin")]
         [HttpPut]
         public async Task<IActionResult> AddUserToTask([FromBody] AddUserToTaskModel model)
         {
@@ -81,22 +108,24 @@ namespace PIZZA.WebApi.Controllers
         public async Task<IActionResult> GetUsersInTask([FromQuery] string taskID)
         {
             var users = await _taskRepository.GetUsersInTask(taskID);
-            if (users is null || users.Count == 0)
+            if (users is null)
                 return BadRequest();
             return Ok(users);
         }
 
         [Route("TasksForUsers")]
+        [Authorize(Roles = "Manager, Admin")]
         [HttpGet]
         public async Task<IActionResult> GetTasksForUser([FromQuery] string userID)
         {
             var tasks = await _taskRepository.GetTasksForUser(userID);
-            if (tasks is null || tasks.Count == 0)
+            if (tasks is null)
                 return BadRequest();
             return Ok(tasks);
         }
 
         [Route("RemoveUserFromTask")]
+        [Authorize(Roles = "Manager, Admin")]
         [HttpDelete]
         public async Task<IActionResult> RemoveUserFormTask([FromQuery] string taskID, [FromQuery] string userID)
         {

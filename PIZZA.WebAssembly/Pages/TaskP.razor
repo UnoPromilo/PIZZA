@@ -1,8 +1,8 @@
-﻿@page "/task"
+﻿@page "/task/{TaskID}"
 @using PIZZA.WebAssembly.Shared.Users
 
 <div class="page__header">
-    <h1 class="page__h1">TaskModel.Name</h1>
+    <h1 class="page__h1">@Task.Name</h1>
 </div>
 <div class="page__options">
     <a class="page__options__button">

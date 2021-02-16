@@ -119,6 +119,7 @@
     <Build Include="Procedures\Task\TaskState\GetTaskStateHistory.sql" />
     <Build Include="Procedures\Task\TaskNote\GetTaskNote.sql" />
     <Build Include="Procedures\Task\TaskState\GetLastTaskState.sql" />
+    <Build Include="Procedures\Task\FindTaskByQuery.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PIZZA.Database.publish.xml" />
