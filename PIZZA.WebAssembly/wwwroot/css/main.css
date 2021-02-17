@@ -127,6 +127,9 @@
       .page__input__box:focus {
         background: rgba(235, 235, 235, 0.3);
         box-shadow: rgba(0, 0, 0, 0.03) 10px 10px 3px; }
+      .page__input__box:disabled {
+        border: none;
+        background: transparent; }
     .page__input .validation-message {
       list-style: none;
       color: red;

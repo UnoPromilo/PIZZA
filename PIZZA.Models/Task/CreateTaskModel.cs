@@ -1,4 +1,5 @@
 ﻿using PIZZA.Enums;
+using PIZZA.Models.Validator;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,6 +15,7 @@ namespace PIZZA.Models.Task
         public TaskPriority Priority { get; set; }
 
         [Required(ErrorMessage = "Pole deadline jest wymagane.")]
+        [CheckDateRange]
         public DateTime Deadline { get; set; }
 
         [Required(AllowEmptyStrings = true)]

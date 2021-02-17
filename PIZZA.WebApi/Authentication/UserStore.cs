@@ -1,10 +1,7 @@
-﻿using Dapper;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using PIZZA.DataAccess.ApplicationUserDatabase;
 using PIZZA.Models.Database;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

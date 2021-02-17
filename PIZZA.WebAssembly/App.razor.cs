@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using PIZZA.Models.Instalation;
 using PIZZA.WebAssembly.Api.Services;
-using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PIZZA.WebAssembly

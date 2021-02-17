@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PIZZA.DataAccess.TaskDatabase;
 using PIZZA.Models.Database;
+using PIZZA.Models.Results;
 using PIZZA.Models.Task;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,10 +30,10 @@ namespace PIZZA.WebApi.Controllers
         public async Task<IActionResult> Create([FromBody] CreateTaskModel createTaskModel)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var rowsAffected = await _taskRepository.NewTask(createTaskModel, user.ID.ToString());
-            if (rowsAffected == 0)
-                return BadRequest();
-            return Ok();
+            var id = await _taskRepository.NewTask(createTaskModel, user.ID.ToString());
+            if (id == 0)
+                return BadRequest(new NewTaskResult {Successful = false});
+            return Ok(new NewTaskResult{ID =  id, Successful = true});
         }
 
         [Authorize(Roles = "Manager, Admin")]

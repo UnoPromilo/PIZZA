@@ -1,9 +1,8 @@
 ﻿using PIZZA.Models.Database;
+using PIZZA.Models.Results;
 using PIZZA.Models.Task;
 using PIZZA.WebAssembly.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,7 +11,7 @@ namespace PIZZA.WebAssembly.Api.Services
     public interface ITaskService
     {
         Task<bool> AddUserToTask(AddUserToTaskModel addUserToTaskModel);
-        Task<bool> Create(CreateTaskModel createTaskModel);
+        Task<NewTaskResult> Create(CreateTaskModel createTaskModel);
         Task<bool> CreateTaskNote(NewTaskNoteModel newTaskNoteModel);
         Task<bool> CreateTaskState(NewTaskStateModel newTaskStateModel);
         Task<bool> Delete(int taskID);
@@ -23,7 +22,7 @@ namespace PIZZA.WebAssembly.Api.Services
         Task<List<TaskModelWithActualStateAndCreator>> GetTasks(CancellationToken cancellationToken, string query, TaskSearchOptions searchOptions);
         Task<IList<TaskWithTaskRole>> GetTasksForUser(int userID);
         Task<TaskStateModel> GetTaskState(int taskState);
-        Task<IList<TaskNoteModel>> GetTaskStateHistory(int taskID);
+        Task<IList<TaskStateModel>> GetTaskStateHistory(int taskID);
         Task<IList<EmployeeWithTaskRole>> GetUsersInTask(int taskID);
         Task<bool> RemoveTaskNote(int taskNote);
         Task<bool> RemoveTaskState(int taskState);

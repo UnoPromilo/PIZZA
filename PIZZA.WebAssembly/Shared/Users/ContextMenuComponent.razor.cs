@@ -4,10 +4,7 @@ using PIZZA.Models.User;
 using PIZZA.WebAssembly.Api.Services;
 using PIZZA.WebAssembly.Models;
 using PIZZA.WebAssembly.Service;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PIZZA.WebAssembly.Shared.Users
 {

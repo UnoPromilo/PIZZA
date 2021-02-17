@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using System.Threading;
 using PIZZA.Models.Database;
 using Dapper;
 using System.Data;

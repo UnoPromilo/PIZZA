@@ -22,6 +22,7 @@ CREATE TRIGGER [dbo].[Trigger_AddFirstTaskState]
         DECLARE @Task int;
         DECLARE insertedCursor CURSOR FOR
         SELECT ID FROM inserted;
+        OPEN insertedCursor;
         FETCH NEXT FROM insertedCursor INTO @Task;
         WHILE @@FETCH_STATUS = 0
         BEGIN

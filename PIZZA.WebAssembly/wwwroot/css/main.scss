@@ -193,6 +193,11 @@ $nav-min-width: 641px;
                 background: rgba(235,235,235,0.3);
                 box-shadow: rgba(0,0,0,0.03) 10px 10px 3px;
             }
+
+            &:disabled {
+                border: none;
+                background: transparent;
+            }
         }
 
         .validation-message {
@@ -341,6 +346,7 @@ $nav-min-width: 641px;
         &--asc,
         &--desc {
             color: #151515 !important;
+
             &::after {
                 position: absolute;
             }
@@ -358,7 +364,7 @@ $nav-min-width: 641px;
             }
         }
 
-        &--full-width-cell{
+        &--full-width-cell {
             text-align: center;
         }
     }

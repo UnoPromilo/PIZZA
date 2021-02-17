@@ -135,7 +135,7 @@
                     {
                         foreach (var item in Tasks)
                         {
-                            <ContextMenuTrigger Data="item" WrapperTag="tr" MouseButtonTrigger="MouseButtonTrigger.Right" MenuId="taskContextMenu">
+                            <ContextMenuTrigger Data="item" WrapperTag="tr" MouseButtonTrigger="MouseButtonTrigger.Both" MenuId="taskContextMenu">
                                 <td class="user__task-table__name">
                                     @item.Task.Name
                                 </td>

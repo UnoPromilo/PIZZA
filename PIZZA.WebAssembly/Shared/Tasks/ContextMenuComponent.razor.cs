@@ -1,13 +1,11 @@
 ﻿using BlazorContextMenu;
 using Microsoft.AspNetCore.Components;
 using PIZZA.Models.Database;
+using PIZZA.Models.Task;
 using PIZZA.WebAssembly.Api.Services;
 using PIZZA.WebAssembly.Models;
 using PIZZA.WebAssembly.Service;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PIZZA.WebAssembly.Shared.Tasks
 {
@@ -22,12 +20,25 @@ namespace PIZZA.WebAssembly.Shared.Tasks
         [Inject] ITaskService TaskService { get; set; }
 
         private TaskModel currentTask;
+        private EmployeeWithTaskRole currentEmployee;
+
+        private bool isForUser;
 
         void Navigate()
         {
             NavigationManager.NavigateTo($"task/{currentTask.ID}");
         }
 
+        void NavigateToEmployee()
+        {
+            NavigationManager.NavigateTo($"user/{currentEmployee.Employee.ID}");
+        }
+
+
+        void DeleteFromTask()
+        {
+            TaskService.RemoveUserFormTask(currentEmployee.Task, currentEmployee.Employee.ID);
+        }
         void Delete()
         {
             PopupAlertModel model = new()
@@ -58,8 +69,24 @@ namespace PIZZA.WebAssembly.Shared.Tasks
 
         void MenuOnAppearingHandler(MenuAppearingEventArgs e)
         {
-            currentTask = e.Data as TaskModel;
-            if (currentTask is null) e.PreventShow = true;
+            if (e.Data is TaskWithTaskRole taskModel)
+            {
+                currentTask = taskModel.Task;
+                if (currentTask is null) e.PreventShow = true;
+                isForUser = true;
+            }
+            else if(e.Data is TaskModel)
+            {
+                currentTask = e.Data as TaskModel;
+                if (currentTask is null) e.PreventShow = true;
+                isForUser = false;
+            }
+            else if(e.Data is EmployeeWithTaskRole)
+            {
+                currentEmployee = e.Data as EmployeeWithTaskRole;
+                if (currentEmployee is null) e.PreventShow = true;
+            }
+            else e.PreventShow = true;
         }
     }
 }

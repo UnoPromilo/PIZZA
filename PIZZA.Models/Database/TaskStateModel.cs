@@ -1,7 +1,6 @@
 ﻿using PIZZA.Enums;
 using PIZZA.Models.User;
 using System;
-using System.Collections.Generic;
 
 namespace PIZZA.Models.Database
 {
@@ -12,6 +11,7 @@ namespace PIZZA.Models.Database
         public TaskState NewTaskState { get; set; }
         public DateTime DateTime { get; set; }
         public int Editor { get; set; }
+        public EmployeeModel EditorModel { get; set; }
         public int TaskNote { get; set; }
     }
 }

@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PIZZA.DataAccess.TaskDatabase
@@ -31,7 +30,7 @@ namespace PIZZA.DataAccess.TaskDatabase
                     createTaskModel.Description,
                     createTaskModel.Note
                 };
-                output = await cnn.ExecuteAsync(procedure, values, commandType: CommandType.StoredProcedure);
+                output = await cnn.QueryFirstOrDefaultAsync<int>(procedure, values, commandType: CommandType.StoredProcedure);
             }
             return output;
         }
@@ -131,7 +130,8 @@ namespace PIZZA.DataAccess.TaskDatabase
                     output.Add(new EmployeeWithTaskRole
                     {
                         Employee = item.Key,
-                        Role = item.Value
+                        Role = item.Value,
+                        Task = int.Parse(taskID)
                     });
             }
 
@@ -169,13 +169,21 @@ namespace PIZZA.DataAccess.TaskDatabase
             return rows;
         }
 
-        public async Task<int> AddTaskState(NewTaskStateModel model)
+        public async Task<int> AddTaskState(NewTaskStateModel model, int employee)
         {
             int rows;
             using(var cnn = DbConnection)
             {
                 var procedure = "[AddTaskState]";
-                rows = await cnn.ExecuteAsync(procedure, model, commandType: CommandType.StoredProcedure);
+                var values = new
+                {
+                    model.Task,
+                    model.NewTaskState,
+                    DateTime = DateTime.Now,
+                    Editor = employee,
+                    model.Note
+                };
+                rows = await cnn.ExecuteAsync(procedure, values, commandType: CommandType.StoredProcedure);
             }
             return rows;
         }
@@ -204,7 +212,8 @@ namespace PIZZA.DataAccess.TaskDatabase
                 {
                     ID
                 };
-                output = await cnn.QueryFirstOrDefaultAsync<TaskStateModel>(procedure, values, commandType: CommandType.StoredProcedure);
+                var list = await cnn.QueryAsync<TaskStateModel, EmployeeModel, TaskStateModel>(procedure, (task, employee) => { task.EditorModel = employee; return task; }, values, splitOn: "Editor", commandType: CommandType.StoredProcedure);
+                output = list.FirstOrDefault();
             }
             return output;
         }
@@ -219,7 +228,8 @@ namespace PIZZA.DataAccess.TaskDatabase
                 {
                     TaskID = taskID
                 };
-                output = await cnn.QueryFirstOrDefaultAsync<TaskStateModel>(procedure, values, commandType: CommandType.StoredProcedure);
+                var list = await cnn.QueryAsync<TaskStateModel, EmployeeModel, TaskStateModel>(procedure, (task, employee) => { task.EditorModel = employee; return task; }, values, splitOn: "Editor", commandType: CommandType.StoredProcedure);
+                output = list.FirstOrDefault();
             }
             return output;
         }
@@ -233,7 +243,7 @@ namespace PIZZA.DataAccess.TaskDatabase
                 {
                     TaskID = taskID
                 };
-                output = await cnn.QueryAsync<TaskStateModel>(procedure, values, commandType: CommandType.StoredProcedure);
+                output = await cnn.QueryAsync<TaskStateModel, EmployeeModel, TaskStateModel>(procedure, (task, employee) => { task.EditorModel = employee; return task; }, values, splitOn: "Editor", commandType: CommandType.StoredProcedure);
             }
             return output.ToList();
         }

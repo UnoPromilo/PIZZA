@@ -18,6 +18,8 @@ BEGIN
 								FROM TaskNote
 								WHERE Task = @TaskID)
 						WHERE Task = @TaskID;
-
+	EXEC AddUserToTask @Task = @TaskID,
+					   @Employee = @Creator,
+					   @Role = 0;
 	SELECT @TaskID;
 END

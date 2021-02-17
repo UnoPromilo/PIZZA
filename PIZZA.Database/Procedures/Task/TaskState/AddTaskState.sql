@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[AddTaskState]
 	@Task int,
 	@NewTaskState int,
-	@DateTime int,
+	@DateTime datetime,
 	@Editor int,
 	@Note nvarchar(MAX)
 AS

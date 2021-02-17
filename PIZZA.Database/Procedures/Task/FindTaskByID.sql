@@ -8,9 +8,9 @@ BEGIN
 		ORDER BY DateTime DESC;
 
 	DECLARE @Creator int = -1;
-	SELECT TOP(1) @LastState = Employee FROM EmployeeTask
+	SELECT TOP(1) @Creator = Employee FROM EmployeeTask
 		WHERE Task = @ID AND TaskRole = 0;
 	
-	SELECT *, @LastState as LastState, @Creator as Creator FROM [TaskModel]
+	SELECT *, @LastState as TaskState, @Creator as TaskCreator FROM [TaskModel]
 			WHERE [ID] = @ID ; 
 END

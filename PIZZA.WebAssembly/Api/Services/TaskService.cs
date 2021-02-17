@@ -1,10 +1,9 @@
 ﻿using Blazored.LocalStorage;
 using PIZZA.Models.Database;
+using PIZZA.Models.Results;
 using PIZZA.Models.Task;
 using PIZZA.WebAssembly.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -29,12 +28,14 @@ namespace PIZZA.WebAssembly.Api.Services
             return output;
         }
 
-        public async Task<bool> Create(CreateTaskModel createTaskModel)
+        public async Task<NewTaskResult> Create(CreateTaskModel createTaskModel)
         {
             await loadAuthTask;
             var content = JsonSerializer.Serialize(createTaskModel);
-            var response = await _httpClient.PostAsync($"api/TaskModel", new StringContent(content, Encoding.UTF8, "application/json"));           
-            return response.IsSuccessStatusCode;
+            var response = await _httpClient.PostAsync($"api/TaskModel", new StringContent(content, Encoding.UTF8, "application/json"));
+            var text = await response.Content.ReadAsStringAsync();
+            var output = JsonSerializer.Deserialize<NewTaskResult>(text, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            return output;
         }
 
         public async Task<bool> Update(TaskModel taskModel)
@@ -169,27 +170,27 @@ namespace PIZZA.WebAssembly.Api.Services
         public async Task<bool> RemoveTaskState(int taskState)
         {
             await loadAuthTask;
-            var response = await _httpClient.DeleteAsync($"api/TaskNote?taskState={taskState}");
+            var response = await _httpClient.DeleteAsync($"api/TaskState?taskState={taskState}");
             return response.IsSuccessStatusCode;
         }
 
         public async Task<TaskNoteModel> GetLastTaskState(int taskID)
         {
             await loadAuthTask;
-            var httpQuery = $"api/TaskNote/GetLastTaskState?taskID={taskID}";
+            var httpQuery = $"api/TaskState/GetLastTaskState?taskID={taskID}";
             var response = await _httpClient.GetAsync(httpQuery);
             var text = await response.Content.ReadAsStringAsync();
             var output = JsonSerializer.Deserialize<TaskNoteModel>(text, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             return output;
         }
 
-        public async Task<IList<TaskNoteModel>> GetTaskStateHistory(int taskID)
+        public async Task<IList<TaskStateModel>> GetTaskStateHistory(int taskID)
         {
             await loadAuthTask;
-            var httpQuery = $"api/TaskNote/GetTaskStateHistory?taskID={taskID}";
+            var httpQuery = $"api/TaskState/GetTaskStateHistory?taskID={taskID}";
             var response = await _httpClient.GetAsync(httpQuery);
             var text = await response.Content.ReadAsStringAsync();
-            var output = JsonSerializer.Deserialize<IList<TaskNoteModel>>(text, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var output = JsonSerializer.Deserialize<IList<TaskStateModel>>(text, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             return output;
         }
     }

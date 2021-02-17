@@ -2,10 +2,16 @@
 @using PIZZA.WebAssembly.Shared.Users
 
 <div class="page__header">
-    <h1 class="page__h1">@Task.Name</h1>
+    <h1 class="page__h1">@TaskModel.Name</h1>
 </div>
 <div class="page__options">
     <a class="page__options__button">
+        <span class="page__options__button__icon material-icons">
+            add
+        </span>
+        <p class="page__options__button__text">Dodaj użytkownika</p>
+    </a>
+    <a class="page__options__button" @onclick="Delete">
         <span class="page__options__button__icon material-icons">
             delete_forever
         </span>
@@ -20,98 +26,134 @@
             <h4>Kliknij aby edytować</h4>
         </div>
         <div class="page__col__col__content">
-        @*<EditForm Model="TaskModel" class="user__data-table">
-            <DataAnnotationsValidator />
-            <tr>
-                <label for="@nameof(TaskModel.Name)" class="user__data-table__name">Nazwa</label>
-                <td class="user__data-table__value">
-                    <InputText id="@nameof(TaskModel.Name)"
-                               class="page__input--hidden"
-                               @bind-Value="TaskModel.Name" />
-                </td>
-            </tr>
-            <tr>
-                <label for="@nameof(TaskModel.Priority)" class="user__data-table__name">Priorytet</label>
-                <td class="user__data-table__value">
-                    <InputSelect id="@nameof(TaskModel.Priority)"
-                                 class="page__input--hidden"
-                                 @bind-Value="TaskModel.Priority">
-                        @foreach(TaskPriority item in Enum.GetValues(typeof(TaskPriority)))
-                        {
-                            <option value="@item">@item.Name()</option>
-                        }
-                    </InputSelect>
-                </td>
-            </tr>
-            <tr>
-                <label for="@nameof(TaskModel.Deadline)" class="user__data-table__name">Deadline</label>
-                <td class="user__data-table__value">
-                    <InputDate id="@nameof(TaskModel.Deadline)"
-                               class="page__input--hidden"
-                               @bind-Value="TaskModel.Deadline" />
-                </td>
-            </tr>
-            <tr>
-                <label for="@nameof(TaskModel.CreationDate)" class="user__data-table__name">Data utworzenia</label>
-                <td class="user__data-table__value">
-                    @TaskModel.CreationDate
-                </td>
-            </tr>
-            <tr>
-                <label for="@nameof(TaskModel.LastActualization)" class="user__data-table__name">Ostatnia aktualizacja</label>
-                <td class="user__data-table__value">
-                    @TaskModel.LastActualization
-                </td>
-            </tr>
-            <tr>
-                <label for="@nameof(TaskModel.Finished)" class="user__data-table__name">Ukończony</label>
-                <td class="user__data-table__value">
-                    <InputFieldCheckbox Name="@nameof(TaskModel.Finished)"
-                                        @bind-Value="TaskModel.Finished"
-                                        class="page__input--nomarigin" />
+            <EditForm Model="TaskModel" class="user__data-table" OnValidSubmit="SaveTaskModel">
+                <DataAnnotationsValidator />
+                <tr>
+                    <label for="@nameof(TaskModel.Name)" class="user__data-table__name">Nazwa</label>
+                    <td class="user__data-table__value">
+                        <InputText id="@nameof(TaskModel.Name)"
+                                   class="page__input--hidden"
+                                   @bind-Value="TaskModel.Name" />
+                    </td>
+                </tr>
+                <tr>
+                    <label for="@nameof(TaskModel.Priority)" class="user__data-table__name">Priorytet</label>
+                    <td class="user__data-table__value">
+                        <InputSelect id="@nameof(TaskModel.Priority)"
+                                     class="page__input--hidden"
+                                     @bind-Value="TaskModel.Priority">
+                            @foreach (TaskPriority item in Enum.GetValues(typeof(TaskPriority)))
+                            {
+                                <option value="@item">@item.ToFriendlyString()</option>
+                            }
+                        </InputSelect>
+                    </td>
+                </tr>
+                <tr>
+                    <label for="@nameof(TaskModel.TaskState)" class="user__data-table__name">Status</label>
+                    <td class="user__data-table__value">
+                        <InputSelect id="@nameof(TaskModel.TaskState)"
+                                     class="page__input--hidden"
+                                     @bind-Value="TaskModel.TaskState">
+                            @foreach (TaskState item in Enum.GetValues(typeof(TaskState)))
+                            {
+                                <option value="@item">@item.ToFriendlyString()</option>
+                            }
+                        </InputSelect>
+                    </td>
+                </tr>
+                <tr>
+                    <label for="@nameof(TaskModel.Deadline)" class="user__data-table__name">Deadline</label>
+                    <td class="user__data-table__value">
+                        <InputDate id="@nameof(TaskModel.Deadline)"
+                                   class="page__input--hidden"
+                                   @bind-Value="TaskModel.Deadline" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="user__data-table__name"></td>
+                    <td class="user__data-table__value">
+                        <button type="submit" class="page__submit">Zapisz</button>
+                    </td>
+                </tr>
+            </EditForm>
+        </div>
+    </div>
+    <div class="page__col__col">
 
-                </td>
-            </tr>
-            <tr>
-                <td class="user__data-table__name"></td>
-                <td class="user__data-table__value">
-                    <button type="submit" class="page__submit">Zapisz</button>
-                </td>
-            </tr>
-        </EditForm>*@
+        <div class="page__col__col__h">
+            <h3> Opis</h3>
+        </div>
+        <div class="page__col__col__content">
+            <EditForm Model="TaskModel" class="user__data-table" OnValidSubmit="SaveTaskModel">
+                <DataAnnotationsValidator />
+                <InputFieldTextArea Name="@nameof(TaskModel.Description)"
+                                    @bind-Value="TaskModel.Description"
+                                    For="()=>TaskModel.Description" />
+            </EditForm>
+            <button type="submit" class="page__submit">Zapisz</button>
         </div>
     </div>
     <div class="page__col__col">
         <div class="page__col__col__h">
-            <h3>Niedawno zaktualizowane przypisane zadania</h3>
+            <h3>Przypisani użytkownicy</h3>
             <h4>Kliknij aby przejść do zadania</h4>
         </div>
         <div class="page__col__col__content">
             <table class="user__task-table">
-                <tr>
-                    <td class="user__task-table__name">
-                        Przykładowe jakieś zadanie 1
-                    </td>
-                    <td class="user__task-table__role">
-                        Twórca
-                    </td>
-                </tr>
-                <tr>
-                    <td class="user__task-table__name">
-                        Przykładowe jakieś zadanie 2
-                    </td>
-                    <td class="user__task-table__role">
-                        Obserwator
-                    </td>
-                </tr>
-                <tr>
-                    <td class="user__task-table__name">
-                        Przykładowe jakieś zadanie 3
-                    </td>
-                    <td class="user__task-table__role">
-                        Edytor
-                    </td>
-                </tr>
+                @if (Participants is not null)
+                {
+                    foreach (var item in Participants)
+                    {
+                        <ContextMenuTrigger Data="item" WrapperTag="tr" MouseButtonTrigger="MouseButtonTrigger.Both" MenuId="employeeInTaskContextMenu">
+                            <td class="user__task-table__name">
+                                @item.Employee.FirstName @item.Employee.LastName
+                            </td>
+                            <td class="user__task-table__role">
+                                @item.Role.ToFriendlyString()
+                            </td>
+                        </ContextMenuTrigger>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="99" class="page__table--full-width-cell">
+                            Ładowanie
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <div class="page__col__col">
+        <div class="page__col__col__h">
+            <h3>Historia zmian</h3>
+        </div>
+        <div class="page__col__col__content">
+            <table class="user__task-table">
+                @if (History is not null)
+                {
+                    foreach (var item in History)
+                    {
+                        <tr>
+                            <td class="user__task-table__name">
+                                @item.DateTime - @item.NewTaskState.ToFriendlyString()
+                            </td>
+                            <td class="user__task-table__role">
+                                @item.EditorModel.FirstName @item.EditorModel.LastName
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="99" class="page__table--full-width-cell">
+                            Ładowanie
+                        </td>
+                    </tr>
+                }
             </table>
         </div>
     </div>

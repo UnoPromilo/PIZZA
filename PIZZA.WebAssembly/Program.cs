@@ -8,7 +8,6 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using PIZZA.WebAssembly.Extension;
-using System.Net.Http.Headers;
 
 namespace PIZZA.WebAssembly
 {

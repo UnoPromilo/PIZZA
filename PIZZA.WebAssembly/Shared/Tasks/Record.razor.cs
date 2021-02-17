@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PIZZA.Models.Task;
-using PIZZA.Models.User;
 
 namespace PIZZA.WebAssembly.Shared.Tasks
 {

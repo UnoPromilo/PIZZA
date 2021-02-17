@@ -5,7 +5,7 @@
 <div class="page__options">
 </div>
 
-<EditForm Model="CreateTask" class="page__col page__col--two-col" autocomplete="off">
+<EditForm Model="CreateTask" class="page__col page__col--two-col" autocomplete="off" OnValidSubmit="CreateTaskFromModel">
     <DataAnnotationsValidator />
     <div class="page__col__col">
         <div class="page__col__col__h">
@@ -24,7 +24,7 @@
                               For="()=>CreateTask.Priority">
                 @foreach (TaskPriority item in Enum.GetValues(typeof(TaskPriority)))
                 {
-                    <option value="@item">@item.Name()</option>
+                    <option value="@item">@item.ToFriendlyString()</option>
                 }
             </InputFieldSelect>
             <InputFieldDate Label="Dealine"

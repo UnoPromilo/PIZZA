@@ -1,4 +1,9 @@
-/****** Object:  Table [dbo].[ApplicationUser]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  UserDefinedTableType [dbo].[SearchKeywordsList]    Script Date: 17.02.2021 02:33:59 ******/
+CREATE TYPE [dbo].[SearchKeywordsList] AS TABLE(
+	[keyword] [nvarchar](max) NULL
+)
+GO
+/****** Object:  Table [dbo].[ApplicationUser]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31,7 +36,7 @@ UNIQUE NONCLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  View [dbo].[Employee]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  View [dbo].[Employee]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -48,7 +53,7 @@ CREATE VIEW [dbo].[Employee]
 			  [Town]			  
 			  FROM [ApplicationUser]
 GO
-/****** Object:  Table [dbo].[File]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  Table [dbo].[File]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -64,7 +69,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[FileTask]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  Table [dbo].[FileTask]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -79,7 +84,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  View [dbo].[FileWithTask]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  View [dbo].[FileWithTask]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -87,7 +92,7 @@ GO
 CREATE VIEW [dbo].[FileWithTask]
 	AS SELECT * FROM [FileTask] INNER JOIN [File] ON [FileTask].[File] = [File].[GUID];
 GO
-/****** Object:  Table [dbo].[EmployeeTask]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  Table [dbo].[EmployeeTask]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -103,7 +108,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[TaskModel]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  Table [dbo].[TaskModel]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -120,7 +125,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[TaskState]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  Table [dbo].[TaskState]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -138,12 +143,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  UserDefinedTableType [dbo].[SearchKeywordsList]    Script Date: 13.02.2021 17:41:15 ******/
-CREATE TYPE [dbo].[SearchKeywordsList] AS TABLE(
-	[keyword] [nvarchar](max) NULL
-)
-GO
-/****** Object:  View [dbo].[TaskWithActualStateAndCreator]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  View [dbo].[TaskWithActualStateAndCreator]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -161,7 +161,7 @@ CREATE VIEW [dbo].[TaskWithActualStateAndCreator]
 			as TaskCreator
 	FROM [TaskModel] as OTask;
 GO
-/****** Object:  Table [dbo].[ApplicationRole]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  Table [dbo].[ApplicationRole]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -180,7 +180,7 @@ UNIQUE NONCLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ApplicationUserRole]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  Table [dbo].[ApplicationUserRole]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -195,7 +195,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[TaskNote]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  Table [dbo].[TaskNote]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -207,59 +207,12 @@ CREATE TABLE [dbo].[TaskNote](
 	[Note] [nvarchar](max) NULL,
 	[DateTime] [datetime] NOT NULL,
 	[ResponseTo] [int] NULL,
-	[IsDeleted] [bit] NOT NULL DEFAULT 0,
+	[IsDeleted] [bit] NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-SET ANSI_PADDING ON
-GO
-/****** Object:  Index [NormalizedNameIndex]    Script Date: 13.02.2021 17:41:15 ******/
-CREATE UNIQUE NONCLUSTERED INDEX [NormalizedNameIndex] ON [dbo].[ApplicationRole]
-(
-	[NormalizedName] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-GO
-SET ANSI_PADDING ON
-GO
-/****** Object:  Index [NameIndex]    Script Date: 13.02.2021 17:41:15 ******/
-CREATE NONCLUSTERED INDEX [NameIndex] ON [dbo].[ApplicationUser]
-(
-	[FirstName] ASC,
-	[LastName] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-GO
-SET ANSI_PADDING ON
-GO
-/****** Object:  Index [NormalizedEmailIndex]    Script Date: 13.02.2021 17:41:15 ******/
-CREATE NONCLUSTERED INDEX [NormalizedEmailIndex] ON [dbo].[ApplicationUser]
-(
-	[Email] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-GO
-SET ANSI_PADDING ON
-GO
-/****** Object:  Index [NormalizedUserNameInedx]    Script Date: 13.02.2021 17:41:15 ******/
-CREATE UNIQUE NONCLUSTERED INDEX [NormalizedUserNameInedx] ON [dbo].[ApplicationUser]
-(
-	[NormalizedUserName] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-GO
-/****** Object:  Index [OwnerIndex]    Script Date: 13.02.2021 17:41:15 ******/
-CREATE NONCLUSTERED INDEX [OwnerIndex] ON [dbo].[File]
-(
-	[Owner] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-GO
-SET ANSI_PADDING ON
-GO
-/****** Object:  Index [NameIndex]    Script Date: 13.02.2021 17:41:15 ******/
-CREATE NONCLUSTERED INDEX [NameIndex] ON [dbo].[TaskModel]
-(
-	[Name] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[ApplicationUser] ADD  DEFAULT ((0)) FOR [EmailConfirmed]
 GO
@@ -356,7 +309,7 @@ REFERENCES [dbo].[TaskNote] ([ID])
 GO
 ALTER TABLE [dbo].[TaskState] CHECK CONSTRAINT [FK_TaskState_ToTaskNote]
 GO
-/****** Object:  StoredProcedure [dbo].[AddTaskNote]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[AddTaskNote]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -387,7 +340,7 @@ BEGIN
 	END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[AddTaskState]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[AddTaskState]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -395,7 +348,7 @@ GO
 CREATE PROCEDURE [dbo].[AddTaskState]
 	@Task int,
 	@NewTaskState int,
-	@DateTime int,
+	@DateTime datetime,
 	@Editor int,
 	@Note nvarchar(MAX)
 AS
@@ -417,7 +370,7 @@ BEGIN
 	RETURN @Inserted;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[AddUserToRole]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[AddUserToRole]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -442,7 +395,7 @@ BEGIN
 		INSERT INTO [ApplicationUserRole] ([UserID], [RoleID]) VALUES (@UserID, @RoleID);
 END
 GO
-/****** Object:  StoredProcedure [dbo].[AddUserToTask]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[AddUserToTask]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -462,7 +415,7 @@ BEGIN
 	RETURN 0;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[CreateRole]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[CreateRole]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -477,7 +430,7 @@ BEGIN
 	SELECT CAST(SCOPE_IDENTITY() as int)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[CreateTask]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[CreateTask]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -502,11 +455,13 @@ BEGIN
 								FROM TaskNote
 								WHERE Task = @TaskID)
 						WHERE Task = @TaskID;
-
+	EXEC AddUserToTask @Task = @TaskID,
+					   @Employee = @Creator,
+					   @Role = 0
 	SELECT @TaskID;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[CreateUser]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[CreateUser]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -542,7 +497,7 @@ BEGIN
 	SELECT CAST(SCOPE_IDENTITY() as int);
 END
 GO
-/****** Object:  StoredProcedure [dbo].[FindRoleById]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[FindRoleById]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -553,7 +508,7 @@ AS
 	SELECT * FROM [ApplicationRole]
 		WHERE [ID] = @ID;
 GO
-/****** Object:  StoredProcedure [dbo].[FindRoleByName]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[FindRoleByName]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -564,7 +519,7 @@ AS
 	SELECT * FROM [ApplicationRole]
 		WHERE [NormalizedName] = @NormalizedRoleName;
 GO
-/****** Object:  StoredProcedure [dbo].[FindTaskByID]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[FindTaskByID]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -579,14 +534,14 @@ BEGIN
 		ORDER BY DateTime DESC;
 
 	DECLARE @Creator int = -1;
-	SELECT TOP(1) @LastState = Employee FROM EmployeeTask
+	SELECT TOP(1) @Creator = Employee FROM EmployeeTask
 		WHERE Task = @ID AND TaskRole = 0;
 	
-	SELECT *, @LastState as LastState, @Creator as Creator FROM [TaskModel]
+	SELECT *, @LastState as TaskState, @Creator as TaskCreator FROM [TaskModel]
 			WHERE [ID] = @ID ; 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[FindTaskByQuery]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[FindTaskByQuery]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -608,7 +563,7 @@ BEGIN
 		('');
 	ELSE 
 		INSERT INTO @Keywords2 SELECT * FROM @Keywords;
-		
+
 
 	DECLARE @Tab AS TABLE(ID int NOT NULL,
 						  Name nvarchar(256)  NULL,
@@ -663,59 +618,7 @@ BEGIN
 	SELECT * FROM @Tab;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[FindTaskByQuery]    Script Date: 13.02.2021 17:41:15 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE PROCEDURE [dbo].[FindTaskByQuery]
-	@Keywords AS dbo.SearchKeywordsList READONLY,
-	@ShowFinished AS bit,
-	@UserID AS int = 0
-AS
-BEGIN
-	DECLARE @AvoidState int = 2;
-	IF(@ShowFinished = 1)
-		SET @AvoidState = -1;
-	
-	DECLARE @Keywords2 SearchKeywordsList;
-	IF(SELECT COUNT(*) FROM @Keywords) = 0
-		INSERT INTO @Keywords2 VALUES
-		('');
-	ELSE 
-		INSERT INTO @Keywords2 SELECT * FROM @Keywords;
-
-	IF(@UserID = 0 OR @UserID = null)
-
-		SELECT t.*, (SELECT TOP(1) NewTaskState FROM TaskState 
-					WHERE Task = t.ID
-					ORDER BY DateTime DESC) as TaskState,
-				  (SELECT TOP(1) Employee FROM EmployeeTask
-				    WHERE Task = t.ID AND TaskRole = 0) as TaskCreator
-			FROM [TaskModel] t
-			WHERE t.ID IN (SELECT ID FROM [TaskModel] JOIN @Keywords2 ON [Name] like '%'+keyword+'%') AND 
-			@AvoidState != (SELECT TOP(1) NewTaskState FROM TaskState 
-					WHERE Task = t.ID
-					ORDER BY DateTime DESC) 
-			ORDER BY ID;
-	ELSE
-			SELECT t.*, (SELECT TOP(1) NewTaskState FROM TaskState 
-						WHERE Task = t.ID
-						ORDER BY DateTime DESC) as TaskState,
-						(SELECT TOP(1) Employee FROM EmployeeTask
-						WHERE Task = t.ID AND TaskRole = 0) as TaskCreator
-			FROM [TaskModel] t
-			INNER JOIN [EmployeeTask] as et ON et.[Task] = t.[ID] 
-		
-			WHERE t.ID IN (SELECT ID FROM [TaskModel] JOIN @Keywords2 ON [Name] like '%'+keyword+'%') AND 
-			@AvoidState != (SELECT TOP(1) NewTaskState FROM TaskState 
-					WHERE Task = t.ID
-					ORDER BY DateTime DESC) AND
-			@UserID IN (SELECT [Employee] FROM EmployeeTask WHERE Task = t.ID)
-			ORDER BY ID;
-END
-GO
-/****** Object:  StoredProcedure [dbo].[FindTaskStateById]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[FindTaskStateById]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -723,10 +626,12 @@ GO
 CREATE PROCEDURE [dbo].[FindTaskStateById]
 	@ID int
 AS
-	SELECT * FROM TaskState
-		WHERE ID = @ID;
+	SELECT t.*, t.ID as Editor, a.FirstName, a.LastName
+		FROM TaskState t
+		JOIN ApplicationUser a On t.Editor = a.ID
+		WHERE t.ID = @ID;
 GO
-/****** Object:  StoredProcedure [dbo].[FindUserByEmail]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[FindUserByEmail]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -737,7 +642,7 @@ AS
 	SELECT * FROM [ApplicationUser]
 		WHERE [NormalizedEmail] = @NormalizedEmail;
 GO
-/****** Object:  StoredProcedure [dbo].[FindUserById]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[FindUserById]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -748,7 +653,7 @@ AS
 	SELECT * FROM [ApplicationUser]
 		WHERE [ID] = @ID;
 GO
-/****** Object:  StoredProcedure [dbo].[FindUserByName]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[FindUserByName]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -759,7 +664,7 @@ AS
 	SELECT * FROM [ApplicationUser]
 		WHERE [NormalizedUserName] = @NormalizedUserName;
 GO
-/****** Object:  StoredProcedure [dbo].[GetLastTaskState]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[GetLastTaskState]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -767,11 +672,13 @@ GO
 CREATE PROCEDURE [dbo].[GetLastTaskState]
 	@TaskID int
 AS
-	SELECT TOP(1) * FROM TaskState 
+	SELECT TOP(1) t.*, t.ID as Editor, a.FirstName, a.LastName
+		FROM TaskState t
+		JOIN ApplicationUser a On t.Editor = a.ID
 		WHERE Task = @TaskID
 		ORDER BY DateTime DESC;
 GO
-/****** Object:  StoredProcedure [dbo].[GetNotesForTask]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[GetNotesForTask]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -781,7 +688,7 @@ CREATE PROCEDURE [dbo].[GetNotesForTask]
 AS
 	SELECT * FROM TaskNote WHERE Task = @TaskID;
 GO
-/****** Object:  StoredProcedure [dbo].[GetSecurityStamp]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[GetSecurityStamp]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -791,7 +698,7 @@ CREATE PROCEDURE [dbo].[GetSecurityStamp]
 AS
 	SELECT [SecurityStamp] FROM [ApplicationUser] WHERE [ID] = @ID;
 GO
-/****** Object:  StoredProcedure [dbo].[GetTaskNote]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[GetTaskNote]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -801,7 +708,7 @@ CREATE PROCEDURE [dbo].[GetTaskNote]
 AS
 	SELECT * FROM TaskNote WHERE ID = @ID;
 GO
-/****** Object:  StoredProcedure [dbo].[GetTasksForUser]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[GetTasksForUser]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -813,7 +720,7 @@ AS
 		INNER JOIN [TaskModel] as t ON et.[Task] = t.[ID] 
 		WHERE et.[Employee] = @UserID;
 GO
-/****** Object:  StoredProcedure [dbo].[GetTaskState]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[GetTaskState]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -824,7 +731,7 @@ AS
 	SELECT * FROM TaskState
 		WHERE ID = @ID;
 GO
-/****** Object:  StoredProcedure [dbo].[GetTaskStateHistory]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[GetTaskStateHistory]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -832,11 +739,12 @@ GO
 CREATE PROCEDURE [dbo].[GetTaskStateHistory]
 	@TaskID int
 AS
-	SELECT * FROM TaskState 
+	SELECT t.*, t.ID as Editor, a.FirstName, a.LastName FROM TaskState t
+		JOIN ApplicationUser a On t.Editor = a.ID
 		WHERE Task = @TaskID
 		ORDER BY DateTime DESC;
 GO
-/****** Object:  StoredProcedure [dbo].[GetTaskStatesForTask]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[GetTaskStatesForTask]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -848,7 +756,7 @@ AS
 		WHERE Task = @TaskID
 		ORDER BY DateTime DESC;
 GO
-/****** Object:  StoredProcedure [dbo].[GetUserRoles]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[GetUserRoles]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -861,7 +769,7 @@ AS
 			ON ur.[RoleID] = r.ID
 		WHERE ur.UserID = @UserID;
 GO
-/****** Object:  StoredProcedure [dbo].[GetUsers]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[GetUsers]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -910,7 +818,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[GetUsersInRole]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[GetUsersInRole]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -927,7 +835,7 @@ BEGIN
 	WHERE r.[NormalizedName] = UPPER(@RoleName);
 END
 GO
-/****** Object:  StoredProcedure [dbo].[GetUsersInTask]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[GetUsersInTask]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -939,7 +847,7 @@ AS
 		INNER JOIN [Employee] as e ON et.[Employee] = e.[ID] 
 		WHERE et.[Task] = @TaskID;
 GO
-/****** Object:  StoredProcedure [dbo].[IsUserInRole]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[IsUserInRole]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -958,7 +866,7 @@ BEGIN
 		SELECT 0;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[RemoveTask]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[RemoveTask]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -969,7 +877,7 @@ AS
 	DELETE FROM [TaskModel] WHERE [TaskModel].ID = @ID;
 RETURN @@ROWCOUNT
 GO
-/****** Object:  StoredProcedure [dbo].[RemoveTaskNote]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[RemoveTaskNote]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -980,7 +888,7 @@ AS
 	DELETE FROM [TaskNote] WHERE ID = @ID;
 RETURN @@ROWCOUNT
 GO
-/****** Object:  StoredProcedure [dbo].[RemoveTaskState]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[RemoveTaskState]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -991,7 +899,7 @@ AS
 	DELETE FROM TaskState WHERE ID = @ID;
 RETURN @@RowCount;
 GO
-/****** Object:  StoredProcedure [dbo].[RemoveUserFromRole]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[RemoveUserFromRole]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1011,7 +919,7 @@ BEGIN
 		END	
 END
 GO
-/****** Object:  StoredProcedure [dbo].[RemoveUserFromTask]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[RemoveUserFromTask]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1023,7 +931,7 @@ AS
 	DELETE FROM [EmployeeTask] WHERE Task = @TaskID AND [Employee] = @UserID;
 RETURN @@ROWCOUNT
 GO
-/****** Object:  StoredProcedure [dbo].[UpdateRole]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[UpdateRole]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1038,7 +946,7 @@ AS
 	[NormalizedName] = @NormalizedName
 	WHERE [ID] = @ID;
 GO
-/****** Object:  StoredProcedure [dbo].[UpdateSecurityStamp]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[UpdateSecurityStamp]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1050,7 +958,7 @@ AS
 	UPDATE [ApplicationUser] SET [SecurityStamp] = @SecurityStamp WHERE [ID] = @ID;
 RETURN 0
 GO
-/****** Object:  StoredProcedure [dbo].[UpdateTask]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[UpdateTask]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1070,7 +978,7 @@ AS
 		WHERE ID = @ID;
 RETURN @@ROWCOUNT;
 GO
-/****** Object:  StoredProcedure [dbo].[UpdateTaskNote]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[UpdateTaskNote]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1088,7 +996,7 @@ AS
 	WHERE ID = @ID;
 RETURN @@ROWCOUNT
 GO
-/****** Object:  StoredProcedure [dbo].[UpdateTaskState]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[UpdateTaskState]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1106,7 +1014,7 @@ AS
 	WHERE ID = @ID;
 RETURN @@ROWCount;
 GO
-/****** Object:  StoredProcedure [dbo].[UpdateUser]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  StoredProcedure [dbo].[UpdateUser]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1149,7 +1057,7 @@ AS
 	[Town] = @Town
 	WHERE [ID] = @ID;
 GO
-/****** Object:  Trigger [dbo].[Trigger_AddFirstTaskState]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  Trigger [dbo].[Trigger_AddFirstTaskState]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1164,6 +1072,7 @@ CREATE TRIGGER [dbo].[Trigger_AddFirstTaskState]
         DECLARE @Task int;
         DECLARE insertedCursor CURSOR FOR
         SELECT ID FROM inserted;
+        OPEN insertedCursor;
         FETCH NEXT FROM insertedCursor INTO @Task;
         WHILE @@FETCH_STATUS = 0
         BEGIN
@@ -1177,7 +1086,7 @@ CREATE TRIGGER [dbo].[Trigger_AddFirstTaskState]
 GO
 ALTER TABLE [dbo].[TaskModel] ENABLE TRIGGER [Trigger_AddFirstTaskState]
 GO
-/****** Object:  Trigger [dbo].[Trigger_OnDelete]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  Trigger [dbo].[Trigger_OnDelete]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1195,7 +1104,7 @@ CREATE TRIGGER [dbo].[Trigger_OnDelete]
 GO
 ALTER TABLE [dbo].[TaskNote] ENABLE TRIGGER [Trigger_OnDelete]
 GO
-/****** Object:  Trigger [dbo].[Trigger_AddNoteToTask]    Script Date: 13.02.2021 17:41:15 ******/
+/****** Object:  Trigger [dbo].[Trigger_AddNoteToTask]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1236,8 +1145,3 @@ CREATE TRIGGER [dbo].[Trigger_AddNoteToTask]
 GO
 ALTER TABLE [dbo].[TaskState] ENABLE TRIGGER [Trigger_AddNoteToTask]
 GO
-USE [master]
-GO
-ALTER DATABASE [PIZZA] SET  READ_WRITE 
-GO
-

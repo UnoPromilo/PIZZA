@@ -1,11 +1,7 @@
 ﻿using PIZZA.Enums;
 using PIZZA.Models.Database;
 using PIZZA.Models.Task;
-using PIZZA.Models.User;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PIZZA.DataAccess.TaskDatabase
@@ -13,7 +9,7 @@ namespace PIZZA.DataAccess.TaskDatabase
     public interface ITaskRepository
     {
         Task<int> AddTaskNote(NewTaskNoteModel model);
-        Task<int> AddTaskState(NewTaskStateModel model);
+        Task<int> AddTaskState(NewTaskStateModel model, int editor);
         Task<int> AddUserToTask(string taskID, string userID, TaskRole role);
         Task<TaskModelWithActualStateAndCreator> FindTaskByID(string taskID);
         Task<TaskStateModel> GetLastTaskState(string taskID);

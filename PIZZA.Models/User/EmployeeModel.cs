@@ -1,5 +1,4 @@
-﻿using PIZZA.Models.Database;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PIZZA.Models.User

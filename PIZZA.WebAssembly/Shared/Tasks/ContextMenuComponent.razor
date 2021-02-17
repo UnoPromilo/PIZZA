@@ -5,10 +5,31 @@
             visibility
         </span>
     </Item>
-    <Item OnClick="Delete">
-        <p class="context__button__text">Usuń zadanie</p>
+    @if (!isForUser)
+    {
+        <Item OnClick="Delete">
+            <p class="context__button__text">Usuń zadanie</p>
+            <span class="options-popup__button__icon material-icons">
+                delete_forever
+            </span>
+        </Item>
+    }
+</ContextMenu>
+
+<ContextMenu Id="employeeInTaskContextMenu" OnAppearing="MenuOnAppearingHandler">
+    <Item OnClick="NavigateToEmployee">
+        <p class="context__button__text">Zobacz użytkownika</p>
         <span class="options-popup__button__icon material-icons">
-            delete_forever
+            visibility
         </span>
     </Item>
+    @if (currentEmployee.Role != TaskRole.Creator)
+    {
+        <Item OnClick="DeleteFromTask">
+            <p class="context__button__text">Usuń z zadania</p>
+            <span class="options-popup__button__icon material-icons">
+                delete_forever
+            </span>
+        </Item>
+    }
 </ContextMenu>
