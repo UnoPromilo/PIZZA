@@ -13,6 +13,7 @@ using PIZZA.WebApi.Extension;
 using System;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 
@@ -73,7 +74,9 @@ namespace PIZZA.WebApi
                 .AddDefaultTokenProviders();
             services.AddSingleton<CustomSettings>();
             
-            
+
+
+
             if (customSettings.Configured)
             {
                 services.AddAuthentication(cfg =>
@@ -113,6 +116,9 @@ namespace PIZZA.WebApi
             });
 
             services.AddDbConnection(customSettings.ConnectionString);
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -136,6 +142,8 @@ namespace PIZZA.WebApi
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+
 
             app.UseEndpoints(endpoints =>
             {

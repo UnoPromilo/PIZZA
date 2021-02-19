@@ -36,6 +36,21 @@ UNIQUE NONCLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
+
+
+CREATE NONCLUSTERED INDEX [NameIndex]
+    ON [dbo].[ApplicationUser]([FirstName] ASC, [LastName] ASC);
+GO
+
+CREATE NONCLUSTERED INDEX [NormalizedEmailIndex]
+    ON [dbo].[ApplicationUser]([Email] ASC);
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [NormalizedUserNameInedx]
+    ON [dbo].[ApplicationUser]([NormalizedUserName] ASC);
+GO
+
+
 /****** Object:  View [dbo].[Employee]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
@@ -125,6 +140,10 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
+CREATE NONCLUSTERED INDEX [NameIndex]
+    ON [dbo].[TaskModel]([Name] ASC);
+GO
+
 /****** Object:  Table [dbo].[TaskState]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
 GO
@@ -179,6 +198,9 @@ UNIQUE NONCLUSTERED
 	[NormalizedName] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [NormalizedNameIndex]
+    ON [dbo].[ApplicationRole]([NormalizedName] ASC);
 GO
 /****** Object:  Table [dbo].[ApplicationUserRole]    Script Date: 17.02.2021 02:33:59 ******/
 SET ANSI_NULLS ON
@@ -406,13 +428,9 @@ CREATE PROCEDURE [dbo].[AddUserToTask]
 	@Role int
 AS
 BEGIN
-	IF EXISTS(SELECT * FROM TaskModel WHERE ID = @Employee)
-	BEGIN
-		INSERT INTO EmployeeTask (Employee, Task, TaskRole)
-			VALUES (@Employee, @Task, @Role);
-		RETURN @@ROWCOUNT;
-	END
-	RETURN 0;
+	INSERT INTO EmployeeTask (Employee, Task, TaskRole)
+		VALUES (@Employee, @Task, @Role);
+	RETURN @@ROWCOUNT;
 END
 GO
 /****** Object:  StoredProcedure [dbo].[CreateRole]    Script Date: 17.02.2021 02:33:59 ******/
@@ -615,7 +633,7 @@ BEGIN
 
 		FETCH NEXT FROM searchCursor INTO @keyword;
 	END
-	SELECT * FROM @Tab;
+	SELECT TOP(100) * FROM @Tab;
 END
 GO
 /****** Object:  StoredProcedure [dbo].[FindTaskStateById]    Script Date: 17.02.2021 02:33:59 ******/
@@ -809,7 +827,7 @@ BEGIN
 		FETCH NEXT FROM searchCursor INTO @keyword;
 
 	END
-	SELECT *
+	SELECT TOP(100) *
 		FROM [ApplicationUser] u 
 		LEFT JOIN [ApplicationUserRole] ur ON ur.UserID = u.ID
 		LEFT JOIN [ApplicationRole] r ON r.ID = ur.RoleID

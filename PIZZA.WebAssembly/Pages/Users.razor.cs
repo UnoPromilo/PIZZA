@@ -47,7 +47,7 @@ namespace PIZZA.WebAssembly.Pages
             try
             {
                 employees = await employeeService.GetEmployees(QueryCancellationTokenSource.Token, query);
-                Order(actualOrder, isAscending);
+                //Order(actualOrder, isAscending);
             }
             finally
             {

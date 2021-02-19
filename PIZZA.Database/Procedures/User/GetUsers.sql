@@ -33,7 +33,7 @@ BEGIN
 		FETCH NEXT FROM searchCursor INTO @keyword;
 
 	END
-	SELECT *
+	SELECT TOP(100) *
 		FROM [ApplicationUser] u 
 		LEFT JOIN [ApplicationUserRole] ur ON ur.UserID = u.ID
 		LEFT JOIN [ApplicationRole] r ON r.ID = ur.RoleID

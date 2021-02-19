@@ -37,5 +37,18 @@ namespace PIZZA.Models.Database
         public string PostalCode { get; set; }
 
         public string Town { get; set; }
+
+        public EmployeeModel ToEmployeeModel() => new EmployeeModel
+        {
+            ID = ID,
+            AddressLine = AddressLine,
+            UserName = UserName,
+            Email = Email,
+            FirstName = FirstName,
+            LastName = LastName,
+            PhoneNumber = PhoneNumber,
+            PostalCode = PostalCode,
+            Town = Town
+        };
     }
 }

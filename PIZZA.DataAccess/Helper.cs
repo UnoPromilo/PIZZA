@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.Data;
 using System;
+using Dapper;
+using System.Collections.Generic;
+using PIZZA.Models.Database;
+using PIZZA.Models.Task;
 
 namespace PIZZA.DataAccess
 {
@@ -75,7 +79,7 @@ namespace PIZZA.DataAccess
         public static void ChangeConnectionString(string connectionString)
         {
             OnConnectionStringAcctualization?.Invoke(null, connectionString);
-        }
+        }     
 
         public static EventHandler<string> OnConnectionStringAcctualization;
     }

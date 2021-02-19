@@ -1,10 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Dapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PIZZA.DataAccess;
 using PIZZA.Enums;
 using PIZZA.Models.Database;
 using PIZZA.Models.Instalation;
+using PIZZA.Models.Task;
 using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,8 +25,16 @@ namespace PIZZA.WebApi.Controllers.Instalation
         private  CustomSettings _customSettings;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
-        public ConfigureServerController(CustomSettings customSettings, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
+        private string sqlConnectionString;
+        public ConfigureServerController(CustomSettings customSettings, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, DatabaseConnectionConfiguration databaseConnectionConfiguration)
         {
+            sqlConnectionString = databaseConnectionConfiguration.SqlConnectionString;
+
+            Helper.OnConnectionStringAcctualization += (sender, connectionString) =>
+            {
+                sqlConnectionString = connectionString;
+            };
+            
             _customSettings = customSettings;
             _userManager = userManager;
             _roleManager = roleManager;
@@ -59,11 +73,32 @@ namespace PIZZA.WebApi.Controllers.Instalation
             if (!await CreateAdministratorAsync(instalationInfo.AdministratorUserCreationModel))
                 return Conflict("Cannot create administrator account.");
 
+            if (instalationInfo.FillDatabse.FillDatabaseWithSampleData)
+            {
+                await FillDatabase();
+            }
+
             _customSettings.Configured = true;
             _customSettings.JwtSecurityKey = RandomJwtKey(128);
             _customSettings.SaveConfiguration();
             return Ok();
         }
+
+        protected IDbConnection DbConnection
+        {
+            get
+            {
+                return new SqlConnection(sqlConnectionString);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Get()
+        {
+            await FillDatabase();
+            return Ok();
+        }
+
 
         private bool TryConnectoToDatabase(SQLServerConfiguration sqlServerConfiguration)
         {
@@ -132,6 +167,123 @@ namespace PIZZA.WebApi.Controllers.Instalation
                 return false;
             }
             return true;
+        }
+
+        private async Task FillDatabase()
+        {
+            DataGenerator dataGenerator = new DataGenerator();
+
+            int errors = 0;
+
+            //Adding users
+            IEnumerable<ApplicationUser> users = dataGenerator.GenerateRandomApplicationUsers(100);
+            List<Task<IdentityResult>> addingUsers = new();
+            foreach(var user in users)
+                addingUsers.Add(_userManager.CreateAsync(user));
+
+            await Task.WhenAll(addingUsers);
+
+            foreach (var task in addingUsers)
+                errors += (await task).Succeeded?0:1;
+
+
+            //Adding admin roles
+            IEnumerable<ApplicationUser> admins = dataGenerator.GetRandomUsers(1100, users);
+            List<Task<IdentityResult>> addingAdminRoleTasks = new();
+            foreach (var user in admins)
+                addingAdminRoleTasks.Add(_userManager.AddToRoleAsync(user, "Admin"));
+
+            await Task.WhenAll(addingAdminRoleTasks);
+
+            foreach (var task in addingAdminRoleTasks)
+                errors += (await task).Succeeded ? 0 : 1;
+
+
+            //Adding manager roles
+            IEnumerable<ApplicationUser> managers = dataGenerator.GetRandomUsers(50, users); ;
+            List<Task<IdentityResult>> addingManagerRoleTasks = new();
+            foreach (var user in managers)
+                addingManagerRoleTasks.Add(_userManager.AddToRoleAsync(user, "Manager"));
+
+            await Task.WhenAll(addingManagerRoleTasks);
+
+            foreach (var task in addingManagerRoleTasks)
+                errors += (await task).Succeeded ? 0 : 1;
+
+            //Adding Tasks
+            IEnumerable<TaskModelWithActualStateAndCreator> taskModels = dataGenerator.GenerateRandomTasks(1200, managers);
+            using (var cnn = DbConnection)
+            {
+                foreach (var task in taskModels)
+                {
+                    try
+                    {
+                        var procedure = "[CreateTask]";
+                        var values = new
+                        {
+                            Creator = task.TaskCreator,
+                            task.Deadline,
+                            task.Priority,
+                            task.Name,
+                            task.Description,
+                            Note = ""
+                        };
+                        var taskToDo = cnn.QueryFirstOrDefaultAsync<int>(procedure, values, commandType: CommandType.StoredProcedure);
+                        _ = taskToDo.ContinueWith(async (Task<int> baseTask) => { task.ID = await baseTask; });
+                        await taskToDo;
+                    }
+                    catch { }
+                }
+
+            }
+
+            //Adding employees to task
+            IEnumerable<EmployeeTask> employeeTaskModels = dataGenerator.GenerateEmployeeTask(taskModels, users, 0, 5);
+            using (var cnn = DbConnection)
+            {
+                foreach (var task in employeeTaskModels)
+                {                  
+                    try
+                    {
+                        var procedure = "[AddUserToTask]";
+                        var values = new
+                        {
+                            Employee = task.Employee.ID,
+                            Task = task.Task.ID,
+                            Role = (int)task.TaskRole
+                        };
+                        var taskToDo = cnn.ExecuteAsync(procedure, values, commandType: CommandType.StoredProcedure);
+                        await taskToDo;
+                    }
+                    catch { }
+                }
+            }
+
+            //Adding history to task
+            IEnumerable<TaskStateModel> tashHistory = dataGenerator.GenerateTaskStateHistory(taskModels, employeeTaskModels);
+            using (var cnn = DbConnection)
+            {
+                foreach (var task in tashHistory)
+                {
+                    try
+                    {
+                        var procedure = "[AddTaskState]";
+                        var values = new
+                        {
+                            task.Task,
+                            task.NewTaskState,
+                            task.DateTime,
+                            task.Editor,
+                            Note = ""
+                        };
+                        var taskToDo = cnn.ExecuteAsync(procedure, values, commandType: CommandType.StoredProcedure);
+                        await taskToDo;
+                    }
+                    catch { }
+                }             
+            }
+
+            //
         }
 
         public static string RandomJwtKey(int length)

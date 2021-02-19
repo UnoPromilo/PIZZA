@@ -51,10 +51,9 @@
     <tbody>
         @if(employees is not null && !loading)
         {
-            foreach (var item in employees)
-            {
-                <Record Employee="item"/>
-            }
+        <Virtualize Items="employees" Context="item">
+            <Record Employee="item" />
+        </Virtualize>
         }
         else
         {

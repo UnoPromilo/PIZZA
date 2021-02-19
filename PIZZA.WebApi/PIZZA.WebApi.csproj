@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PIZZA.DataAccess\PIZZA.DataAccess.csproj" />
     <ProjectReference Include="..\PIZZA.Models\PIZZA.Models.csproj" />
+    <ProjectReference Include="..\PIZZA.WebAssembly\PIZZA.WebAssembly.csproj" />
   </ItemGroup>
 
   <ItemGroup>

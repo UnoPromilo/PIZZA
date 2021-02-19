@@ -67,5 +67,5 @@ BEGIN
 
 		FETCH NEXT FROM searchCursor INTO @keyword;
 	END
-	SELECT * FROM @Tab;
+	SELECT TOP(100) * FROM @Tab;
 END
