@@ -176,7 +176,7 @@ namespace PIZZA.WebApi.Controllers.Instalation
             int errors = 0;
 
             //Adding users
-            IEnumerable<ApplicationUser> users = dataGenerator.GenerateRandomApplicationUsers(100);
+            IEnumerable<ApplicationUser> users = dataGenerator.GenerateRandomApplicationUsers(1000);
             List<Task<IdentityResult>> addingUsers = new();
             foreach(var user in users)
                 addingUsers.Add(_userManager.CreateAsync(user));
@@ -188,7 +188,7 @@ namespace PIZZA.WebApi.Controllers.Instalation
 
 
             //Adding admin roles
-            IEnumerable<ApplicationUser> admins = dataGenerator.GetRandomUsers(1100, users);
+            IEnumerable<ApplicationUser> admins = dataGenerator.GetRandomUsers(10, users);
             List<Task<IdentityResult>> addingAdminRoleTasks = new();
             foreach (var user in admins)
                 addingAdminRoleTasks.Add(_userManager.AddToRoleAsync(user, "Admin"));

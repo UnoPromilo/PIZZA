@@ -1088,17 +1088,17 @@ CREATE TRIGGER [dbo].[Trigger_AddFirstTaskState]
     BEGIN
         SET NoCount ON;
         DECLARE @Task int;
-        DECLARE insertedCursor CURSOR FOR
+        DECLARE insertedCursor2 CURSOR FOR
         SELECT ID FROM inserted;
-        OPEN insertedCursor;
-        FETCH NEXT FROM insertedCursor INTO @Task;
+        OPEN insertedCursor2;
+        FETCH NEXT FROM insertedCursor2 INTO @Task;
         WHILE @@FETCH_STATUS = 0
         BEGIN
             INSERT INTO TaskState
                 (Task, NewTaskState, DateTime, Editor, TaskNote) 
                 VALUES
                 (@Task, 0, GETDATE(), null, null);
-            FETCH NEXT FROM insertedCursor INTO @Task;
+            FETCH NEXT FROM insertedCursor2 INTO @Task;
         END
     END
 GO

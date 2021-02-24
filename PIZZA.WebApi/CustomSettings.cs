@@ -15,7 +15,7 @@ namespace PIZZA.WebApi
         public string JwtAudience { get; set; }
         public string JwtExpiryInDays { get; set; }
         public string JwtSecurityKey { get; set; }
-        public string ExtendsClassApi { get; set; }
+        //public string ExtendsClassApi { get; set; }
         public void LoadConfiguration()
         {
             Configured = bool.Parse(ConfigurationManager.AppSettings.Get(nameof(Configured)));
@@ -24,7 +24,7 @@ namespace PIZZA.WebApi
             JwtAudience = ConfigurationManager.AppSettings.Get(nameof(JwtAudience));
             JwtExpiryInDays = ConfigurationManager.AppSettings.Get(nameof(JwtExpiryInDays));
             JwtSecurityKey = ConfigurationManager.AppSettings.Get(nameof(JwtSecurityKey));
-            ExtendsClassApi = ConfigurationManager.AppSettings.Get(nameof(ExtendsClassApi));
+            //ExtendsClassApi = ConfigurationManager.AppSettings.Get(nameof(ExtendsClassApi));
         }
         public void SaveConfiguration()
         {
@@ -36,7 +36,7 @@ namespace PIZZA.WebApi
             config.AppSettings.Settings[nameof(JwtAudience)].Value = JwtAudience.ToString();
             config.AppSettings.Settings[nameof(JwtExpiryInDays)].Value = JwtExpiryInDays.ToString();
             config.AppSettings.Settings[nameof(JwtSecurityKey)].Value = JwtSecurityKey.ToString();
-            config.AppSettings.Settings[nameof(ExtendsClassApi)].Value = ExtendsClassApi.ToString();
+            //config.AppSettings.Settings[nameof(ExtendsClassApi)].Value = ExtendsClassApi.ToString();
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection(config.AppSettings.SectionInformation.Name);
 

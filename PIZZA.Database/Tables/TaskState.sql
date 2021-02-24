@@ -23,12 +23,12 @@ CREATE TRIGGER [dbo].[Trigger_AddNoteToTask]
         DECLARE @Task int;
         DECLARE @DateTime datetime;
 
-        DECLARE insertedCursor CURSOR FOR
+        DECLARE insertedCursor2 CURSOR FOR
         SELECT ID, Task, DateTime FROM inserted;
 
-        OPEN insertedCursor;
+        OPEN insertedCursor2;
 
-        FETCH NEXT FROM insertedCursor INTO @ID, @Task, @DateTime;
+        FETCH NEXT FROM insertedCursor2 INTO @ID, @Task, @DateTime;
 
         WHILE @@FETCH_STATUS = 0
 
@@ -42,6 +42,6 @@ CREATE TRIGGER [dbo].[Trigger_AddNoteToTask]
                 TaskNote = SCOPE_IDENTITY()
                 WHERE ID = @ID;
 
-            FETCH NEXT FROM insertedCursor INTO @ID, @Task, @DateTime;
+            FETCH NEXT FROM insertedCursor2 INTO @ID, @Task, @DateTime;
         END
     END
